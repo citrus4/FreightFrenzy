@@ -30,9 +30,9 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
     public double leftRectWidthPercentage = 0.05;
     public double leftRectHeightPercentage = 0.3;
     public double centerRectWidthPercentage = 0.47;
-    public double centerRectHeightPercentage = 0.5;
+    public double centerRectHeightPercentage = 0.3;
     public double rightRectWidthPercentage = 0.72;
-    public double rightRectHeightPercentage = 0.5;
+    public double rightRectHeightPercentage = 0.3;
 
     //The width and height of the rectangles in terms of pixels
     public int rectangleWidth = 10;
