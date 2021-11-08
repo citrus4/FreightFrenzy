@@ -20,7 +20,7 @@ public class DriveConstants {
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 384.5; //383.6
+    public static final double TICKS_PER_REV = -383.6; //384.5
     public static final double MAX_RPM = 435;
 
     /*
@@ -32,9 +32,9 @@ public class DriveConstants {
      * from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
-            getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
-
+    //public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
+            //getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0, 1, -10);
     /*
      * These are physical constants that can be determined from your robot (including the track
      * width; it will be tune empirically later although a rough estimate is important). Users are
@@ -44,7 +44,7 @@ public class DriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 2.36;
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
+    public static double GEAR_RATIO = 2.83; // output (wheel) speed / input (motor) speed
     public static double TRACK_WIDTH = 13.7; // in
 
     /*
@@ -55,8 +55,8 @@ public class DriveConstants {
      */
     //public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
     public static double kV = 0.0155;
-    public static double kA = 0.0023;
-    public static double kStatic = 0.03;
+    public static double kA = 0.03;
+    public static double kStatic = 0.003;
 
     /*
         last years values:
@@ -72,8 +72,10 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = (MAX_RPM/60)*(GEAR_RATIO)*(WHEEL_RADIUS)*6.28; //max vel = (max rpm/60)(gear ratio)(wheel radius)(2pi)
-    public static double MAX_ACCEL = 30;
+    //public static double MAX_VEL = (MAX_RPM/60)*(GEAR_RATIO)*(WHEEL_RADIUS)*6.28; //max vel = (max rpm/60)(gear ratio)(wheel radius)(2pi)
+    public static double MAX_VEL = 60.;
+
+    public static double MAX_ACCEL = 60;
     public static double SLOW_MAX_ACCEL = MAX_ACCEL/2;
     public static double MAX_ANG_VEL = Math.toRadians(648.29);
     public static double MAX_ANG_ACCEL = Math.toRadians(60);
