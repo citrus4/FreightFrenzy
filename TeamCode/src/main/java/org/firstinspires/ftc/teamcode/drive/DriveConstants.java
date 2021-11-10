@@ -34,7 +34,8 @@ public class DriveConstants {
     public static final boolean RUN_USING_ENCODER = true;
     //public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
             //getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0, 1, -10);
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(32, 0, 1, 41); //a
+    //public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0, 1, -10); //l
     /*
      * These are physical constants that can be determined from your robot (including the track
      * width; it will be tune empirically later although a rough estimate is important). Users are
@@ -54,9 +55,12 @@ public class DriveConstants {
      * empirically tuned.
      */
     //public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
-    public static double kV = 0.0155;
-    public static double kA = 0.03;
-    public static double kStatic = 0.003;
+    public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
+    public static double kA = 0;
+    public static double kStatic = 0;
+    //public static double kV = 0.0155;
+    //public static double kA = 0.03;
+    //public static double kStatic = 0.003;
 
     /*
         last years values:
@@ -73,12 +77,12 @@ public class DriveConstants {
      * inches.
      */
     //public static double MAX_VEL = (MAX_RPM/60)*(GEAR_RATIO)*(WHEEL_RADIUS)*6.28; //max vel = (max rpm/60)(gear ratio)(wheel radius)(2pi)
-    public static double MAX_VEL = 60.;
+    public static double MAX_VEL = 78;
 
-    public static double MAX_ACCEL = 60;
+    public static double MAX_ACCEL = 78;
     public static double SLOW_MAX_ACCEL = MAX_ACCEL/2;
-    public static double MAX_ANG_VEL = Math.toRadians(648.29);
-    public static double MAX_ANG_ACCEL = Math.toRadians(60);
+    public static double MAX_ANG_VEL = Math.toRadians(180);
+    public static double MAX_ANG_ACCEL = Math.toRadians(180);
 
 
     public static double encoderTicksToInches(double ticks) {
