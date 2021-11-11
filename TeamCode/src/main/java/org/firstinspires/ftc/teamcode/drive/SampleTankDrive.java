@@ -25,6 +25,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TankVelocityConstraint
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.acmerobotics.roadrunner.util.NanoClock;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -62,9 +63,20 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleTankDrive extends TankDrive {
-    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(12, 0, 0);
+    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.00045, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(5.5, 0, 0);
+
+    /* -- ug --
+        public static PIDCoefficients AXIAL_PID = new PIDCoefficients(12, 0, 0);
+        public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.00012, 0, 0);
+        public static PIDCoefficients HEADING_PID = new PIDCoefficients(14, 0, 0.01);
+        public static PIDCoefficients LEFT_DRIVE_PID =new PIDCoefficients(0.01, 0, 0);
+        public static PIDCoefficients RIGHT_DRIVE_PID =new PIDCoefficients(0.01, 0, 0);
+        private PIDController leftDriveVeloPID;
+        private PIDController rightDriveVeloPID;
+
+     */
 
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
