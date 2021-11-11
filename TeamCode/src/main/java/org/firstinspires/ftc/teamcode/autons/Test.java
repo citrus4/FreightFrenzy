@@ -14,12 +14,11 @@ import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
-@Autonomous(name = "Test", group = "testing")
+@Autonomous(name = "TEST", group = "testing")
 public class Test extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
@@ -27,19 +26,25 @@ public class Test extends MatchOpMode {
 
     // Motors
     private MotorEx leftFront, leftRear, rightRear, rightFront;
+    private MotorEx intakeMotor;
 
     // Gamepad
     private GamepadEx driverGamepad;
 
     // Subsystems
     private Drivetrain drivetrain;
-    private Vision vision;
+    private Intake intake;
+
 
     @Override
     public void robotInit() {
         // Subsystems
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap), telemetry);
         drivetrain.init();
+
+        intakeMotor = new MotorEx(hardwareMap, "intakeMotor");
+        intake = new Intake(intakeMotor, telemetry);
+
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
     }
@@ -51,18 +56,7 @@ public class Test extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(
-                new SelectCommand(new HashMap<Object, Command>() {{
-                    put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new TestAutonCommand(drivetrain, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new TestAutonCommand(drivetrain, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new TestAutonCommand(drivetrain, telemetry)
-                    ));
-                }}, vision::getCurrentPosition)
+            schedule(new TestAutonCommand(drivetrain, intake, telemetry)
         );
 
     }

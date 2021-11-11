@@ -10,14 +10,16 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @Config
 public class Intake extends SubsystemBase {
-    public static double INTAKE_SPEED = 1.0;
-    public static double OUTAKE_SPEED = -1.0;
+    public static double INTAKE_SPEED_RED = 1.0;
+    public static double HALF_SPEED_RED = 0.5;
+    public static double HALF_SPEED_BLUE = -0.5;
+    public static double INTAKE_SPEED_BLUE = -1.0;
 
     Telemetry telemetry;
     private MotorEx intakeMotor;
 
     public Intake(MotorEx intakeMotor, Telemetry tl) {
-        intakeMotor.setInverted(false);
+        //intakeMotor.setInverted(false);
         this.intakeMotor = intakeMotor;
         this.telemetry = tl;
     }
@@ -31,13 +33,20 @@ public class Intake extends SubsystemBase {
         intakeMotor.set(speed);
     }
 
-
-    public void intake() {
-        set(INTAKE_SPEED);
+    public void intakeRed() {
+        set(INTAKE_SPEED_RED);
     }
 
-    public void outtake() {
-        set(OUTAKE_SPEED);
+    public void halfIntakeRed() {
+        set(HALF_SPEED_RED);
+    }
+
+    public void halfIntakeBlue() {
+        set(HALF_SPEED_BLUE);
+    }
+
+    public void intakeBlue() {
+        set(INTAKE_SPEED_BLUE);
     }
 
     public void stop() {
