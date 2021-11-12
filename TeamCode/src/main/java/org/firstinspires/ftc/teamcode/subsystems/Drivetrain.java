@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -111,7 +112,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void turnTo(double radians) {
-        //drive.turnToAsync(radians);
+        drive.turnToAsync(radians);
     }
 
     public void turnBlock(double radians) {

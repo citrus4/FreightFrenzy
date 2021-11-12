@@ -31,12 +31,8 @@ public class TestAutonCommand extends SequentialCommandGroup {
                 //new StrafeToCommand(drivetrain, new Pose2d(30, 20, Math.toRadians(88))),
                 //new LineToHeadingCommand(drivetrain, new Pose2d(20, 20, Math.toRadians(45)))
                 //new SplineConstantHeadingCommand(drivetrain, new Vector2d(20, 8), Math.toRadians(0))
-                new SlowDriveForwardCommand(drivetrain, 5),
-                new InstantCommand(intake::halfIntakeBlue, intake),
-                new SlowDriveForwardCommand(drivetrain, 12),
-                new WaitCommand(5000),
-                new InstantCommand(intake::stop, intake),
-                new KindaSlowDriveForwardCommand(drivetrain, -106)
+                new TurnCommand(drivetrain, -360)
+
         );
     }
 }
