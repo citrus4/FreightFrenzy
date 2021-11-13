@@ -18,8 +18,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
-@Autonomous(name = "Red Push", group = "testing")
-public class RedPushAuton extends MatchOpMode {
+@Autonomous(name = "Red Park - Carousel", group = "RED")
+public class RedParkCarouselAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 0;
@@ -56,7 +56,7 @@ public class RedPushAuton extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(new RedPushCommand(drivetrain, intake, telemetry)
+        schedule(new RedParkCarouselCommand(drivetrain, intake, telemetry)
         );
 
     }

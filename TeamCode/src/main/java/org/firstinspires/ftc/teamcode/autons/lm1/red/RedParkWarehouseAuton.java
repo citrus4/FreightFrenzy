@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons;
+package org.firstinspires.ftc.teamcode.autons.lm1.red;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
@@ -18,9 +18,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
-@Disabled
-@Autonomous(name = "TEST", group = "testing")
-public class Test extends MatchOpMode {
+@Autonomous(name = "Red Park - Warehouse", group = "RED")
+public class RedParkWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 0;
@@ -57,7 +56,7 @@ public class Test extends MatchOpMode {
 
     @Override
     public void matchStart() {
-            schedule(new TestAutonCommand(drivetrain, intake, telemetry)
+        schedule(new RedParkWarehouseCommand(drivetrain, intake, telemetry)
         );
 
     }

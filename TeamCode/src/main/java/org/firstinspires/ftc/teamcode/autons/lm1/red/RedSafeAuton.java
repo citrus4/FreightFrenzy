@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
-@Autonomous(name = "Red Safe", group = "testing")
+@Autonomous(name = "Red Spin", group = "RED")
 public class RedSafeAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;

@@ -1,26 +1,18 @@
-package org.firstinspires.ftc.teamcode.autons;
+package org.firstinspires.ftc.teamcode.autons.lm1.blue;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.SelectCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.autons.lm1.red.RedParkWarehouseCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
-import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-import java.util.HashMap;
-
-@Disabled
-@Autonomous(name = "TEST", group = "testing")
-public class Test extends MatchOpMode {
+@Autonomous(name = "Blue Park - Warehouse", group = "BLUE")
+public class BlueParkWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 0;
@@ -57,7 +49,8 @@ public class Test extends MatchOpMode {
 
     @Override
     public void matchStart() {
-            schedule(new TestAutonCommand(drivetrain, intake, telemetry)
+        schedule(
+                new BlueParkWarehouseCommand(drivetrain, intake, telemetry)
         );
 
     }

@@ -31,10 +31,10 @@ public class DriveConstants {
      * If using the built-in motor velocity PID, update MOTOR_VELO_PID with the tuned coefficients
      * from DriveVelocityPIDTuner.
      */
-    public static final boolean RUN_USING_ENCODER = true;
-    //public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
-            //getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(32, 0, 1, 42); //a
+    public static final boolean RUN_USING_ENCODER = false;
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(0, 0, 0,
+            getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
+    //public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(32, 0, 1, 42); //a
     //public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0, 1, -10); //l
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -46,7 +46,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 2.36;
     public static double GEAR_RATIO = 2.83; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 14.5; // in
+    public static double TRACK_WIDTH = 13.9; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -55,9 +55,9 @@ public class DriveConstants {
      * empirically tuned.
      */
     //public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
-    public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
-    public static double kA = 0;
-    public static double kStatic = 0;
+    public static double kV = 0.015;
+    public static double kA = 0.004;
+    public static double kStatic = 0.002;
     //public static double kV = 0.0155;
     //public static double kA = 0.03;
     //public static double kStatic = 0.003;
@@ -81,8 +81,8 @@ public class DriveConstants {
 
     public static double MAX_ACCEL = 78;
     public static double SLOW_MAX_ACCEL = MAX_ACCEL/2; //does this even do anything - check sometime
-    public static double MAX_ANG_VEL = Math.toRadians(362.96);
-    public static double MAX_ANG_ACCEL = Math.toRadians(180);
+    public static double MAX_ANG_VEL = Math.toRadians(488.3741918665276);
+    public static double MAX_ANG_ACCEL = Math.toRadians(488.3741918665276);
 
 
     public static double encoderTicksToInches(double ticks) {

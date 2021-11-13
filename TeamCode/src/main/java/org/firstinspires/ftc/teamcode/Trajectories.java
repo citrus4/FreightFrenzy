@@ -28,6 +28,10 @@ public class Trajectories {
             new AngularVelocityConstraint(MAX_ANG_VEL),
             new TankVelocityConstraint(MAX_VEL/6, TRACK_WIDTH)
     ));
+    public static MinVelocityConstraint slowestVelConstraint = new MinVelocityConstraint(Arrays.asList(
+            new AngularVelocityConstraint(MAX_ANG_VEL),
+            new TankVelocityConstraint(MAX_VEL/25, TRACK_WIDTH)
+    ));
 
 
     public static ProfileAccelerationConstraint accelConstraint = new ProfileAccelerationConstraint(MAX_ACCEL);

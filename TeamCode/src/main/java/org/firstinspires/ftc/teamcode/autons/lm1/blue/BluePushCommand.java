@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.KindaSlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.SlowestDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnToCommand;
@@ -21,12 +22,19 @@ public class BluePushCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
-                new SlowDriveForwardCommand(drivetrain, 5),
                 new InstantCommand(intake::halfIntakeBlue, intake),
-                new SlowDriveForwardCommand(drivetrain, 12),
-                new WaitCommand(5000),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(1000),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(1000),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(1000),
+
                 new InstantCommand(intake::stop, intake),
-                new KindaSlowDriveForwardCommand(drivetrain, -106)
+                new TurnCommand(drivetrain, -35),
+                new KindaSlowDriveForwardCommand(drivetrain, -50),
+                new TurnCommand(drivetrain, 42),
+                new DriveForwardCommand(drivetrain, -100)
         );
     }
 }

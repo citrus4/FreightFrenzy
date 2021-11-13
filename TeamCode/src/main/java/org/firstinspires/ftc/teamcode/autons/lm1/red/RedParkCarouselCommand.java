@@ -1,7 +1,5 @@
-package org.firstinspires.ftc.teamcode.autons.lm1.blue;
+package org.firstinspires.ftc.teamcode.autons.lm1.red;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -10,22 +8,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.KindaSlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveForwardCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.SplineCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.SlowestDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnToCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-public class BlueSafeCommand extends SequentialCommandGroup {
-    public BlueSafeCommand(Drivetrain drivetrain, Intake intake, Telemetry telemetry) {
+public class RedParkCarouselCommand extends SequentialCommandGroup {
+    public RedParkCarouselCommand(Drivetrain drivetrain, Intake intake, Telemetry telemetry) {
         //declare variables here
 
         addCommands(
-                new SlowDriveForwardCommand(drivetrain, 5),
-                new InstantCommand(intake::halfIntakeBlue, intake),
-                new SlowDriveForwardCommand(drivetrain, 12),
-                new WaitCommand(5000),
-                new InstantCommand(intake::stop, intake)
+                new DriveForwardCommand(drivetrain, 25),
+                new TurnToCommand(drivetrain, -93, true),
+                new DriveForwardCommand(drivetrain, 115)
         );
     }
 }

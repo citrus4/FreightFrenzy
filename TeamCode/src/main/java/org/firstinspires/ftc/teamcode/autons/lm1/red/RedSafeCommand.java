@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.KindaSlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.SlowestDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnToCommand;
@@ -21,11 +22,24 @@ public class RedSafeCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
-                new SlowDriveForwardCommand(drivetrain, 5),
-                new InstantCommand(intake::halfIntakeBlue, intake),
-                new SlowDriveForwardCommand(drivetrain, 12),
-                new WaitCommand(5000),
-                new InstantCommand(intake::stop, intake)
+                new DriveForwardCommand(drivetrain, 45),
+                new TurnToCommand(drivetrain, 141),
+                new KindaSlowDriveForwardCommand(drivetrain, 38),
+                new SlowDriveForwardCommand(drivetrain, 10),
+                new InstantCommand(intake::halfIntakeRed, intake),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(1200),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(1200),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(1200),
+                new SlowestDriveForwardCommand(drivetrain, 4),
+                new WaitCommand(800),
+                new InstantCommand(intake::stop, intake),
+                new DriveForwardCommand(drivetrain, -30),
+                new TurnToCommand(drivetrain, 270),
+                new TurnCommand(drivetrain, -5),
+                new DriveForwardCommand(drivetrain, 125)
         );
     }
 }
