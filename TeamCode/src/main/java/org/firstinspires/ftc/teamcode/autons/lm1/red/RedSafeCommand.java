@@ -27,7 +27,7 @@ public class RedSafeCommand extends SequentialCommandGroup {
                 new TurnToCommand(drivetrain, 152),
                 new KindaSlowDriveForwardCommand(drivetrain, 38),
                 new SlowDriveForwardCommand(drivetrain, 10),
-                new InstantCommand(intake::halfIntakeBlue, intake),
+                //new InstantCommand(intake::halfIntakeBlue, intake),
                 new SlowestDriveForwardCommand(drivetrain, 4),
                 new WaitCommand(1200),
                 new SlowestDriveForwardCommand(drivetrain, 4),

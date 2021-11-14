@@ -13,6 +13,8 @@ import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
 import com.acmerobotics.roadrunner.followers.TrajectoryFollower;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.kinematics.Kinematics;
+import com.acmerobotics.roadrunner.kinematics.TankKinematics;
 import com.acmerobotics.roadrunner.profile.MotionProfile;
 import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
 import com.acmerobotics.roadrunner.profile.MotionState;
@@ -41,6 +43,7 @@ import org.firstinspires.ftc.teamcode.util.AxesSigns;
 import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,16 +70,11 @@ public class SampleTankDrive extends TankDrive {
     public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.0000005, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(15, 0, 0);
 
-    /* -- ug --
-        public static PIDCoefficients AXIAL_PID = new PIDCoefficients(12, 0, 0);
-        public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.00012, 0, 0);
-        public static PIDCoefficients HEADING_PID = new PIDCoefficients(14, 0, 0.01);
-        public static PIDCoefficients LEFT_DRIVE_PID =new PIDCoefficients(0.01, 0, 0);
-        public static PIDCoefficients RIGHT_DRIVE_PID =new PIDCoefficients(0.01, 0, 0);
-        private PIDController leftDriveVeloPID;
-        private PIDController rightDriveVeloPID;
+    public static PIDCoefficients LEFT_DRIVE_PID =new PIDCoefficients(0.0005, 0, 0); //kP 0.01
+    public static PIDCoefficients RIGHT_DRIVE_PID =new PIDCoefficients(0.0005, 0, 0); //kP 0.01
 
-     */
+    private PIDController leftDriveVeloPID;
+    private PIDController rightDriveVeloPID;
 
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
@@ -113,6 +111,8 @@ public class SampleTankDrive extends TankDrive {
         dashboard = FtcDashboard.getInstance();
         dashboard.setTelemetryTransmissionInterval(25);
 
+        leftDriveVeloPID = new PIDController(LEFT_DRIVE_PID.kP, LEFT_DRIVE_PID.kI, LEFT_DRIVE_PID.kD);
+        rightDriveVeloPID = new PIDController(RIGHT_DRIVE_PID.kP, RIGHT_DRIVE_PID.kI, RIGHT_DRIVE_PID.kD);
         clock = NanoClock.system();
 
         mode = Mode.IDLE;
@@ -228,7 +228,6 @@ public class SampleTankDrive extends TankDrive {
         turnAsync(angle);
         waitForIdle();
     }
-
 
     public void followTrajectoryAsync(Trajectory trajectory) {
         poseHistory.clear();
@@ -377,6 +376,18 @@ public class SampleTankDrive extends TankDrive {
         }
 
         setDrivePower(vel);
+    }
+
+    @Override
+    public void setDriveSignal(@NotNull DriveSignal driveSignal) {
+        List<Double> velocities = TankKinematics.robotToWheelVelocities(driveSignal.getVel(), TRACK_WIDTH);
+        List<Double> accelerations = TankKinematics.robotToWheelVelocities(driveSignal.getAccel(), TRACK_WIDTH);
+        List<Double> feedforwards = Kinematics.calculateMotorFeedforward(velocities, accelerations, kV, kA, kStatic);
+        leftDriveVeloPID.setPID(LEFT_DRIVE_PID.kP, LEFT_DRIVE_PID.kI, LEFT_DRIVE_PID.kD);
+        rightDriveVeloPID.setPID(RIGHT_DRIVE_PID.kP, RIGHT_DRIVE_PID.kI, RIGHT_DRIVE_PID.kD);
+        double leftOutput = feedforwards.get(0) + leftDriveVeloPID.calculate(getWheelVelocities().get(0), velocities.get(0));
+        double rightOutput = feedforwards.get(1) + leftDriveVeloPID.calculate(getWheelVelocities().get(1), velocities.get(1));
+        setMotorPowers(leftOutput, rightOutput);
     }
 
     @NonNull
