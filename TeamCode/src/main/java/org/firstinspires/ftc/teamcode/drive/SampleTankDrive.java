@@ -70,8 +70,8 @@ public class SampleTankDrive extends TankDrive {
     public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.0000005, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(15, 0, 0);
 
-    public static PIDCoefficients LEFT_DRIVE_PID =new PIDCoefficients(0.0005, 0, 0); //kP 0.01
-    public static PIDCoefficients RIGHT_DRIVE_PID =new PIDCoefficients(0.0005, 0, 0); //kP 0.01
+    public static PIDCoefficients LEFT_DRIVE_PID =new PIDCoefficients(0.00008, 0, 0); //kP 0.01
+    public static PIDCoefficients RIGHT_DRIVE_PID =new PIDCoefficients(0.00008, 0, 0); //kP 0.01
 
     private PIDController leftDriveVeloPID;
     private PIDController rightDriveVeloPID;
