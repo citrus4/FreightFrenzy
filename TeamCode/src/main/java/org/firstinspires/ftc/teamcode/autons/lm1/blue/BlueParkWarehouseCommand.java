@@ -15,7 +15,7 @@ public class BlueParkWarehouseCommand extends SequentialCommandGroup {
         addCommands(
                 new DriveForwardCommand(drivetrain, 20),
                 new TurnToCommand(drivetrain, -93, true),
-                new DriveForwardCommand(drivetrain, -80)
+                new DriveForwardCommand(drivetrain, -90)
         );
     }
 }

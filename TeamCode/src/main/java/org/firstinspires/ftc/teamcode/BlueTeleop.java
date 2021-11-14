@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @Config
-@TeleOp(name = "BlueTeleOp")
+@TeleOp(name = "Red TeleOp")
 public class BlueTeleop extends MatchOpMode {
     // Motors
     private MotorEx leftFront, leftCenter, leftRear, rightRear, rightCenter, rightFront;
@@ -61,7 +61,7 @@ public class BlueTeleop extends MatchOpMode {
     @Override
     public void configureButtons() {
 
-        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
+        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
         intakeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B).whileHeld(intake::intakeBlue).whenReleased(intake::stop));
         halfSpeedButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::halfIntakeBlue).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::intakeRed).whenReleased(intake::stop));

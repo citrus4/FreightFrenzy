@@ -15,7 +15,7 @@ public class BlueParkCarouselCommand extends SequentialCommandGroup {
         addCommands(
                 new DriveForwardCommand(drivetrain, 25),
                 new TurnToCommand(drivetrain, -93, true),
-                new DriveForwardCommand(drivetrain, -115)
+                new DriveForwardCommand(drivetrain, -125)
         );
     }
 }

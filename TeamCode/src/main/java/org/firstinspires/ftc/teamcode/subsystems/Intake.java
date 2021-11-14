@@ -11,8 +11,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 @Config
 public class Intake extends SubsystemBase {
     public static double INTAKE_SPEED_RED = 1.0;
-    public static double HALF_SPEED_RED = 0.5;
-    public static double HALF_SPEED_BLUE = -0.5;
+    public static double HALF_SPEED_RED = 0.35;
+    public static double HALF_SPEED_BLUE = -0.35;
     public static double INTAKE_SPEED_BLUE = -1.0;
 
     Telemetry telemetry;

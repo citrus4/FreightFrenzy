@@ -22,7 +22,7 @@ public class BluePushCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
-                new InstantCommand(intake::halfIntakeBlue, intake),
+                new InstantCommand(intake::halfIntakeRed, intake),
                 new SlowestDriveForwardCommand(drivetrain, 4),
                 new WaitCommand(1000),
                 new SlowestDriveForwardCommand(drivetrain, 4),
@@ -33,8 +33,8 @@ public class BluePushCommand extends SequentialCommandGroup {
                 new InstantCommand(intake::stop, intake),
                 new TurnCommand(drivetrain, -35),
                 new KindaSlowDriveForwardCommand(drivetrain, -50),
-                new TurnCommand(drivetrain, 42),
-                new DriveForwardCommand(drivetrain, -100)
+                new TurnCommand(drivetrain, 43),
+                new DriveForwardCommand(drivetrain, -110)
         );
     }
 }

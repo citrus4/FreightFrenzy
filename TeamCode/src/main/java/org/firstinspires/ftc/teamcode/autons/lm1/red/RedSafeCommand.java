@@ -22,11 +22,12 @@ public class RedSafeCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
-                new DriveForwardCommand(drivetrain, 45),
-                new TurnToCommand(drivetrain, 141),
+                new WaitCommand(5000),
+                new DriveForwardCommand(drivetrain, 43),
+                new TurnToCommand(drivetrain, 152),
                 new KindaSlowDriveForwardCommand(drivetrain, 38),
                 new SlowDriveForwardCommand(drivetrain, 10),
-                new InstantCommand(intake::halfIntakeRed, intake),
+                new InstantCommand(intake::halfIntakeBlue, intake),
                 new SlowestDriveForwardCommand(drivetrain, 4),
                 new WaitCommand(1200),
                 new SlowestDriveForwardCommand(drivetrain, 4),
@@ -39,7 +40,7 @@ public class RedSafeCommand extends SequentialCommandGroup {
                 new DriveForwardCommand(drivetrain, -30),
                 new TurnToCommand(drivetrain, 270),
                 new TurnCommand(drivetrain, -5),
-                new DriveForwardCommand(drivetrain, 125)
+                new DriveForwardCommand(drivetrain, 130)
         );
     }
 }
