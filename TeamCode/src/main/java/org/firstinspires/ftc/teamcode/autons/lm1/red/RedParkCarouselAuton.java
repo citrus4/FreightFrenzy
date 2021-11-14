@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
+@Disabled
 @Autonomous(name = "Red Park - Carousel", group = "RED")
 public class RedParkCarouselAuton extends MatchOpMode {
     public static double startPoseX = 0;

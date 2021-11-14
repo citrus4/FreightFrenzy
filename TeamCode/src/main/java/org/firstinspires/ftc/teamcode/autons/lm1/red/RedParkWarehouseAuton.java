@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
+@Disabled
 @Autonomous(name = "Red Park - Warehouse", group = "RED")
 public class RedParkWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;

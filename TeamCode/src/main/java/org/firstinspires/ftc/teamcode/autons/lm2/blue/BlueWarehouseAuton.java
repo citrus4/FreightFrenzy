@@ -24,7 +24,7 @@ import java.util.logging.Level;
 
 @Disabled
 @Autonomous(name = "Blue Warehouse", group = "BLUE")
-public class BlueWarehouse extends MatchOpMode {
+public class BlueWarehouseAuton extends MatchOpMode {
 public static double startPoseX = 0;
 public static double startPoseY = 0;
 public static double startPoseHeading = 0;
@@ -53,6 +53,8 @@ public void robotInit() {
     //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
     vision = new Vision(hardwareMap, "Webcam 1", telemetry);
     drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
+    intake = new Intake(intakeMotor, telemetry);
+    lift = new Lift(liftMotor, telemetry);
 }
 
 @Override

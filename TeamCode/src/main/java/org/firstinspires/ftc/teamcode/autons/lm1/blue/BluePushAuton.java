@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
+@Disabled
 @Autonomous(name = "Blue Spin", group = "BLUE")
 public class BluePushAuton extends MatchOpMode {
     public static double startPoseX = 0;

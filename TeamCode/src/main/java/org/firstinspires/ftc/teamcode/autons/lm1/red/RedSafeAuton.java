@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
+@Disabled
 @Autonomous(name = "Red Spin", group = "RED")
 public class RedSafeAuton extends MatchOpMode {
     public static double startPoseX = 0;

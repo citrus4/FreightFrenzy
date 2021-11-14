@@ -51,6 +51,8 @@ public class RedWarehouse extends MatchOpMode {
         liftMotor = new MotorEx(hardwareMap, "liftMotor", Motor.GoBILDA.RPM_435);
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
+        intake = new Intake(intakeMotor, telemetry);
+        lift = new Lift(liftMotor, telemetry);
     }
 
     @Override

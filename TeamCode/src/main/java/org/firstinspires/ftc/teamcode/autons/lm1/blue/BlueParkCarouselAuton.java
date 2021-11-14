@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.autons.lm1.red.RedParkCarouselCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
+@Disabled
 @Autonomous(name = "Blue Park - Carousel", group = "BLUE")
 public class BlueParkCarouselAuton extends MatchOpMode {
     public static double startPoseX = 0;
