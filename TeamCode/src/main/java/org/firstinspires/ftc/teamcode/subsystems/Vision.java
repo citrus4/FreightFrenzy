@@ -18,6 +18,7 @@ public class Vision extends SubsystemBase {
         duckDetector = new FFRectDetector(hw, webcamName);
         duckDetector.init();
 
+        //switch left and right if camera mounted upside down
         duckDetector.setLeftRectangle(0.05, 0.3);
         duckDetector.setCenterRectangle(0.5, 0.3);
         duckDetector.setRightRectangle(0.95, 0.3);

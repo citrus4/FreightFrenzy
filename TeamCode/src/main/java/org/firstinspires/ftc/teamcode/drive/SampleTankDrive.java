@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.util.AxesSigns;
 import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
@@ -48,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
@@ -66,12 +68,12 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleTankDrive extends TankDrive {
-    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(5, 0, 0);
+    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(12, 0, 1);
     public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.0000005, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(15, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(18, 0, 0);
 
-    public static PIDCoefficients LEFT_DRIVE_PID =new PIDCoefficients(0.00008, 0, 0); //kP 0.01
-    public static PIDCoefficients RIGHT_DRIVE_PID =new PIDCoefficients(0.00008, 0, 0); //kP 0.01
+    public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0.00008, 0, 0);
+    public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0.00008, 0, 0);
 
     private PIDController leftDriveVeloPID;
     private PIDController rightDriveVeloPID;
@@ -260,18 +262,15 @@ public class SampleTankDrive extends TankDrive {
 
         poseHistory.add(currentPose);
 
-        TelemetryPacket packet = new TelemetryPacket();
-        Canvas fieldOverlay = packet.fieldOverlay();
+        Canvas fieldOverlay = MatchOpMode.canvas;
 
-        packet.put("mode", mode);
-
-        packet.put("x", currentPose.getX());
-        packet.put("y", currentPose.getY());
-        packet.put("heading", currentPose.getHeading());
-
-        packet.put("xError", lastError.getX());
-        packet.put("yError", lastError.getY());
-        packet.put("headingError", lastError.getHeading());
+        Util.logger(this, Level.INFO, "mode", mode);
+        Util.logger(this, Level.INFO, "x", currentPose.getX());
+        Util.logger(this, Level.INFO, "y", currentPose.getY());
+        Util.logger(this, Level.INFO, "heading", currentPose.getHeading());
+        Util.logger(this, Level.INFO, "xError", lastError.getX());
+        Util.logger(this, Level.INFO, "yError", lastError.getY());
+        Util.logger(this, Level.INFO, "headingError", lastError.getHeading());
 
         switch (mode) {
             case IDLE:
@@ -325,7 +324,8 @@ public class SampleTankDrive extends TankDrive {
             }
         }
 
-        dashboard.sendTelemetryPacket(packet);
+        fieldOverlay.setStroke("#3F51B5");
+        DashboardUtil.drawRobot(fieldOverlay, currentPose);
     }
 
     public void waitForIdle() {
@@ -428,4 +428,27 @@ public class SampleTankDrive extends TankDrive {
     public double getRawExternalHeading() {
         return imu.getAngularOrientation().firstAngle;
     }
+    @Override
+    public Double getExternalHeadingVelocity() {
+        // TODO: This must be changed to match your configuration
+        //                           | Z axis
+        //                           |
+        //     (Motor Port Side)     |   / X axis
+        //                       ____|__/____
+        //          Y axis     / *   | /    /|   (IO Side)
+        //          _________ /______|/    //      I2C
+        //                   /___________ //     Digital
+        //                  |____________|/      Analog
+        //
+        //                 (Servo Port Side)
+        //
+        // The positive x axis points toward the USB port(s)
+        //
+        // Adjust the axis rotation rate as necessary
+        // Rotate about the z axis is the default assuming your REV Hub/Control Hub is laying
+        // flat on a surface
+
+        return (double) imu.getAngularVelocity().zRotationRate;
+    }
 }
+

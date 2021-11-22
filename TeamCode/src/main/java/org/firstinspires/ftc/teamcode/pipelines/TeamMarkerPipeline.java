@@ -34,16 +34,16 @@ public class TeamMarkerPipeline extends FFRectMarkerPipeline {
     public Position getPosition() {
         Util.logger(this, Level.INFO, "Left Avg: ", getLeftAverage());
 
-        if(getLeftAverage() > getCenterAverage() && getLeftAverage() > getRightAverage()){
+        if(getLeftAverage() > getCenterAverage() && getLeftAverage() > getRightAverage()) {
             return Position.LEFT;
         }
-        else if(getCenterAverage() > getLeftAverage() && getCenterAverage() > getRightAverage()){
+        else if(getCenterAverage() > getLeftAverage() && getCenterAverage() > getRightAverage()) {
             return Position.MIDDLE;
         }
-        else if(getRightAverage() > getLeftAverage() && getRightAverage() > getCenterAverage()){
+        else if(getRightAverage() > getLeftAverage() && getRightAverage() > getCenterAverage()) {
             return Position.RIGHT;
         }
-        else{
+        else {
             return Position.RIGHT;
         }
     }
