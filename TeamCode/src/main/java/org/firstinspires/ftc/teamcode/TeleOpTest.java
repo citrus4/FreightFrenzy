@@ -31,35 +31,37 @@ public class TeleOpTest extends MatchOpMode {
     // Motors
     private MotorEx leftFront, leftCenter, leftRear, rightRear, rightCenter, rightFront;
     private MotorEx liftMotor;
-    //private MotorEx intakeMotor;
+    private MotorEx intakeMotor;
+    private ServoEx deliveryServo;
 
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
 
     // Subsystems
     private Drivetrain drivetrain;
-    //private Lift lift;
-    //private Intake intake;
+    private Lift lift;
+    private Intake intake;
 
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger;
-    public Button liftUpButton, liftDownButton;
-    public Button liftRestButton, liftLowButton, liftMidButton, liftHighButton, liftCapButton;
+    public Button liftUpButton, liftDownButton, liftRestButton;
+    public Button openDeliveryButton, closeDeliveryButton;
 
     @Override
     public void robotInit() {
 
         // Intake hardware Initializations
-        //intakeMotor = new MotorEx(hardwareMap, "intakeMotor");
+        intakeMotor = new MotorEx(hardwareMap, "intake");
         // Lift hardware initializations
-        //liftMotor = new MotorEx(hardwareMap, "lift");
+        liftMotor = new MotorEx(hardwareMap, "lift");
+        deliveryServo = new SimpleServo(hardwareMap, "delivery", 0, 5);
 
         // Subsystems
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap),telemetry);
         drivetrain.init();
-        //intake = new Intake(intakeMotor, telemetry);
-        //lift = new Lift(liftMotor, telemetry);
+        intake = new Intake(intakeMotor, telemetry);
+        lift = new Lift(liftMotor, deliveryServo, telemetry);
 
         //gamepad1.setJoystickDeadzone(0.0f);
         driverGamepad = new GamepadEx(gamepad1);
@@ -72,13 +74,18 @@ public class TeleOpTest extends MatchOpMode {
     public void configureButtons() {
 
         slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
-        //intakeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intakeRed).whenReleased(intake::stop));
-        //outtakeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::intakeBlue).whenReleased(intake::stop));
 
-        //liftUpButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftLow));
-        //liftDownButton = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::liftResting));
-        //liftRestButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(lift::liftResting));
-
+        intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
+        outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));
+/*
+        liftUpButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(lift::moveUp));
+        liftDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(lift::moveDown));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::liftResting));
+ */
+/*
+        openDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::openDelivery));
+        closeDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDelivery));
+ */
         //drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
     }
 

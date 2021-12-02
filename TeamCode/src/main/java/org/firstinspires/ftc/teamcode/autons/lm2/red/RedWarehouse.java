@@ -5,6 +5,8 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.SelectCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -31,6 +33,7 @@ public class RedWarehouse extends MatchOpMode {
     private MotorEx leftFront, leftRear, rightRear, rightFront;
     private MotorEx intakeMotor;
     private MotorEx liftMotor;
+    private ServoEx deliveryServo;
 
     // Gamepad
     private GamepadEx driverGamepad;
@@ -49,10 +52,11 @@ public class RedWarehouse extends MatchOpMode {
         // Intake hardware Initializations
         intakeMotor = new MotorEx(hardwareMap, "intakeMotor");
         liftMotor = new MotorEx(hardwareMap, "liftMotor", Motor.GoBILDA.RPM_435);
+        deliveryServo = new SimpleServo(hardwareMap, "delivery", lift.CLOSE_POS, lift.OPEN_POS);
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
         intake = new Intake(intakeMotor, telemetry);
-        lift = new Lift(liftMotor, telemetry);
+        lift = new Lift(liftMotor, deliveryServo, telemetry);
     }
 
     @Override

@@ -21,7 +21,10 @@ import java.util.logging.Level;
 public class Lift extends SubsystemBase {
     private Telemetry telemetry;
     private MotorEx liftMotor;
-    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.01, 0.0001, 0.003, 0);
+    private ServoEx deliveryServo;
+
+//    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.01, 0.0001, 0.003, 0);
+    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0, 0, 0, 0);
     //public static double ARM_OFFSET = 0;
     private PIDFController controller;
     private boolean automatic;
@@ -29,6 +32,9 @@ public class Lift extends SubsystemBase {
     public static double CPR = 384.5; //383.6
     public double UP_SPEED = 0.5;
     public double DOWN_SPEED = -0.5;
+
+    public double CLOSE_POS = 0;
+    public double OPEN_POS = 50;
 
     private double encoderOffset = 0;
 
@@ -40,7 +46,7 @@ public class Lift extends SubsystemBase {
 
     private int liftPosition = 0;
 
-    public Lift(MotorEx liftMotor, Telemetry tl) {
+    public Lift(MotorEx liftMotor, ServoEx deliveryServo, Telemetry tl) {
         this.liftMotor = liftMotor;
 
         this.liftMotor.setDistancePerPulse(360/CPR);
@@ -179,6 +185,14 @@ public class Lift extends SubsystemBase {
         }
         moveLiftToCorrectHeight();
     }
+    public void closeDelivery() {
+
+    }
+
+    public void openDelivery() {
+
+    }
+
 
     public void moveLiftToCorrectHeight() {
         if(liftPosition == 0) {

@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_VEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.SLOW_MAX_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
 
 import com.acmerobotics.dashboard.config.Config;
@@ -33,9 +32,7 @@ public class Trajectories {
             new TankVelocityConstraint(MAX_VEL/25, TRACK_WIDTH)
     ));
 
-
     public static ProfileAccelerationConstraint accelConstraint = new ProfileAccelerationConstraint(MAX_ACCEL);
-    public static ProfileAccelerationConstraint slowAccelConstraint = new ProfileAccelerationConstraint(SLOW_MAX_ACCEL);
 
     @Config
     public static class WarehouseRed {
