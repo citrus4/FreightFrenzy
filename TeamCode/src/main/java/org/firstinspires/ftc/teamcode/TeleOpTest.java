@@ -45,7 +45,7 @@ public class TeleOpTest extends MatchOpMode {
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger;
-    public Button liftUpButton, liftDownButton, liftRestButton;
+    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
     public Button openDeliveryButton, closeDeliveryButton;
 
     @Override
@@ -55,7 +55,7 @@ public class TeleOpTest extends MatchOpMode {
         intakeMotor = new MotorEx(hardwareMap, "intake");
         // Lift hardware initializations
         liftMotor = new MotorEx(hardwareMap, "lift");
-        deliveryServo = new SimpleServo(hardwareMap, "delivery", 0, 5);
+        deliveryServo = new SimpleServo(hardwareMap, "delivery", 0, 1);
 
         // Subsystems
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap),telemetry);
@@ -67,7 +67,6 @@ public class TeleOpTest extends MatchOpMode {
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
-
     }
 
     @Override
@@ -77,15 +76,15 @@ public class TeleOpTest extends MatchOpMode {
 
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));
-/*
+
         liftUpButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(lift::moveDown));
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::liftResting));
- */
-/*
-        openDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::openDelivery));
-        closeDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDelivery));
- */
+
+
+        openDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::openDelivery));
+        closeDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::closeDelivery));
+
         //drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
     }
 
@@ -95,6 +94,8 @@ public class TeleOpTest extends MatchOpMode {
 
     @Override
     public void matchStart() {
+        lift.liftResting();
+        lift.closeDelivery();
     }
 
     @Override

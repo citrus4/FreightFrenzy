@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Util;
 
 import java.util.logging.Level;
 
@@ -23,31 +24,32 @@ public class Lift extends SubsystemBase {
     private MotorEx liftMotor;
     private ServoEx deliveryServo;
 
-//    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.01, 0.0001, 0.003, 0);
-    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0, 0, 0, 0);
+    //public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.005, 0.0001, 0.003, 0);
+    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.005, 0.00008, 0, 0);
     //public static double ARM_OFFSET = 0;
     private PIDFController controller;
     private boolean automatic;
 
     public static double CPR = 384.5; //383.6
-    public double UP_SPEED = 0.5;
-    public double DOWN_SPEED = -0.5;
+    public double UP_SPEED = 1;
+    public double DOWN_SPEED = -1;
 
-    public double CLOSE_POS = 0;
-    public double OPEN_POS = 50;
+    public double OPEN_POS = 0.477;
+    public double CLOSE_POS = 0.038;
 
     private double encoderOffset = 0;
 
-    public int RESTING_POSITION = 0;
-    public int LOW_POSITION = 300;
+    public int RESTING_POSITION = 100;
+    public int LOW_POSITION = 400;
     public int MID_POSITION = 600;
-    public int HIGH_POSITION = 900;
-    public int CAP_POSITION = 1200;
+    public int HIGH_POSITION = 800;
+    public int CAP_POSITION = 1000;
 
     private int liftPosition = 0;
 
     public Lift(MotorEx liftMotor, ServoEx deliveryServo, Telemetry tl) {
         this.liftMotor = liftMotor;
+        this.deliveryServo = deliveryServo;
 
         this.liftMotor.setDistancePerPulse(360/CPR);
         liftMotor.setInverted(false);
@@ -75,6 +77,9 @@ public class Lift extends SubsystemBase {
             double output = controller.calculate(getAngle());
             liftMotor.set(output);
         }
+
+        Util.logger(this, telemetry, Level.INFO, "current pos: ", liftPosition);
+        Util.logger(this, telemetry, Level.INFO, "encoder pos: ", liftMotor.getCurrentPosition());
     }
 
     private double getEncoderDistance() {
@@ -111,24 +116,20 @@ public class Lift extends SubsystemBase {
 
     /************************************************************************************************/
     public void liftResting() {
-        // TODO: CHANGE
-        controller.setP(0.015);
-
         automatic = true;
         controller.setSetPoint(RESTING_POSITION);
+
+        liftPosition = 0;
     }
+
     public void liftLow() {
-        // TODO: CHANGE
-        controller.setP(0.025);
         automatic = true;
         controller.setSetPoint(LOW_POSITION);
 
         liftPosition = 1;
     }
-    public void liftMid() {
-        // TODO: CHANGE
-        controller.setP(0.025);
 
+    public void liftMid() {
         automatic = true;
         controller.setSetPoint(MID_POSITION);
 
@@ -136,9 +137,6 @@ public class Lift extends SubsystemBase {
     }
 
     public void liftHigh() {
-        // TODO: CHANGE
-        controller.setP(0.025);
-
         automatic = true;
         controller.setSetPoint(HIGH_POSITION);
 
@@ -146,9 +144,6 @@ public class Lift extends SubsystemBase {
     }
 
     public void liftCap() {
-        // TODO: CHANGE
-        controller.setP(0.025);
-
         automatic = true;
         controller.setSetPoint(CAP_POSITION);
 
@@ -185,13 +180,6 @@ public class Lift extends SubsystemBase {
         }
         moveLiftToCorrectHeight();
     }
-    public void closeDelivery() {
-
-    }
-
-    public void openDelivery() {
-
-    }
 
 
     public void moveLiftToCorrectHeight() {
@@ -205,6 +193,17 @@ public class Lift extends SubsystemBase {
             liftHigh();
         } else if(liftPosition == 4) {
             liftCap();
+        } else {
+            liftResting();
         }
+    }
+
+
+    public void closeDelivery() {
+        deliveryServo.setPosition(OPEN_POS);
+    }
+
+    public void openDelivery() {
+        deliveryServo.setPosition(CLOSE_POS);
     }
 }
