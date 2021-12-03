@@ -37,8 +37,7 @@ public class BlueParkWarehouseAuton extends MatchOpMode {
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap), telemetry);
         drivetrain.init();
 
-        intakeMotor = new MotorEx(hardwareMap, "intakeMotor");
-        intake = new Intake(intakeMotor, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
 
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));

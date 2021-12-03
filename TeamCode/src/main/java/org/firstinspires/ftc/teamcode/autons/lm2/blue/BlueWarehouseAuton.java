@@ -51,14 +51,12 @@ public void robotInit() {
     // Subsystems
     drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap), telemetry);
     drivetrain.init();
-    intakeMotor = new MotorEx(hardwareMap, "intakeMotor");
-    liftMotor = new MotorEx(hardwareMap, "liftMotor", Motor.GoBILDA.RPM_435);
-    deliveryServo = new SimpleServo(hardwareMap, "delivery", lift.CLOSE_POS, lift.OPEN_POS);
-    //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
+
+  //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
     vision = new Vision(hardwareMap, "Webcam 1", telemetry);
     drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
-    intake = new Intake(intakeMotor, telemetry);
-    lift = new Lift(liftMotor, deliveryServo, telemetry);
+    intake = new Intake(hardwareMap, telemetry);
+    lift = new Lift(hardwareMap, telemetry);
 }
 
 @Override

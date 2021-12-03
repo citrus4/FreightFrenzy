@@ -9,11 +9,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
 import java.util.List;
-import java.util.logging.Level;
 
 
 public class Drivetrain extends SubsystemBase {
@@ -33,7 +31,6 @@ public class Drivetrain extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        Util.logger(this, telemetry, Level.INFO, "pos", drive.getWheelPositions());
         update();
     }
 

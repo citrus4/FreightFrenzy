@@ -5,11 +5,13 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
@@ -18,68 +20,66 @@ import org.firstinspires.ftc.teamcode.Util;
 
 import java.util.logging.Level;
 
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.CAP_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DOWN_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.HIGH_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LOW_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.MID_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.RESTING_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.UP_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_CLOSE_POS;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_OPEN_POS;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DELIVERY_MOTOR_ID;
+
+
 @Config
+/**
+ * Lift class controls the scoring lift and ball/box depositer
+ */
 public class Lift extends SubsystemBase {
     private Telemetry telemetry;
     private MotorEx liftMotor;
     private ServoEx deliveryServo;
 
-    //public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.005, 0.0001, 0.003, 0);
-    public static PIDFCoefficients pidfCoefficients = new PIDFCoefficients(0.005, 0.00008, 0, 0);
-    //public static double ARM_OFFSET = 0;
     private PIDFController controller;
-    private boolean automatic;
-
-    public static double CPR = 384.5; //383.6
-    public double UP_SPEED = 1;
-    public double DOWN_SPEED = -1;
-
-    public double OPEN_POS = 0.477;
-    public double CLOSE_POS = 0.038;
-
+    private boolean pidEnabled;
     private double encoderOffset = 0;
-
-    public int RESTING_POSITION = 100;
-    public int LOW_POSITION = 400;
-    public int MID_POSITION = 600;
-    public int HIGH_POSITION = 800;
-    public int CAP_POSITION = 1000;
-
     private int liftPosition = 0;
 
-    public Lift(MotorEx liftMotor, ServoEx deliveryServo, Telemetry tl) {
-        this.liftMotor = liftMotor;
-        this.deliveryServo = deliveryServo;
+    public Lift(HardwareMap hw, Telemetry tl) {
+        this.liftMotor = new MotorEx(hw, SubsystemConstants.Lift.LIFT_MOTOR_ID);
+        this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
 
-        this.liftMotor.setDistancePerPulse(360/CPR);
+        this.liftMotor.setDistancePerPulse(SubsystemConstants.DEGREES_PER_ROTATION / SubsystemConstants.Lift.LIFT_TICKS_PER_ROTATION);
         liftMotor.setInverted(false);
 
-        controller = new PIDFController(pidfCoefficients.p, pidfCoefficients.i, pidfCoefficients.d, pidfCoefficients.f,  getAngle(), getAngle());
-        controller.setTolerance(10);
+        controller = new PIDFController(LIFT_PID_COEFFICIENTS.p, LIFT_PID_COEFFICIENTS.i, LIFT_PID_COEFFICIENTS.d, LIFT_PID_COEFFICIENTS.f,  getAngle(), getAngle());
+        controller.setTolerance(LIFT_TOLERANCE);
+
 
         this.telemetry = tl;
-        automatic = false;
+        pidEnabled = false;
         setOffset();
+    }
+    @Override
+    public void periodic() {
+        if (pidEnabled) {
+            controller.setF(LIFT_PID_COEFFICIENTS.f * Math.cos(Math.toRadians(controller.getSetPoint())));
+            double output = controller.calculate(getAngle());
+            liftMotor.set(output);
+        }
+        Util.logger(this, telemetry, Level.INFO, "current pos: ", liftPosition);
+        Util.logger(this, telemetry, Level.INFO, "encoder pos: ", liftMotor.getCurrentPosition());
     }
 
 
     public void toggleAutomatic() {
-        automatic = !automatic;
+        pidEnabled = !pidEnabled;
     }
-    public boolean isAutomatic() {
-        return automatic;
-    }
-
-    @Override
-    public void periodic() {
-        if (automatic) {
-            controller.setF(pidfCoefficients.f * Math.cos(Math.toRadians(controller.getSetPoint())));
-            double output = controller.calculate(getAngle());
-            liftMotor.set(output);
-        }
-
-        Util.logger(this, telemetry, Level.INFO, "current pos: ", liftPosition);
-        Util.logger(this, telemetry, Level.INFO, "encoder pos: ", liftMotor.getCurrentPosition());
+    public boolean isPidEnabled() {
+        return pidEnabled;
     }
 
     private double getEncoderDistance() {
@@ -87,23 +87,23 @@ public class Lift extends SubsystemBase {
     }
 
     public void liftManual() {
-        automatic = false;
+        pidEnabled = false;
         liftMotor.set(UP_SPEED);
     }
 
     public void lowerLiftManual() {
-        automatic = false;
+        pidEnabled = false;
         liftMotor.set(DOWN_SPEED);
     }
 
     public void stopLift() {
         liftMotor.stopMotor();
         controller.setSetPoint(getAngle());
-        automatic = false;
+        pidEnabled = false;
     }
 
-    public void setAutomatic(boolean auto) {
-        this.automatic = auto;
+    public void setPidEnabled(boolean auto) {
+        this.pidEnabled = auto;
     }
 
     public void resetEncoder() {
@@ -116,42 +116,42 @@ public class Lift extends SubsystemBase {
 
     /************************************************************************************************/
     public void liftResting() {
-        automatic = true;
+        pidEnabled = true;
         controller.setSetPoint(RESTING_POSITION);
 
         liftPosition = 0;
     }
 
     public void liftLow() {
-        automatic = true;
+        pidEnabled = true;
         controller.setSetPoint(LOW_POSITION);
 
         liftPosition = 1;
     }
 
     public void liftMid() {
-        automatic = true;
+        pidEnabled = true;
         controller.setSetPoint(MID_POSITION);
 
         liftPosition = 2;
     }
 
     public void liftHigh() {
-        automatic = true;
+        pidEnabled = true;
         controller.setSetPoint(HIGH_POSITION);
 
         liftPosition = 3;
     }
 
     public void liftCap() {
-        automatic = true;
+        pidEnabled = true;
         controller.setSetPoint(CAP_POSITION);
 
         liftPosition = 4;
     }
 
     public void setLift(double angle) {
-        automatic = true;
+        pidEnabled = true;
         controller.setSetPoint(angle);
     }
 
@@ -181,7 +181,6 @@ public class Lift extends SubsystemBase {
         moveLiftToCorrectHeight();
     }
 
-
     public void moveLiftToCorrectHeight() {
         if(liftPosition == 0) {
             liftResting();
@@ -193,17 +192,14 @@ public class Lift extends SubsystemBase {
             liftHigh();
         } else if(liftPosition == 4) {
             liftCap();
-        } else {
-            liftResting();
         }
     }
-
-
     public void closeDelivery() {
-        deliveryServo.setPosition(OPEN_POS);
+        deliveryServo.setPosition(DEL_OPEN_POS);
     }
 
     public void openDelivery() {
-        deliveryServo.setPosition(CLOSE_POS);
+        deliveryServo.setPosition(DEL_CLOSE_POS);
     }
 }
+

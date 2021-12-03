@@ -51,17 +51,11 @@ public class TeleOpTest extends MatchOpMode {
     @Override
     public void robotInit() {
 
-        // Intake hardware Initializations
-        intakeMotor = new MotorEx(hardwareMap, "intake");
-        // Lift hardware initializations
-        liftMotor = new MotorEx(hardwareMap, "lift");
-        deliveryServo = new SimpleServo(hardwareMap, "delivery", 0, 1);
-
         // Subsystems
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap),telemetry);
         drivetrain.init();
-        intake = new Intake(intakeMotor, telemetry);
-        lift = new Lift(liftMotor, deliveryServo, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+        lift = new Lift(hardwareMap, telemetry);
 
         //gamepad1.setJoystickDeadzone(0.0f);
         driverGamepad = new GamepadEx(gamepad1);

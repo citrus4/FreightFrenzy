@@ -2,23 +2,24 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.util.Util;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Intake.INTAKE_MOTOR_ID;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Intake.INTAKE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Intake.OUTTAKE_SPEED;
+
 @Config
 public class Intake extends SubsystemBase {
-    public static double INTAKE_SPEED = 1.0;
-    public static double OUTTAKE_SPEED = -1.0;
-
     Telemetry telemetry;
     private MotorEx intakeMotor;
 
-    public Intake(MotorEx intakeMotor, Telemetry tl) {
+    public Intake(HardwareMap hw, Telemetry tl) {
+        this.intakeMotor = new MotorEx(hw, INTAKE_MOTOR_ID);
         intakeMotor.setInverted(true);
-        this.intakeMotor = intakeMotor;
+
         this.telemetry = tl;
     }
 
