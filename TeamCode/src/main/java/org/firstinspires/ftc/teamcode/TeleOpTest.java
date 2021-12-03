@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @Config
-@TeleOp(name = "Teleop 1")
+@TeleOp(name = "Teleop LM2")
 public class TeleOpTest extends MatchOpMode {
     // Motors
     private MotorEx leftFront, leftCenter, leftRear, rightRear, rightCenter, rightFront;
@@ -46,7 +46,7 @@ public class TeleOpTest extends MatchOpMode {
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger;
     public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
-    public Button openDeliveryButton, closeDeliveryButton;
+    public Button openDeliveryButton, closeDeliveryButton, deliveryButton;
 
     @Override
     public void robotInit() {
@@ -74,10 +74,12 @@ public class TeleOpTest extends MatchOpMode {
         liftUpButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(lift::moveDown));
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::liftResting));
+        liftHighButton= (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::liftHigh));
 
-
-        openDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::openDelivery));
-        closeDeliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::closeDelivery));
+        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(
+                new InstantCommand(lift::openDelivery, lift),
+                new InstantCommand(lift::closeDelivery, lift)
+        );
 
         //drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
     }
