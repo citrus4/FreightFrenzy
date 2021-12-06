@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleops.Leo;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -11,23 +11,28 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+import org.firstinspires.ftc.teamcode.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.commands.drive.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.LeosFastDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
+import org.firstinspires.ftc.teamcode.subsystems.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
+@Disabled
 @Config
-@TeleOp(name = "Teleop LM2")
-public class TeleOpTest extends MatchOpMode {
+@TeleOp(name = "Leo + Haddon", group = "leo")
+public class TeleLH extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
 
@@ -35,6 +40,7 @@ public class TeleOpTest extends MatchOpMode {
     private Drivetrain drivetrain;
     private Lift lift;
     private Intake intake;
+    private Arm arm;
 
     //Buttons
     private Button intakeButton, outtakeButton;
@@ -51,16 +57,16 @@ public class TeleOpTest extends MatchOpMode {
         drivetrain.init();
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
+        arm = new Arm(hardwareMap, telemetry);
 
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
-        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
-        lift.resetEncoder();
+        drivetrain.setDefaultCommand(new SlowDriveCommand(drivetrain, driverGamepad));
     }
 
     @Override
     public void configureButtons() {
-        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
+        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new LeosFastDriveCommand(drivetrain, driverGamepad));
 
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));
@@ -70,17 +76,15 @@ public class TeleOpTest extends MatchOpMode {
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::liftResting));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
-        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X)).toggleWhenPressed(
+        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
                 new InstantCommand(lift::openDelivery, lift),
                 new InstantCommand(lift::closeDelivery, lift)
         );
-        armUp = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_LEFT).whenPressed(lift::liftHigh));
-        armDown = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(lift::liftHigh));
-        armScore  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(lift::liftHigh));
-        armRest = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(lift::liftHigh));
-
-
-
+/*
+        armDown = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B).whenPressed(arm::armDown));
+        armScore  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X).whenPressed(arm::armScore));
+        armRest = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(arm::armRest));
+ */
     }
 
     @Override
@@ -89,8 +93,9 @@ public class TeleOpTest extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        lift.liftResting();
+        lift.liftInit();
         lift.closeDelivery();
+        //arm.armUp();
     }
 
     @Override

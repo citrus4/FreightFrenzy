@@ -24,6 +24,7 @@ import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.HIGH_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS_DOWN;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_TOLERANCE;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LOW_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.MID_POSITION;
@@ -53,7 +54,7 @@ public class Lift extends SubsystemBase {
         this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
 
         this.liftMotor.setDistancePerPulse(SubsystemConstants.DEGREES_PER_ROTATION / SubsystemConstants.Lift.LIFT_TICKS_PER_ROTATION);
-        liftMotor.setInverted(false);
+        liftMotor.setInverted(true);
 
         controller = new PIDFController(LIFT_PID_COEFFICIENTS.p, LIFT_PID_COEFFICIENTS.i, LIFT_PID_COEFFICIENTS.d, LIFT_PID_COEFFICIENTS.f,  getAngle(), getAngle());
         controller.setTolerance(LIFT_TOLERANCE);
@@ -117,6 +118,13 @@ public class Lift extends SubsystemBase {
     /************************************************************************************************/
     public void liftResting() {
         pidEnabled = true;
+        controller.setP(LIFT_PID_COEFFICIENTS_DOWN.p);
+        controller.setSetPoint(RESTING_POSITION);
+
+        liftPosition = 0;
+    }
+    public void liftInit() {
+        pidEnabled = true;
         controller.setSetPoint(RESTING_POSITION);
 
         liftPosition = 0;
@@ -166,6 +174,7 @@ public class Lift extends SubsystemBase {
     }
 
     public void moveUp() {
+        controller.setP(LIFT_PID_COEFFICIENTS.p);
         liftPosition = liftPosition + 1;
         if(liftPosition > 4) {
             liftPosition = 4;
@@ -174,6 +183,7 @@ public class Lift extends SubsystemBase {
     }
 
     public void moveDown() {
+        controller.setP(LIFT_PID_COEFFICIENTS_DOWN.p);
         liftPosition = liftPosition - 1;
         if(liftPosition < 0) {
             liftPosition = 0;
