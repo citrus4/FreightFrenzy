@@ -67,20 +67,19 @@ public void disabledPeriodic() {
 
 @Override
 public void matchStart() {
-    schedule(/*
+    schedule(
             new SelectCommand(new HashMap<Object, Command>() {{
                 put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                        new BlueWarehouseCommandL(drivetrain, telemetry)
+                        new BlueWarehouseCommandL(drivetrain, lift, telemetry)
                 ));
                 put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                        new BlueWarehouseCommandC(drivetrain, telemetry)
+                        new BlueWarehouseCommandC(drivetrain, lift, telemetry)
                 ));
                 put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
                         new BlueWarehouseCommandR(drivetrain, lift, telemetry)
                 ));
             }}, vision::getCurrentPosition)
-            */
-            new BlueWarehouseCommandR(drivetrain, lift, telemetry)
+
     );
 
 }

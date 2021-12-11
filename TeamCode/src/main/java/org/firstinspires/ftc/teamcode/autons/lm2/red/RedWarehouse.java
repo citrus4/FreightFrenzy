@@ -67,20 +67,18 @@ public class RedWarehouse extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(/*
+        schedule(
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
                             new RedWarehouseCommandL(drivetrain, lift, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new RedWarehouseCommandC(drivetrain, telemetry)
+                            new RedWarehouseCommandC(drivetrain, lift, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
                             new RedWarehouseCommandR(drivetrain, lift, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
-                */
-                new RedWarehouseCommandR(drivetrain, lift, telemetry)
         );
 
     }

@@ -4,8 +4,11 @@ import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.pipelines.FFRectDetector;
 import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
+
+import java.util.logging.Level;
 //import org.firstinspires.ftc.teamcode.Util;
 
 
@@ -19,9 +22,9 @@ public class Vision extends SubsystemBase {
         duckDetector.init();
 
         //switch left and right if camera mounted upside down
-        duckDetector.setLeftRectangle(0.05, 0.3);
+        duckDetector.setRightRectangle(0.05, 0.3);//r
         duckDetector.setCenterRectangle(0.5, 0.3);
-        duckDetector.setRightRectangle(0.95, 0.3);
+        duckDetector.setLeftRectangle(0.95, 0.3);//l
         telemetry = tl;
         currentPos = duckDetector.getPosition();
     }
@@ -30,7 +33,7 @@ public class Vision extends SubsystemBase {
     public void periodic() {
         currentPos = duckDetector.getPosition();
 
-        //Util.logger(this, telemetry, Level.INFO, "Current Stack", currentStack);
+        Util.logger(this, telemetry, Level.INFO, "Current Stack", currentPos);
     }
 
     public TeamMarkerPipeline.Position getCurrentPosition() {
