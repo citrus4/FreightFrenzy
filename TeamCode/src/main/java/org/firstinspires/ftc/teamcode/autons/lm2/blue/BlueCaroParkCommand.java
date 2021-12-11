@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autons.lm2.blue;
 
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -14,6 +15,7 @@ public class BlueCaroParkCommand extends SequentialCommandGroup {
 
 
         addCommands(
+                new InstantCommand(lift::closeDelivery),
                 new DriveForwardCommand(drivetrain, 17),
                 new TurnCommand(drivetrain, 92),
                 new DriveForwardCommand(drivetrain,100)

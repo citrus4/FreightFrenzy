@@ -202,6 +202,7 @@ public class Lift extends SubsystemBase {
 
 
     public void autonOpenDelivery() {
+        //Util.logger(this, telemetry, Level.INFO, "del pos: ", deliveryServo.getPosition());
         deliveryServo.setPosition(DEL_AUTON_POS);
     }
 }
