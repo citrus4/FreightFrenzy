@@ -33,7 +33,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @Config
 @TeleOp(name = "Red TeleOp", group = "kyle")
-public class TeleKH extends MatchOpMode {
+public class TeleRed extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
 
@@ -78,9 +78,8 @@ public class TeleKH extends MatchOpMode {
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
-        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
-                new InstantCommand(lift::openDelivery, lift),
-                new InstantCommand(lift::closeDelivery, lift)
+        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).whenHeld(
+                new InstantCommand(lift::openDelivery, lift)
         );
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(duckWheels::spinDuckRed));
@@ -95,7 +94,7 @@ public class TeleKH extends MatchOpMode {
     @Override
     public void matchStart() {
         lift.liftLow();
-        lift.closeDelivery();
+        //lift.closeDelivery();
     }
 
     @Override

@@ -67,13 +67,18 @@ public class TeleBlue extends MatchOpMode {
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
         deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
-                new InstantCommand(lift::openDelivery, lift),
-                new InstantCommand(lift::closeDelivery, lift)
+                new InstantCommand(lift::toggleOpen, lift),
+                new InstantCommand(lift::toggleClosed, lift)
         );
 
-        //spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenHeld(duckWheels::spinDuckRed).whenReleased(duckWheels::stop));
-        otherWay = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(duckWheels::otherWayRed));
-
+        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(
+                new InstantCommand(duckWheels::spinDuckBlue, duckWheels),
+                new InstantCommand(duckWheels::stop, duckWheels)
+        );
+        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(
+                new InstantCommand(duckWheels::otherWayBlue, duckWheels),
+                new InstantCommand(duckWheels::stop, duckWheels)
+        );
     }
 
     @Override
@@ -83,7 +88,7 @@ public class TeleBlue extends MatchOpMode {
     @Override
     public void matchStart() {
         lift.liftLow();
-        lift.closeDelivery();
+        //lift.closeDelivery();
     }
 
     @Override

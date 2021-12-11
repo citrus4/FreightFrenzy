@@ -80,7 +80,7 @@ public void matchStart() {
                 ));
             }}, vision::getCurrentPosition)
             */
-            new BlueWarehouseCommandC(drivetrain, lift, telemetry)
+            new BlueWarehouseCommandR(drivetrain, lift, telemetry)
     );
 
 }

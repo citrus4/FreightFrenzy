@@ -48,6 +48,8 @@ public class Lift extends SubsystemBase {
     private double encoderOffset = 0;
     private int liftPosition = 0;
 
+    double CURRENT_POSITION = DEL_OPEN_POS;
+
     public Lift(HardwareMap hw, Telemetry tl) {
         this.liftMotor = new MotorEx(hw, SubsystemConstants.Lift.LIFT_MOTOR_ID);
         this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
@@ -73,6 +75,15 @@ public class Lift extends SubsystemBase {
         Util.logger(this, telemetry, Level.INFO, "current pos: ", liftPosition);
         Util.logger(this, telemetry, Level.INFO, "encoder pos: ", liftMotor.getCurrentPosition());
         Util.logger(this, telemetry, Level.INFO, "del pos: ", deliveryServo.getPosition());
+        deliveryServo.setPosition(CURRENT_POSITION);
+    }
+
+    public void toggleOpen() {
+        CURRENT_POSITION = DEL_CLOSE_POS;
+    }
+
+    public void toggleClosed() {
+        CURRENT_POSITION = DEL_OPEN_POS;
     }
 
 
@@ -180,6 +191,7 @@ public class Lift extends SubsystemBase {
             liftHigh();
         }
     }
+
     public void closeDelivery() {
         deliveryServo.setPosition(DEL_OPEN_POS);
     }
@@ -187,12 +199,6 @@ public class Lift extends SubsystemBase {
     public void openDelivery() {
         deliveryServo.setPosition(DEL_CLOSE_POS);
     }
-
-
-
-
-
-
 
 
     public void autonOpenDelivery() {

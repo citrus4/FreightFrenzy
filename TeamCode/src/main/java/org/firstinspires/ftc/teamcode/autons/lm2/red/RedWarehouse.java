@@ -80,7 +80,7 @@ public class RedWarehouse extends MatchOpMode {
                     ));
                 }}, vision::getCurrentPosition)
                 */
-                new RedWarehouseCommandL(drivetrain, lift, telemetry)
+                new RedWarehouseCommandR(drivetrain, lift, telemetry)
         );
 
     }

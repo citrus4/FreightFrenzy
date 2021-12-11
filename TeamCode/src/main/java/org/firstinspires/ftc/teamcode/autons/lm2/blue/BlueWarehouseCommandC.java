@@ -23,16 +23,21 @@ public class BlueWarehouseCommandC extends SequentialCommandGroup {
                 new DriveForwardCommand(drivetrain, -20),
                 new TurnCommand(drivetrain, 92),
                 new DriveForwardCommand(drivetrain, -15),
+                //lift to correct pos ---------------------------------------
+                new InstantCommand(lift::liftMid),
                 //open delivery
+                new DriveForwardCommand(drivetrain, -2),
+                new WaitCommand(750),
                 new InstantCommand(lift::autonOpenDelivery),
                 new WaitCommand(1250),
                 new InstantCommand(lift::closeDelivery),
                 //back up
                 new DriveForwardCommand(drivetrain, 6),
+                new InstantCommand(lift::liftLow),
                 //turn towards warehouse
                 new TurnCommand(drivetrain, 88),
                 //park
-                new FastDriveCommand(drivetrain, -65)
+                new FastDriveCommand(drivetrain, -72)
         );
     }
 }

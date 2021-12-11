@@ -21,7 +21,7 @@ public class SubsystemConstants {
         public static double DOWN_SPEED = -0.2;
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.016, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.008, 0.00008, 0, 0);
         public static PIDFCoefficients LIFT_PID_COEFFICIENTS_DOWN = new PIDFCoefficients(0.0008, 0.00008, 0, 0);
         public static int LIFT_TOLERANCE = 10;
 
