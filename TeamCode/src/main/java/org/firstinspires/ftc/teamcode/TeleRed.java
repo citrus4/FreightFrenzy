@@ -78,13 +78,19 @@ public class TeleRed extends MatchOpMode {
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
-        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).whenHeld(
-                new InstantCommand(lift::openDelivery, lift)
+        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
+                new InstantCommand(lift::toggleOpen, lift),
+                new InstantCommand(lift::toggleClosed, lift)
         );
 
-        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(duckWheels::spinDuckRed));
-        otherWay = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(duckWheels::otherWayRed));
-
+        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(
+                new InstantCommand(duckWheels::spinDuckRed, duckWheels),
+                new InstantCommand(duckWheels::stop, duckWheels)
+        );
+        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN)).toggleWhenPressed(
+                new InstantCommand(duckWheels::otherWayRed, duckWheels),
+                new InstantCommand(duckWheels::stop, duckWheels)
+        );
     }
 
     @Override

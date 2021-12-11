@@ -75,7 +75,7 @@ public class TeleBlue extends MatchOpMode {
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels),
                 new InstantCommand(duckWheels::stop, duckWheels)
         );
-        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(
+        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN)).toggleWhenPressed(
                 new InstantCommand(duckWheels::otherWayBlue, duckWheels),
                 new InstantCommand(duckWheels::stop, duckWheels)
         );
