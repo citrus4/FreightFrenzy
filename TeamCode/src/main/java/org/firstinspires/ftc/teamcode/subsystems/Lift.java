@@ -72,6 +72,7 @@ public class Lift extends SubsystemBase {
         }
         Util.logger(this, telemetry, Level.INFO, "current pos: ", liftPosition);
         Util.logger(this, telemetry, Level.INFO, "encoder pos: ", liftMotor.getCurrentPosition());
+        Util.logger(this, telemetry, Level.INFO, "del pos: ", deliveryServo.getPosition());
     }
 
 
@@ -186,6 +187,14 @@ public class Lift extends SubsystemBase {
     public void openDelivery() {
         deliveryServo.setPosition(DEL_CLOSE_POS);
     }
+
+
+
+
+
+
+
+
     public void autonOpenDelivery() {
         deliveryServo.setPosition(DEL_AUTON_POS);
     }

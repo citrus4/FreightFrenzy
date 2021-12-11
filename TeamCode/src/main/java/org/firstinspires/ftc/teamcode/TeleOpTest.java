@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -22,9 +23,11 @@ import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
+@Disabled
 @Config
 @TeleOp(name = "Teleop LM2")
 public class TeleOpTest extends MatchOpMode {
@@ -35,6 +38,7 @@ public class TeleOpTest extends MatchOpMode {
     private Drivetrain drivetrain;
     private Lift lift;
     private Intake intake;
+    private DuckWheels duckWheels;
 
     //Buttons
     private Button intakeButton, outtakeButton;
@@ -42,6 +46,7 @@ public class TeleOpTest extends MatchOpMode {
     public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
     public Button deliveryButton;
     public Button armUp, armDown, armScore, armRest;
+    public Button spinButton, otherWay;
 
 
     @Override
@@ -51,6 +56,7 @@ public class TeleOpTest extends MatchOpMode {
         drivetrain.init();
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
+        duckWheels = new DuckWheels(hardwareMap, telemetry);
 
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
@@ -74,10 +80,8 @@ public class TeleOpTest extends MatchOpMode {
                 new InstantCommand(lift::openDelivery, lift),
                 new InstantCommand(lift::closeDelivery, lift)
         );
-        armUp = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_LEFT).whenPressed(lift::liftHigh));
-        armDown = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(lift::liftHigh));
-        armScore  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(lift::liftHigh));
-        armRest = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(lift::liftHigh));
+        spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP).whenPressed(duckWheels::spinDuckRed));
+        otherWay = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN).whenPressed(duckWheels::otherWayRed));
 
 
 

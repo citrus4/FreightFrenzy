@@ -12,17 +12,17 @@ public class SubsystemConstants {
 
         //resting is low
         //public static int RESTING_POSITION = 0;
-        public static int LOW_RESTING_POSITION = 60;
+        public static int LOW_RESTING_POSITION = 75;
         public static int MID_POSITION = 560;
-        public static int HIGH_POSITION = 1000;
+        public static int HIGH_POSITION = 1050;
         //public static int CAP_POSITION = 1000;
 
         public static double UP_SPEED = 1;
         public static double DOWN_SPEED = -0.2;
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.005, 0.00008, 0, 0); //(0.005, 0.0001, 0.003, 0);
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS_DOWN = new PIDFCoefficients(0.0008, 0.00008, 0, 0); //(0.005, 0.0001, 0.003, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.016, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS_DOWN = new PIDFCoefficients(0.0008, 0.00008, 0, 0);
         public static int LIFT_TOLERANCE = 10;
 
         public static String LIFT_MOTOR_ID = "lift";
@@ -43,6 +43,13 @@ public class SubsystemConstants {
         public static double ARM_REST_POS = 0.4;
         public static String ARM_SERVO_ID = "arm";
         //leo is fired//
+    }
+
+    public static class DuckWheels {
+        public static double INTAKE_SPEED = 0.5;
+        public static double OUTTAKE_SPEED = -0.5;
+        public static String RIGHT_393_ID = "right_393";
+        public static String LEFT_393_ID = "left_393";
     }
 /*
 
