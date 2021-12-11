@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "Blue Warehouse", group = "BLUE")
 public class BlueWarehouseAuton extends MatchOpMode {
 public static double startPoseX = 0;
@@ -67,7 +67,7 @@ public void disabledPeriodic() {
 
 @Override
 public void matchStart() {
-    schedule(
+    schedule(/*
             new SelectCommand(new HashMap<Object, Command>() {{
                 put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
                         new BlueWarehouseCommandL(drivetrain, telemetry)
@@ -76,9 +76,11 @@ public void matchStart() {
                         new BlueWarehouseCommandC(drivetrain, telemetry)
                 ));
                 put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                        new BlueWarehouseCommandR(drivetrain, telemetry)
+                        new BlueWarehouseCommandR(drivetrain, lift, telemetry)
                 ));
             }}, vision::getCurrentPosition)
+            */
+            new BlueWarehouseCommandC(drivetrain, lift, telemetry)
     );
 
 }

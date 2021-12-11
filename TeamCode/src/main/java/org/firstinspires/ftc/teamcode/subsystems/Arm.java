@@ -33,10 +33,14 @@ public class Arm extends SubsystemBase {
     private Telemetry telemetry;
     private ServoEx armServo;
 
+
+
     public Arm(HardwareMap hw, Telemetry tl) {
         this.armServo = new SimpleServo(hw, SubsystemConstants.Arm.ARM_SERVO_ID, 0,1);
 
         this.telemetry = tl;
+
+        //ArmPos = armServo.getPosition();
     }
     @Override
     public void periodic() {
@@ -57,5 +61,14 @@ public class Arm extends SubsystemBase {
     public void armRest() {
         armServo.setPosition(ARM_REST_POS);
     }
+/*
+    public void armUpManual() {
+        armServo.setPosition(ArmPos += 0.001);
+    }
+    public void armDownManual() {
+        armServo.setPosition(ArmPos -= 0.001);
+    }
+
+ */
 }
 

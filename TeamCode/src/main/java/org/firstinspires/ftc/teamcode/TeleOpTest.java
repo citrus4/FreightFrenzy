@@ -67,7 +67,7 @@ public class TeleOpTest extends MatchOpMode {
 
         liftUpButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
-        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::liftResting));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::liftLow));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
         deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X)).toggleWhenPressed(
@@ -89,7 +89,7 @@ public class TeleOpTest extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        lift.liftResting();
+        lift.liftLow();
         lift.closeDelivery();
     }
 

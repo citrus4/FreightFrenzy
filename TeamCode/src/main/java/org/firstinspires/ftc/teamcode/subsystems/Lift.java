@@ -20,15 +20,14 @@ import org.firstinspires.ftc.teamcode.Util;
 
 import java.util.logging.Level;
 
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.CAP_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_AUTON_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.HIGH_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS_DOWN;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LOW_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LOW_RESTING_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.MID_POSITION;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.RESTING_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.UP_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_CLOSE_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_OPEN_POS;
@@ -116,46 +115,26 @@ public class Lift extends SubsystemBase {
     }
 
     /************************************************************************************************/
-    public void liftResting() {
-        pidEnabled = true;
-        controller.setP(LIFT_PID_COEFFICIENTS_DOWN.p);
-        controller.setSetPoint(RESTING_POSITION);
-
-        liftPosition = 0;
-    }
-    public void liftInit() {
-        pidEnabled = true;
-        controller.setSetPoint(RESTING_POSITION);
-
-        liftPosition = 0;
-    }
 
     public void liftLow() {
         pidEnabled = true;
-        controller.setSetPoint(LOW_POSITION);
+        controller.setSetPoint(LOW_RESTING_POSITION);
 
-        liftPosition = 1;
+        liftPosition = 0;
     }
 
     public void liftMid() {
         pidEnabled = true;
         controller.setSetPoint(MID_POSITION);
 
-        liftPosition = 2;
+        liftPosition = 1;
     }
 
     public void liftHigh() {
         pidEnabled = true;
         controller.setSetPoint(HIGH_POSITION);
 
-        liftPosition = 3;
-    }
-
-    public void liftCap() {
-        pidEnabled = true;
-        controller.setSetPoint(CAP_POSITION);
-
-        liftPosition = 4;
+        liftPosition = 2;
     }
 
     public void setLift(double angle) {
@@ -176,8 +155,8 @@ public class Lift extends SubsystemBase {
     public void moveUp() {
         controller.setP(LIFT_PID_COEFFICIENTS.p);
         liftPosition = liftPosition + 1;
-        if(liftPosition > 4) {
-            liftPosition = 4;
+        if(liftPosition > 2) {
+            liftPosition = 2;
         }
         moveLiftToCorrectHeight();
     }
@@ -193,15 +172,11 @@ public class Lift extends SubsystemBase {
 
     public void moveLiftToCorrectHeight() {
         if(liftPosition == 0) {
-            liftResting();
-        } else if(liftPosition == 1) {
             liftLow();
-        } else if(liftPosition == 2) {
+        } else if(liftPosition == 1) {
             liftMid();
-        } else if(liftPosition == 3) {
+        } else if(liftPosition == 2) {
             liftHigh();
-        } else if(liftPosition == 4) {
-            liftCap();
         }
     }
     public void closeDelivery() {
@@ -210,6 +185,9 @@ public class Lift extends SubsystemBase {
 
     public void openDelivery() {
         deliveryServo.setPosition(DEL_CLOSE_POS);
+    }
+    public void autonOpenDelivery() {
+        deliveryServo.setPosition(DEL_AUTON_POS);
     }
 }
 

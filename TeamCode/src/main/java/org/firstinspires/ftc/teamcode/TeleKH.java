@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleops.Nathaniel;
+package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -18,7 +18,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.GamepadTrigger;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.ReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
@@ -28,10 +30,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Disabled
 @Config
-@TeleOp(name = "Nathaniel + Kevin", group = "nathaniel")
-public class TeleNK extends MatchOpMode {
+@TeleOp(name = "Kyle + Haddon", group = "kyle")
+public class TeleKH extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
 
@@ -39,14 +40,12 @@ public class TeleNK extends MatchOpMode {
     private Drivetrain drivetrain;
     private Lift lift;
     private Intake intake;
-    private Arm arm;
 
     //Buttons
     private Button intakeButton, outtakeButton;
-    private Button slowModeTrigger;
+    private Button slowModeTrigger, reallySlowModeTrigger;
     public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
     public Button deliveryButton;
-    public Button armUp, armDown, armScore, armRest;
 
 
     @Override
@@ -56,7 +55,6 @@ public class TeleNK extends MatchOpMode {
         drivetrain.init();
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
-        arm = new Arm(hardwareMap, telemetry);
 
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
@@ -66,24 +64,20 @@ public class TeleNK extends MatchOpMode {
     @Override
     public void configureButtons() {
         slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
+        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new ReallySlowDriveCommand(drivetrain, driverGamepad));
 
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));
 
         liftUpButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
-        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::liftResting));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
-        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
+        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
                 new InstantCommand(lift::openDelivery, lift),
                 new InstantCommand(lift::closeDelivery, lift)
         );
-/*
-        armDown = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(arm::armDown));
-        armScore  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X).whenPressed(arm::armScore));
-        armRest = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(arm::armRest));
- */
     }
 
     @Override
@@ -92,9 +86,8 @@ public class TeleNK extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        lift.liftResting();
+        lift.liftLow();
         lift.closeDelivery();
-        //arm.armRest();
     }
 
     @Override

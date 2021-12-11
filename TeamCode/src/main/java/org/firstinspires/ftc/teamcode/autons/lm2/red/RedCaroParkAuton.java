@@ -25,8 +25,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 //@Disabled
-@Autonomous(name = "Red Warehouse", group = "RED")
-public class RedWarehouse extends MatchOpMode {
+@Autonomous(name = "Red Carousel Park", group = "RED")
+public class RedCaroParkAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 0;
@@ -67,20 +67,8 @@ public class RedWarehouse extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(/*
-                new SelectCommand(new HashMap<Object, Command>() {{
-                    put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new RedWarehouseCommandL(drivetrain, lift, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new RedWarehouseCommandC(drivetrain, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new RedWarehouseCommandR(drivetrain, lift, telemetry)
-                    ));
-                }}, vision::getCurrentPosition)
-                */
-                new RedWarehouseCommandL(drivetrain, lift, telemetry)
+        schedule(
+                new RedCaroParkCommand(drivetrain, lift, telemetry)
         );
 
     }
