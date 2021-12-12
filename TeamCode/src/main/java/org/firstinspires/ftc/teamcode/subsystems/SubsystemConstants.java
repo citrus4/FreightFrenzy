@@ -46,8 +46,8 @@ public class SubsystemConstants {
     }
 
     public static class DuckWheels {
-        public static double INTAKE_SPEED = 0.5;
-        public static double OUTTAKE_SPEED = -0.5;
+        public static double INTAKE_SPEED = 0.45;
+        public static double OUTTAKE_SPEED = -0.45;
         public static String RIGHT_393_ID = "right_393";
         public static String LEFT_393_ID = "left_393";
     }

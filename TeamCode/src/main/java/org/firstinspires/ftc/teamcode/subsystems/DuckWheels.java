@@ -52,8 +52,21 @@ public class DuckWheels extends SubsystemBase {
     public void otherWayBlue() {
         right393.set(OUTTAKE_SPEED);
     }
-    public void stop() {
+
+    public void spinBoth() {
+        left393.set(INTAKE_SPEED);
+        right393.set(INTAKE_SPEED);
+    }
+    public void otherWayBoth() {
+        left393.set(OUTTAKE_SPEED);
+        right393.set(OUTTAKE_SPEED);
+    }    public void stop() {
         left393.stopMotor();
         right393.stopMotor();
+    }
+
+    public void spinHold() {
+        left393.set(INTAKE_SPEED);
+        right393.set(INTAKE_SPEED);
     }
 }

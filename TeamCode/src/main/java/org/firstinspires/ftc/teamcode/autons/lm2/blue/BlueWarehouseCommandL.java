@@ -28,7 +28,7 @@ public class BlueWarehouseCommandL extends SequentialCommandGroup {
                 new WaitCommand(1000),
                 new InstantCommand(lift::toggleClosed),
                 //back up
-                new DriveForwardCommand(drivetrain, 14),
+                new DriveForwardCommand(drivetrain, 14.5),
                 //turn towards warehouse
                 new TurnCommand(drivetrain, 118),
                 //park - speed
