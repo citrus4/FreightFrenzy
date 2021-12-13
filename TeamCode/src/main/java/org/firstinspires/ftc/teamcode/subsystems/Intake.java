@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Intake.INTAKE_MOTOR_ID;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Intake.INTAKE_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Intake.OUTTAKE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Intake.INTAKE_MOTOR_ID;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Intake.INTAKE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Intake.OUTTAKE_SPEED;
 
 @Config
 public class Intake extends SubsystemBase {

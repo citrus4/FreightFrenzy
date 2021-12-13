@@ -1,37 +1,29 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Util;
+import org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants;
 
 import java.util.logging.Level;
 
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_AUTON_POS;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DOWN_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.HIGH_POSITION;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS_DOWN;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LIFT_TOLERANCE;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.LOW_RESTING_POSITION;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.MID_POSITION;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.UP_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_CLOSE_POS;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DEL_OPEN_POS;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.Lift.DELIVERY_MOTOR_ID;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_DOWN_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_HIGH_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS_DOWN;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_TOLERANCE;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_RESTING_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_MID_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_UP_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.DEL_CLOSE_POS;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.DEL_OPEN_POS;
 
 
 @Config
@@ -100,12 +92,12 @@ public class Lift extends SubsystemBase {
 
     public void liftManual() {
         pidEnabled = false;
-        liftMotor.set(UP_SPEED);
+        liftMotor.set(LIFT_UP_SPEED);
     }
 
     public void lowerLiftManual() {
         pidEnabled = false;
-        liftMotor.set(DOWN_SPEED);
+        liftMotor.set(LIFT_DOWN_SPEED);
     }
 
     public void stopLift() {
@@ -130,21 +122,21 @@ public class Lift extends SubsystemBase {
 
     public void liftLow() {
         pidEnabled = true;
-        controller.setSetPoint(LOW_RESTING_POSITION);
+        controller.setSetPoint(LIFT_RESTING_POSITION);
 
         liftPosition = 0;
     }
 
     public void liftMid() {
         pidEnabled = true;
-        controller.setSetPoint(MID_POSITION);
+        controller.setSetPoint(LIFT_MID_POSITION);
 
         liftPosition = 1;
     }
 
     public void liftHigh() {
         pidEnabled = true;
-        controller.setSetPoint(HIGH_POSITION);
+        controller.setSetPoint(LIFT_HIGH_POSITION);
 
         liftPosition = 2;
     }

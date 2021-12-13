@@ -3,15 +3,14 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.DuckWheels.LEFT_393_ID;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.DuckWheels.RIGHT_393_ID;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.DuckWheels.INTAKE_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.SubsystemConstants.DuckWheels.OUTTAKE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.LEFT_393_ID;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.RIGHT_393_ID;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.INTAKE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.OUTTAKE_SPEED;
 
 @Config
 public class DuckWheels extends SubsystemBase {
