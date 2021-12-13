@@ -79,11 +79,11 @@ public class Lift extends SubsystemBase {
     }
 
     public void toggleOpen() {
-        CURRENT_POSITION = DEL_CLOSE_POS;
+        CURRENT_POSITION = DEL_OPEN_POS;
     }
 
     public void toggleClosed() {
-        CURRENT_POSITION = DEL_OPEN_POS;
+        CURRENT_POSITION = DEL_CLOSE_POS;
     }
 
 
@@ -190,20 +190,6 @@ public class Lift extends SubsystemBase {
         } else if(liftPosition == 2) {
             liftHigh();
         }
-    }
-
-    public void closeDelivery() {
-        deliveryServo.setPosition(DEL_OPEN_POS);
-    }
-
-    public void openDelivery() {
-        deliveryServo.setPosition(DEL_CLOSE_POS);
-    }
-
-
-    public void autonOpenDelivery() {
-        //Util.logger(this, telemetry, Level.INFO, "del pos: ", deliveryServo.getPosition());
-        deliveryServo.setPosition(DEL_AUTON_POS);
     }
 }
 

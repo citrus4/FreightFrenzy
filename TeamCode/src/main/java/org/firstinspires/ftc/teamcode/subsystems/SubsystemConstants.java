@@ -6,8 +6,8 @@ public class SubsystemConstants {
     public static int DEGREES_PER_ROTATION = 360;
 
     public static class Lift {
-        public static double DEL_OPEN_POS = 0.485;
-        public static double DEL_CLOSE_POS = 0.3;
+        public static double DEL_CLOSE_POS = 0.485;
+        public static double DEL_OPEN_POS = 0.3;
         public static double DEL_AUTON_POS = 0.31;
 
         //resting is low

@@ -11,7 +11,7 @@ public class LowerLiftCommand extends SequentialCommandGroup {
     public LowerLiftCommand(Lift lift) {
         addCommands(
                 new InstantCommand(lift::liftLow, lift),
-                new InstantCommand(lift::closeDelivery, lift)
+                new InstantCommand(lift::toggleClosed, lift)
         );
     }
 }
