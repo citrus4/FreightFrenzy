@@ -8,8 +8,8 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.LeosFastDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.ReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
@@ -20,8 +20,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @Config
-@TeleOp(name = "Blue TeleOp", group = "kyle")
-public class TeleBlue extends MatchOpMode {
+@TeleOp(name = "LeoOp", group = "leo")
+public class LeoOp extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
 
@@ -33,7 +33,7 @@ public class TeleBlue extends MatchOpMode {
 
     //Buttons
     private Button intakeButton, outtakeButton;
-    private Button slowModeTrigger, reallySlowModeTrigger;
+    private Button boostTrigger, reallySlowModeTrigger;
     public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
     public Button deliveryButton;
     public Button spinButton, otherWay;
@@ -50,14 +50,14 @@ public class TeleBlue extends MatchOpMode {
 
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
-        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
+        drivetrain.setDefaultCommand(new SlowDriveCommand(drivetrain, driverGamepad));
         lift.closeDel();
     }
 
     @Override
     public void configureButtons() {
-        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
-        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new ReallySlowDriveCommand(drivetrain, driverGamepad));
+        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new ReallySlowDriveCommand(drivetrain, driverGamepad));
+        boostTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new LeosFastDriveCommand(drivetrain, driverGamepad));
 
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));

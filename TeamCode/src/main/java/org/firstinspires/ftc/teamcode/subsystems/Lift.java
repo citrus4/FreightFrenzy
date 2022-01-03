@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.hardware.ServoEx;
@@ -47,7 +49,7 @@ public class Lift extends SubsystemBase {
         this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
 
         this.liftMotor.setDistancePerPulse(SubsystemConstants.DEGREES_PER_ROTATION / SubsystemConstants.Lift.LIFT_TICKS_PER_ROTATION);
-        liftMotor.setInverted(true);
+        liftMotor.setInverted(false);
 
         controller = new PIDFController(LIFT_PID_COEFFICIENTS.p, LIFT_PID_COEFFICIENTS.i, LIFT_PID_COEFFICIENTS.d, LIFT_PID_COEFFICIENTS.f,  getAngle(), getAngle());
         controller.setTolerance(LIFT_TOLERANCE);
@@ -70,13 +72,30 @@ public class Lift extends SubsystemBase {
         deliveryServo.setPosition(CURRENT_POSITION);
     }
 
-    public void toggleOpen() {
-        CURRENT_POSITION = DEL_OPEN_POS;
+    public void toggleDel() {
+        if(CURRENT_POSITION == DEL_OPEN_POS)
+        {
+            CURRENT_POSITION = DEL_CLOSE_POS;
+        }
+        else
+        {
+            CURRENT_POSITION = DEL_OPEN_POS;
+        }
     }
-
-    public void toggleClosed() {
+    public void closeDel() {
         CURRENT_POSITION = DEL_CLOSE_POS;
     }
+
+    public void LowerLiftCommand (){CURRENT_POSITION = DEL_CLOSE_POS;
+        pidEnabled = true;
+        controller.setSetPoint(LIFT_RESTING_POSITION);
+
+        CURRENT_POSITION = DEL_CLOSE_POS;
+    }
+
+
+
+
 
 
     public void toggleAutomatic() {
@@ -126,7 +145,6 @@ public class Lift extends SubsystemBase {
 
         liftPosition = 0;
     }
-
     public void liftMid() {
         pidEnabled = true;
         controller.setSetPoint(LIFT_MID_POSITION);
@@ -149,7 +167,6 @@ public class Lift extends SubsystemBase {
     public boolean atTargetAngle() {
         return controller.atSetPoint();
     }
-
 
     public void setOffset() {
         resetEncoder();

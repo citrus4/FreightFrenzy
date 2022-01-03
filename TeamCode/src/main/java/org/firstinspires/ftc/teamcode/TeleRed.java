@@ -63,6 +63,7 @@ public class TeleRed extends MatchOpMode {
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
+        lift.closeDel();
     }
 
     @Override
@@ -75,12 +76,11 @@ public class TeleRed extends MatchOpMode {
 
         liftUpButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
-        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::LowerLiftCommand));
 
         deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
-                new InstantCommand(lift::toggleOpen, lift),
-                new InstantCommand(lift::toggleClosed, lift)
+                new InstantCommand(lift::toggleDel, lift)
         );
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(

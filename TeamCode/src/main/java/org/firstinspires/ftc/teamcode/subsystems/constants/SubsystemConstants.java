@@ -9,9 +9,9 @@ public class SubsystemConstants {
         public static double DEL_CLOSE_POS = 0.485;
         public static double DEL_OPEN_POS = 0.3;
 
-        public static int LIFT_RESTING_POSITION = 75;
-        public static int LIFT_MID_POSITION = 560;
-        public static int LIFT_HIGH_POSITION = 1050;
+        public static int LIFT_RESTING_POSITION = 0;
+        public static int LIFT_MID_POSITION = 200;
+        public static int LIFT_HIGH_POSITION = 400;
 
         public static double LIFT_UP_SPEED = 1;
         public static double LIFT_DOWN_SPEED = -0.2;
@@ -24,6 +24,7 @@ public class SubsystemConstants {
 
         public static String LIFT_MOTOR_ID = "lift";
         public static String DELIVERY_MOTOR_ID = "delivery";
+        public static String DISTANCE_SENSOR_ID = "distance";
     }
 
     public static class Intake {

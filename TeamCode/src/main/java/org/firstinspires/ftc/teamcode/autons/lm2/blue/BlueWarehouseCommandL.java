@@ -17,16 +17,16 @@ public class BlueWarehouseCommandL extends SequentialCommandGroup {
 
 
         addCommands(
-                new InstantCommand(lift::toggleClosed),
+                new InstantCommand(lift::toggleDel),
                 new DriveForwardCommand(drivetrain, -8),
                 new TurnCommand(drivetrain, -35),
                 //drive to shipping hub
                 new DriveForwardCommand(drivetrain, -21),
                 //lift to correct pos
                 //open delivery
-                new InstantCommand(lift::toggleOpen),
+                new InstantCommand(lift::toggleDel),
                 new WaitCommand(1000),
-                new InstantCommand(lift::toggleClosed),
+                new InstantCommand(lift::toggleDel),
                 //back up
                 new DriveForwardCommand(drivetrain, 14.5),
                 //turn towards warehouse

@@ -17,7 +17,7 @@ public class RedWarehouseCommandL extends SequentialCommandGroup {
 
 
         addCommands(
-                new InstantCommand(lift::toggleClosed),
+                new InstantCommand(lift::toggleDel),
                 new DriveForwardCommand(drivetrain, -8),
                 new TurnCommand(drivetrain, 90),
                 //drive to shipping hub
@@ -26,9 +26,9 @@ public class RedWarehouseCommandL extends SequentialCommandGroup {
                 new DriveForwardCommand(drivetrain, -15),
                 //lift to corredt pos
                 //open delivery
-                new InstantCommand(lift::toggleOpen),
+                new InstantCommand(lift::toggleDel),
                 new WaitCommand(1250),
-                new InstantCommand(lift::toggleClosed),
+                new InstantCommand(lift::toggleDel),
                 //back up
                 new DriveForwardCommand(drivetrain, 8),
                 //turn towards warehouse

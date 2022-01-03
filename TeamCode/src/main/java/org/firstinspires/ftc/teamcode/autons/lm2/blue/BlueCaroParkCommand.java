@@ -15,7 +15,7 @@ public class BlueCaroParkCommand extends SequentialCommandGroup {
 
 
         addCommands(
-                new InstantCommand(lift::toggleClosed),
+                new InstantCommand(lift::toggleDel),
                 new DriveForwardCommand(drivetrain, 17),
                 new TurnCommand(drivetrain, 92),
                 new DriveForwardCommand(drivetrain,100)

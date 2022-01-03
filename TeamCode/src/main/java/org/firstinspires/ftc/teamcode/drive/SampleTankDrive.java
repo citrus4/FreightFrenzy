@@ -13,8 +13,6 @@ import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
 import com.acmerobotics.roadrunner.followers.TrajectoryFollower;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.kinematics.Kinematics;
-import com.acmerobotics.roadrunner.kinematics.TankKinematics;
 import com.acmerobotics.roadrunner.profile.MotionProfile;
 import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
 import com.acmerobotics.roadrunner.profile.MotionState;
@@ -27,23 +25,17 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TankVelocityConstraint
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.acmerobotics.roadrunner.util.NanoClock;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.teamcode.util.AxesSigns;
-import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,15 +58,9 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleTankDrive extends TankDrive {
-    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(5,0, 0);
-    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.02, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(18, 0, 0);
-
-    public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0.001, 0, 0);
-    public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0.001, 0, 0);
-
-    private PIDController leftDriveVeloPID;
-    private PIDController rightDriveVeloPID;
+    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
 
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
@@ -111,9 +97,6 @@ public class SampleTankDrive extends TankDrive {
         dashboard = FtcDashboard.getInstance();
         dashboard.setTelemetryTransmissionInterval(25);
 
-        leftDriveVeloPID = new PIDController(LEFT_DRIVE_PID.kP, LEFT_DRIVE_PID.kI, LEFT_DRIVE_PID.kD);
-        rightDriveVeloPID = new PIDController(RIGHT_DRIVE_PID.kP, RIGHT_DRIVE_PID.kI, RIGHT_DRIVE_PID.kD);
-
         clock = NanoClock.system();
 
         mode = Mode.IDLE;
@@ -147,7 +130,7 @@ public class SampleTankDrive extends TankDrive {
 
         // TODO: if your hub is mounted vertically, remap the IMU axes so that the z-axis points
         // upward (normal to the floor) using a command like the following:
-        BNO055IMUUtil.remapAxes(imu, AxesOrder.XZY, AxesSigns.NPN);
+        // BNO055IMUUtil.remapAxes(imu, AxesOrder.XYZ, AxesSigns.NPN);
 
         // add/remove motors depending on your robot (e.g., 6WD)
         DcMotorEx leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
@@ -178,12 +161,12 @@ public class SampleTankDrive extends TankDrive {
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        leftFront.setDirection(DcMotor.Direction.FORWARD);
         leftCenter.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-        rightCenter.setDirection(DcMotor.Direction.REVERSE);
-        rightRear.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        rightCenter.setDirection(DcMotor.Direction.FORWARD);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
@@ -379,20 +362,6 @@ public class SampleTankDrive extends TankDrive {
         setDrivePower(vel);
     }
 
-
-    @Override
-    public void setDriveSignal(@NotNull DriveSignal driveSignal) {
-        List<Double> velocities = TankKinematics.robotToWheelVelocities(driveSignal.getVel(), TRACK_WIDTH);
-        List<Double> accelerations = TankKinematics.robotToWheelVelocities(driveSignal.getAccel(), TRACK_WIDTH);
-        List<Double> feedforwards = Kinematics.calculateMotorFeedforward(velocities, accelerations, kV, kA, kStatic);
-        leftDriveVeloPID.setPID(LEFT_DRIVE_PID.kP, LEFT_DRIVE_PID.kI, LEFT_DRIVE_PID.kD);
-        rightDriveVeloPID.setPID(RIGHT_DRIVE_PID.kP, RIGHT_DRIVE_PID.kI, RIGHT_DRIVE_PID.kD);
-        double leftOutput = feedforwards.get(0) + leftDriveVeloPID.calculate(getWheelVelocities().get(0), velocities.get(0));
-        double rightOutput = feedforwards.get(1) + leftDriveVeloPID.calculate(getWheelVelocities().get(1), velocities.get(1));
-        setMotorPowers(leftOutput, rightOutput);
-    }
-
-
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
@@ -431,29 +400,4 @@ public class SampleTankDrive extends TankDrive {
     public double getRawExternalHeading() {
         return imu.getAngularOrientation().firstAngle;
     }
-
-    /*
-        @Override
-        public Double getExternalHeadingVelocity() {
-            // TODO: This must be changed to match your configuration
-            //                           | Z axis
-            //                           |
-            //     (Motor Port Side)     |   / X axis
-            //                       ____|__/____
-            //          Y axis     / *   | /    /|   (IO Side)
-            //          _________ /______|/    //      I2C
-            //                   /___________ //     Digital
-            //                  |____________|/      Analog
-            //
-            //                 (Servo Port Side)
-            //
-            // The positive x axis points toward the USB port(s)
-            //
-            // Adjust the axis rotation rate as necessary
-            // Rotate about the z axis is the default assuming your REV Hub/Control Hub is laying
-            // flat on a surface
-
-            return (double) imu.getAngularVelocity().zRotationRate;
-        }
-     */
 }
