@@ -9,9 +9,9 @@ public class SubsystemConstants {
         public static double DEL_CLOSE_POS = 0.38;
         public static double DEL_OPEN_POS = 0.6;
 
-        public static int LIFT_RESTING_POSITION = 0;
+        public static int LIFT_RESTING_POSITION = 90;
         public static int LIFT_MID_POSITION = 400;
-        public static int LIFT_HIGH_POSITION = 915;
+        public static int LIFT_HIGH_POSITION = 900;
 
         public static double LIFT_UP_SPEED = 1;
         public static double LIFT_DOWN_SPEED = -0.2;

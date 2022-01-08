@@ -52,6 +52,7 @@ public class LeoOp extends MatchOpMode {
         operatorGamepad = new GamepadEx(gamepad2);
         drivetrain.setDefaultCommand(new SlowDriveCommand(drivetrain, driverGamepad));
         lift.closeDel();
+        lift.liftLow();
     }
 
     @Override

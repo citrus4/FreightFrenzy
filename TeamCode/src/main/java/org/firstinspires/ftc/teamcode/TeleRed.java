@@ -64,6 +64,7 @@ public class TeleRed extends MatchOpMode {
         operatorGamepad = new GamepadEx(gamepad2);
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
         lift.closeDel();
+        lift.liftLow();
     }
 
     @Override
