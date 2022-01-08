@@ -5,19 +5,31 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
 import java.util.List;
+import java.util.logging.Level;
 
 
 public class Drivetrain extends SubsystemBase {
 
     private final SampleTankDrive drive;
     private Telemetry telemetry;
+
+    double previousForwards = 0;
+    double newForward = 0;
+
+    double deccelNum = 0.01;
+    double accelNum = 0.07;
+
+    ElapsedTime AccelCheck = new ElapsedTime();
 
     public Drivetrain(SampleTankDrive drive, Telemetry tl) {
         this.drive = drive;
@@ -28,6 +40,7 @@ public class Drivetrain extends SubsystemBase {
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setMotorPowers(0, 0);
         drive.setPoseEstimate(new Pose2d());
+        AccelCheck.reset();
     }
     @Override
     public void periodic() {
@@ -59,9 +72,52 @@ public class Drivetrain extends SubsystemBase {
         forward = clipRange(forward);
         rotate = clipRange(rotate);
 
+
+        if(AccelCheck.milliseconds() > 10) {
+            Util.logger(this, telemetry, Level.INFO, "Forward: ", forward);
+            Util.logger(this, telemetry, Level.INFO, "New forward:", newForward);
+            Util.logger(this, telemetry, Level.INFO, "Prev  forward: ", previousForwards);
+            AccelCheck.reset();
+
+
+            if (Math.abs(previousForwards) - Math.abs(forward) < 0) {
+                if (previousForwards - forward > deccelNum) {
+                    newForward = previousForwards - deccelNum;
+                    previousForwards = newForward;
+                } else if (previousForwards - forward < -deccelNum) {
+                    newForward = previousForwards + deccelNum;
+                    previousForwards = newForward;
+                } else if ((previousForwards - forward <= deccelNum || previousForwards - forward >= -deccelNum)) {
+                    newForward = forward;
+                    previousForwards = newForward;
+                } else {
+                    newForward = 0;
+                    previousForwards = 0;
+                }
+            }
+                if (Math.abs(previousForwards) - Math.abs(forward) > 0) {
+                    if (previousForwards - forward > accelNum) {
+                        newForward = previousForwards - accelNum;
+                        previousForwards = newForward;
+                    } else if (previousForwards - forward < -accelNum) {
+                        newForward = previousForwards + accelNum;
+                        previousForwards = newForward;
+                    } else if ((previousForwards - forward <= accelNum || previousForwards - forward >= -accelNum)) {
+                        newForward = forward;
+                        previousForwards = newForward;
+                    } else {
+                        newForward = 0;
+                        previousForwards = 0;
+                    }
+                } else {
+                    newForward = forward;
+                    previousForwards = newForward;
+                }
+        }
+
         double[] wheelSpeeds = new double[2];
-        wheelSpeeds[0] = forward + rotate;
-        wheelSpeeds[1] = forward - rotate;
+        wheelSpeeds[0] = newForward + rotate;
+        wheelSpeeds[1] = newForward - rotate;
 
         normalize(wheelSpeeds);
 

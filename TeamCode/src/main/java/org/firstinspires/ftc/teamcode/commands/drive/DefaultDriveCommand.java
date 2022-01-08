@@ -15,6 +15,7 @@ public class DefaultDriveCommand extends CommandBase {
     private GamepadEx driverGamepad;
 
     protected double multiplier;
+    protected double rotMultiplier;
 
     public DefaultDriveCommand(Drivetrain drive, GamepadEx driverGamepad) {
 
@@ -22,13 +23,14 @@ public class DefaultDriveCommand extends CommandBase {
         this.driverGamepad = driverGamepad;
 
         this.multiplier = 1;
+        this.rotMultiplier = 0.5;
         addRequirements(this.drive);
     }
 
     @Override
     public void execute() {
         // Arcade Drive
-        drive.arcadeDrive(driverGamepad.getLeftY() * multiplier, driverGamepad.getRightX() * multiplier);
+        drive.arcadeDrive(driverGamepad.getLeftY() * multiplier, driverGamepad.getRightX() * rotMultiplier);
 
         // Tank Drive
         //https://github.com/FTCLib/RoadRunner-FTCLib-Quickstart/blob/main/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/commands/MecanumDriveCommand.java

@@ -32,7 +32,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @Config
-@TeleOp(name = "Red TeleOp", group = "kyle")
+@TeleOp(name = "Red TeleOp", group = "red")
 public class TeleRed extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;

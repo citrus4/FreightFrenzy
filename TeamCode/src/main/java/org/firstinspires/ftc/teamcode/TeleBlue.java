@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DefaultDriveCommand;
@@ -20,7 +21,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @Config
-@TeleOp(name = "Blue TeleOp", group = "kyle")
+@TeleOp(name = "Blue TeleOp", group = "blue")
 public class TeleBlue extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
