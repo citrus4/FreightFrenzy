@@ -8,5 +8,6 @@ public class LeosFastDriveCommand extends DefaultDriveCommand {
     public LeosFastDriveCommand(Drivetrain drive, GamepadEx driverGamepad) {
         super(drive, driverGamepad);
         this.multiplier = 1.0;
+        this.rotMultiplier = 0.5;
     }
 }

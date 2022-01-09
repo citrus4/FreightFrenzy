@@ -8,5 +8,6 @@ public class SlowDriveCommand extends DefaultDriveCommand {
     public SlowDriveCommand(Drivetrain drive, GamepadEx driverGamepad) {
         super(drive, driverGamepad);
         this.multiplier = 0.25;
+        this.rotMultiplier = 0.25;
     }
 }

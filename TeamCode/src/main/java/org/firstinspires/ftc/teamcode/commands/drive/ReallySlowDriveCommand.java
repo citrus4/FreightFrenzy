@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class ReallySlowDriveCommand extends DefaultDriveCommand {
     public ReallySlowDriveCommand(Drivetrain drive, GamepadEx driverGamepad) {
         super(drive, driverGamepad);
-        this.multiplier = 0.1;
+        this.multiplier = 0.15;
+        this.rotMultiplier = 0.15;
     }
 }

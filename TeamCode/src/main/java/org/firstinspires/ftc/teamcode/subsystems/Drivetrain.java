@@ -71,7 +71,7 @@ public class Drivetrain extends SubsystemBase {
         double maxInput = Math.copySign(Math.max(Math.abs(forward), Math.abs(rotate)), forward);
         forward = clipRange(forward);
         rotate = clipRange(rotate);
-
+/*
 
         if(AccelCheck.milliseconds() > 10) {
             Util.logger(this, telemetry, Level.INFO, "Forward: ", forward);
@@ -115,9 +115,11 @@ public class Drivetrain extends SubsystemBase {
                 }
         }
 
+ */
+
         double[] wheelSpeeds = new double[2];
-        wheelSpeeds[0] = newForward + rotate;
-        wheelSpeeds[1] = newForward - rotate;
+        wheelSpeeds[0] = forward + rotate;
+        wheelSpeeds[1] = forward - rotate;
 
         normalize(wheelSpeeds);
 

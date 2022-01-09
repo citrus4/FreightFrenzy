@@ -23,7 +23,7 @@ public class DefaultDriveCommand extends CommandBase {
         this.driverGamepad = driverGamepad;
 
         this.multiplier = 1;
-        this.rotMultiplier = 0.5;
+        this.rotMultiplier = 0.75;
         addRequirements(this.drive);
     }
 

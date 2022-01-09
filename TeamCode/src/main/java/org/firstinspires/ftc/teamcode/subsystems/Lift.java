@@ -49,7 +49,8 @@ public class Lift extends SubsystemBase {
         this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
 
         this.liftMotor.setDistancePerPulse(SubsystemConstants.DEGREES_PER_ROTATION / SubsystemConstants.Lift.LIFT_TICKS_PER_ROTATION);
-        liftMotor.setInverted(false);
+        liftMotor.setInverted(true);
+//changed lift motor direction from false
 
         controller = new PIDFController(LIFT_PID_COEFFICIENTS.p, LIFT_PID_COEFFICIENTS.i, LIFT_PID_COEFFICIENTS.d, LIFT_PID_COEFFICIENTS.f,  getAngle(), getAngle());
         controller.setTolerance(LIFT_TOLERANCE);
