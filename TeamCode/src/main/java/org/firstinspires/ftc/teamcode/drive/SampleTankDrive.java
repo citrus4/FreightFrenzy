@@ -62,12 +62,12 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleTankDrive extends TankDrive {
-    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(7, 0, 1);
-    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.06, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(14.5, 0, 1);
+    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(5, 0, 0); //7,0,1
+    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.04, 0, 0); //0.06,0,0
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(14, 0, 0.6); //14.5,0,1
 
-    public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0.001, 0, 0);
-    public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0.001, 0, 0);
+    public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0.01, 0, 0);
+    public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0.01, 0, 0);
 
     private PIDController leftDriveVeloPID;
     private PIDController rightDriveVeloPID;
