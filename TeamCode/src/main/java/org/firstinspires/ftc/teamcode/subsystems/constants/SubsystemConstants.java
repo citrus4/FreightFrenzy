@@ -18,8 +18,8 @@ public class SubsystemConstants {
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6
         //turn these down
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.008, 0.00008, 0, 0);
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS_DOWN = new PIDFCoefficients(0.0008, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.015, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS_DOWN = new PIDFCoefficients(0.0005, 0.00008, 0, 0);
         public static int LIFT_TOLERANCE = 5;
 
         public static String LIFT_MOTOR_ID = "lift";
