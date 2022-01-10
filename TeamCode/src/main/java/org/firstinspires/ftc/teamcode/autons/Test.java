@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.util.HashMap;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "TEST", group = "testing")
 public class Test extends MatchOpMode {
     public static double startPoseX = 0;
