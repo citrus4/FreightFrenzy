@@ -7,26 +7,9 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class FFRectMarkerPipeline extends OpenCvPipeline {
-
-    //We declare the mats on top so we can reuse them later to avoid memory leaks
-    private Mat matHSV = new Mat();
-    private Mat tempMat = new Mat();
-    private Mat preThresh = new Mat();
-    private Mat matHsvLeft = new Mat();
-    private Mat matHsvCenter = new Mat();
-    private Mat matHsvRight = new Mat();
-    private Mat leftBlock = new Mat();
-    private Mat centerBlock = new Mat();
-    private Mat rightBlock = new Mat();
-
-    //Where the average value of the rectangles are stored
-    private double leftAverage;
-    private double centerAverage;
-    private double rightAverage;
-
-    //The max difference allowed inside the rectangles
-    private int threshold = 15;
+public class NewTeamMarkerPipeline extends OpenCvPipeline {
+    public Scalar minThreshold = new Scalar(0, 110, 37);
+    public Scalar maxThreshold = new Scalar(33, 255, 255);
 
     //The position related to the screen
     public double leftRectWidthPercentage = 0.05;
@@ -36,29 +19,24 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
     public double rightRectWidthPercentage = 0.72;
     public double rightRectHeightPercentage = 0.3;
 
+    //Where the average value of the rectangles are stored
+    private double leftAverage;
+    private double centerAverage;
+    private double rightAverage;
+
     //The width and height of the rectangles in terms of pixels
-    //started at 10
     public int rectangleWidth = 15;
     public int rectangleHeight = 15;
-//--------------------------------------------------------------------------------------------------
-    public Scalar minThreshold = new Scalar(0, 0, 0);
-    public Scalar maxThreshold = new Scalar(90, 255, 255);
-//--------------------------------------------------------------------------------------------------
+
     @Override
     public Mat processFrame(Mat input) {
-        /**
-         *input which is in RGB is the frame the camera gives
-         *We convert the input frame to the color space matYCrCb
-         *Then we store this converted color space in the mat matYCrCb
-         *For all the color spaces go to
-         *https://docs.opencv.org/3.4/d8/d01/group__imgproc__color__conversions.html
-         */
-        Imgproc.cvtColor(input, preThresh, Imgproc.COLOR_RGB2HSV);
+        Mat matHSV = new Mat();
 
-        Core.inRange(preThresh, minThreshold, maxThreshold, matHSV);
-        //Core.extractChannel(matHSV2, matHSV, 0);
+        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_RGB2HSV);
 
-        Mat display = new Mat();
+        Mat threshold = new Mat();
+
+        Core.inRange(matHSV, minThreshold, maxThreshold, threshold);
 
         //The points needed for the rectangles are calculated here
         Rect leftRect = new Rect(
@@ -83,19 +61,15 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
                 rectangleHeight
         );
 
-        drawRectOnToMat(display, leftRect, new Scalar(255, 0, 0));
-        drawRectOnToMat(display, centerRect, new Scalar(0, 255, 0));
-        drawRectOnToMat(display, rightRect, new Scalar(0, 0, 255));
-//-------------------------------------------------------------------------------------------------------------
+        drawRectOnToMat(input, leftRect, new Scalar(255, 0, 0));
+        drawRectOnToMat(input, centerRect, new Scalar(255, 0, 0));
+        drawRectOnToMat(input, rightRect, new Scalar(255, 0, 0));
+
         //We crop the image so it is only everything inside the rectangles and find the cb value inside of them
-        leftBlock = matHSV.submat(leftRect);
-        centerBlock = matHSV.submat(centerRect);
-        rightBlock = matHSV.submat(rightRect);
-/*
-        Core.extractChannel(leftBlock, matHsvLeft, 0);
-        Core.extractChannel(centerBlock, matHsvCenter, 0);
-        Core.extractChannel(rightBlock, matHsvRight, 0);
- */
+        Mat leftBlock = threshold.submat(leftRect);
+        Mat centerBlock = threshold.submat(centerRect);
+        Mat rightBlock = threshold.submat(rightRect);
+
         //We take the average
         Scalar leftMean = Core.mean(leftBlock);
         Scalar centerMean = Core.mean(centerBlock);
@@ -104,26 +78,35 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
         leftAverage = leftMean.val[0];
         centerAverage = centerMean.val[0];
         rightAverage = rightMean.val[0];
+        if(leftAverage > centerAverage && leftAverage > centerAverage) {
+            drawRectOnToMat(input, leftRect, new Scalar(0, 255, 0));
+        }
+        else if (centerAverage > leftAverage && centerAverage > rightAverage) {
+            drawRectOnToMat(input, centerRect, new Scalar(0, 255, 0));
+        } else {
+            drawRectOnToMat(input, rightRect, new Scalar(0, 255, 0));
+        }
 
-        //return the mat to be shown onto the screen
-        return display;
 
+        return input;
     }
-
-    /**
-     * Draw the rectangle onto the desired mat
-     *
-     * @param mat   The mat that the rectangle should be drawn on
-     * @param rect  The rectangle
-     * @param color The color the rectangle will be
-     */
     private void drawRectOnToMat(Mat mat, Rect rect, Scalar color) {
         Imgproc.rectangle(mat, rect, color, 1);
     }
 
+
+
+
+
+
+
+
+
+
     public double getLeftAverage() {
         return leftAverage;
     }
+
 
     public double getCenterAverage() {
         return centerAverage;
@@ -131,14 +114,6 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
 
     public double getRightAverage() {
         return rightAverage;
-    }
-
-    public void setThreshold(int threshold) {
-        this.threshold = threshold;
-    }
-
-    public int getThreshold() {
-        return threshold;
     }
 
     public void setLeftRectWidthPercentage(double topRectWidthPercentage) {
@@ -172,6 +147,4 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
     public void setRectangleHeight(int rectangleHeight) {
         this.rectangleHeight = rectangleHeight;
     }
-
 }
-

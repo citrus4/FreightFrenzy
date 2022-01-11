@@ -16,7 +16,7 @@ public class FFRectDetector {
     private boolean isUsingWebcam;
     private String webcamName;
     private final HardwareMap hardwareMap;
-    private TeamMarkerPipeline ftclibPipeline;
+    private TeamMarkerPipeline teamMarkerPipeline;
 
     public static int CAMERA_WIDTH = 320, CAMERA_HEIGHT = 240;
     public static OpenCvCameraRotation ORIENTATION = OpenCvCameraRotation.UPRIGHT;
@@ -49,7 +49,7 @@ public class FFRectDetector {
         }
 
         //Set the pipeline the camera should use and start streaming
-        camera.setPipeline(ftclibPipeline = new TeamMarkerPipeline());
+        camera.setPipeline(teamMarkerPipeline = new TeamMarkerPipeline());
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
@@ -64,36 +64,38 @@ public class FFRectDetector {
     }
 
     public TeamMarkerPipeline.Position getPosition() {
-        return ftclibPipeline.getPosition();
+        return teamMarkerPipeline.getPosition();
+    }
+/*
+    public void setThreshold(int threshold) {
+        teamMarkerPipeline.setThreshold(threshold);
     }
 
-    public void setThreshold(int threshold) {
-        ftclibPipeline.setThreshold(threshold);
-    }
+ */
 
     public double getLeftAverage() {
-        return ftclibPipeline.getLeftAverage();
+        return teamMarkerPipeline.getLeftAverage();
     }
 
     public double getCenterAverage() {
-        return ftclibPipeline.getCenterAverage();
+        return teamMarkerPipeline.getCenterAverage();
     }
 
     public double getRightAverage() {
-        return ftclibPipeline.getRightAverage();
+        return teamMarkerPipeline.getRightAverage();
     }
 
     public void setLeftRectangle(double x, double y) {
-        ftclibPipeline.setLeftRectangle(x,y);
+        teamMarkerPipeline.setLeftRectangle(x,y);
     }
     public void setCenterRectangle(double x, double y) {
-        ftclibPipeline.setCenterRectangle(x,y);
+        teamMarkerPipeline.setCenterRectangle(x,y);
     }
     public void setRightRectangle(double x, double y) {
-        ftclibPipeline.setRightRectangle(x,y);
+        teamMarkerPipeline.setRightRectangle(x,y);
     }
     public void setRectangleSize(int w, int h) {
-        ftclibPipeline.setRectangleSize(w,h);
+        teamMarkerPipeline.setRectangleSize(w,h);
     }
 
 }

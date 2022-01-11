@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Config
-public class TeamMarkerPipeline extends FFRectMarkerPipeline {
+public class TeamMarkerPipeline extends NewTeamMarkerPipeline {
 
     public static double MIN = 105;
     public static double MAX = 110;

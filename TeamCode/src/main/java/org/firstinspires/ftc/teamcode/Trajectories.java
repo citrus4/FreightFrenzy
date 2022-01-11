@@ -68,20 +68,7 @@ public class Trajectories {
     }
     @Config
     public static class CarouselRed {
-        public static Pose2d startPose = new Pose2d(-62.5, 52, Math.toRadians(180));
-
-        public static double wobbleGoalSquareDistance = 84;
-        public static double wobbleGoalX = 20;
-
-        public static double wobbleGoalY = 30;
-
-        public static double highGoalX = -3;
-        public static double highGoalY = 38;
-        public static double intakeFirst = 36;
-        public static double intakeDistance = 12;
-        public static double shootMoreDistance = 24;
-        public static double wobbleDistance = 26;
-        public static double wobbleAngle = 195;
+        public static Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
     }
     @Config
     public static class CarouselBlue {
