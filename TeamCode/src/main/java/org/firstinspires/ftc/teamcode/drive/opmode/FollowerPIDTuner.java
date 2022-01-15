@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
@@ -32,13 +34,15 @@ public class FollowerPIDTuner extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(-DISTANCE / 2, -DISTANCE / 2, 0);
-
+        //Pose2d startPose = new Pose2d(-DISTANCE / 2, -DISTANCE / 2, 0);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Pose2d startPose = new Pose2d(0, 0, 0);
         drive.setPoseEstimate(startPose);
 
         waitForStart();
 
         if (isStopRequested()) return;
+
 
         while (!isStopRequested()) {
             Trajectory traj = drive.trajectoryBuilder(startPose)

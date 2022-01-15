@@ -15,8 +15,9 @@ public class SplineCommand extends CommandBase{
 
     Drivetrain drive;
     Trajectory trajectory;
-    boolean reverse = false;
     Vector2d splinePos;
+
+    boolean reverse = false;
     double endHeading;
 
     MinVelocityConstraint maxVelConstraint;

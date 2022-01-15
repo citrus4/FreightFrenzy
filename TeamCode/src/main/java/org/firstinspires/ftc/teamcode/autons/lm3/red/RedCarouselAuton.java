@@ -8,20 +8,22 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Util;
+import org.firstinspires.ftc.teamcode.autons.TestAutonCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 
 import java.util.HashMap;
 import java.util.logging.Level;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Red Carousel", group = "RED")
 public class RedCarouselAuton extends MatchOpMode {
     public static double startPoseX = 0;
@@ -41,7 +43,8 @@ public class RedCarouselAuton extends MatchOpMode {
     private Drivetrain drivetrain;
     private Intake intake;
     private Lift lift;
-    private Vision vision;
+    //private Vision vision;
+    private DuckWheels duckWheels;
 
     @Override
     public void robotInit() {
@@ -50,32 +53,23 @@ public class RedCarouselAuton extends MatchOpMode {
         drivetrain.init();
 
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
-        vision = new Vision(hardwareMap, "Webcam 1", telemetry);
+        //vision = new Vision(hardwareMap, "Webcam 1", telemetry);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
+        duckWheels = new DuckWheels(hardwareMap, telemetry);
     }
 
     @Override
     public void disabledPeriodic() {
-        Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getCurrentPosition());
-        vision.periodic();
+        //Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getCurrentPosition());
+        //vision.periodic();
     }
 
     @Override
     public void matchStart() {
         schedule(
-                new SelectCommand(new HashMap<Object, Command>() {{
-                    put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new RedCarouselCommandL(drivetrain, lift, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new RedCarouselCommandC(drivetrain, lift, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new RedCarouselCommandR(drivetrain, lift, telemetry)
-                    ));
-                }}, vision::getCurrentPosition)
+                new RedCaroParkCommand(drivetrain, intake, duckWheels, lift, telemetry)
 
         );
 

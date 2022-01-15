@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Red Carousel Park", group = "RED")
 public class RedCaroParkAuton extends MatchOpMode {
     public static double startPoseX = 0;

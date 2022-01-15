@@ -14,6 +14,29 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 public class BlueWarehouseCommandC extends SequentialCommandGroup {
     public BlueWarehouseCommandC(Drivetrain drivetrain, Lift lift, Telemetry telemetry) {
         addCommands(
+                new InstantCommand(lift::closeDel),
+                new DriveForwardCommand(drivetrain, 8),
+                new TurnCommand(drivetrain, 90),
+                //drive to shipping hub
+                new DriveForwardCommand(drivetrain, 20),
+                new TurnCommand(drivetrain, -92),
+                new DriveForwardCommand(drivetrain, 14),
+                //lift to correct pos ---------------------------------------
+                new InstantCommand(lift::liftMid),
+                //open delivery
+                new DriveForwardCommand(drivetrain, 1),
+                new WaitCommand(750),
+                new InstantCommand(lift::openDel),
+                new WaitCommand(1250),
+                new InstantCommand(lift::closeDel),
+                //back up
+                new DriveForwardCommand(drivetrain, -9.5),
+                new InstantCommand(lift::liftLow),
+                //turn towards warehouse
+                new TurnCommand(drivetrain, -88),
+                //park
+                new FastDriveCommand(drivetrain, 72)
+
         );
     }
 }

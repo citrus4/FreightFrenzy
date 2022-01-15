@@ -62,7 +62,7 @@ public class Lift extends SubsystemBase {
     @Override
     public void periodic() {
         if (pidEnabled) {
-            controller.setF(LIFT_PID_COEFFICIENTS.f * Math.cos(Math.toRadians(controller.getSetPoint())));
+            //controller.setF(LIFT_PID_COEFFICIENTS.f * Math.cos(Math.toRadians(controller.getSetPoint())));
             double output = controller.calculate(getAngle());
             liftMotor.set(output);
         }
@@ -84,6 +84,10 @@ public class Lift extends SubsystemBase {
     }
     public void closeDel() {
         CURRENT_POSITION = DEL_CLOSE_POS;
+    }
+
+    public void openDel() {
+        CURRENT_POSITION = DEL_OPEN_POS;
     }
 
     public void LowerLiftCommand (){CURRENT_POSITION = DEL_CLOSE_POS;
@@ -183,7 +187,7 @@ public class Lift extends SubsystemBase {
     }
 
     public void moveDown() {
-        controller.setP(LIFT_PID_COEFFICIENTS_DOWN.p);
+        //controller.setP(LIFT_PID_COEFFICIENTS_DOWN.p);
         liftPosition = liftPosition - 1;
         if(liftPosition < 0) {
             liftPosition = 0;

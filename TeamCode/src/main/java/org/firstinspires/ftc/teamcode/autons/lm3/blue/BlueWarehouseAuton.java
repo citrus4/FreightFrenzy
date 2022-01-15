@@ -13,10 +13,12 @@ import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueWarehouseCommandL;
 import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueWarehouseCommandC;
 import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueWarehouseCommandR;
+import org.firstinspires.ftc.teamcode.autons.lm3.red.RedWarehouseSideParkCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Vision;
@@ -44,7 +46,7 @@ private GamepadEx driverGamepad;
 private Drivetrain drivetrain;
 private Intake intake;
 private Lift lift;
-private Vision vision;
+private DuckWheels duckWheels;
 
 @Override
 public void robotInit() {
@@ -53,33 +55,22 @@ public void robotInit() {
     drivetrain.init();
 
   //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
-    vision = new Vision(hardwareMap, "Webcam 1", telemetry);
+
     drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
     intake = new Intake(hardwareMap, telemetry);
     lift = new Lift(hardwareMap, telemetry);
+    duckWheels = new DuckWheels(hardwareMap, telemetry);
 }
 
 @Override
 public void disabledPeriodic() {
-    Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getCurrentPosition());
-    vision.periodic();
+
 }
 
 @Override
 public void matchStart() {
     schedule(
-            new SelectCommand(new HashMap<Object, Command>() {{
-                put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                        new BlueWarehouseCommandL(drivetrain, lift, telemetry)
-                ));
-                put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                        new BlueWarehouseCommandC(drivetrain, lift, telemetry)
-                ));
-                put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                        new BlueWarehouseCommandR(drivetrain, lift, telemetry)
-                ));
-            }}, vision::getCurrentPosition)
-
+            new RedWarehouseSideParkCommand(drivetrain, intake, duckWheels, lift, telemetry)
     );
 
 }

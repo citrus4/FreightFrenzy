@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Blue Warehouse 2", group = "BLUE")
 public class BlueWarehouseAuton extends MatchOpMode {
 public static double startPoseX = 0;

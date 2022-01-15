@@ -45,6 +45,10 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         update();
+        Util.logger(this, telemetry, Level.INFO, "current drive: ",getPoseEstimate());
+        Util.logger(this, telemetry, Level.INFO, "current drivewheel: ", drive.getWheelPositions());
+
+
     }
 
     public void setMode(DcMotor.RunMode mode) {

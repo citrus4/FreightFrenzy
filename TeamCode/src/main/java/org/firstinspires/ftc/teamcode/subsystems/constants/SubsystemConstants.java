@@ -9,16 +9,16 @@ public class SubsystemConstants {
         public static double DEL_CLOSE_POS = 0.4;
         public static double DEL_OPEN_POS = 0.6;
 
-        public static int LIFT_RESTING_POSITION = 50;
+        public static int LIFT_RESTING_POSITION = 10;
         public static int LIFT_MID_POSITION = 400;
-        public static int LIFT_HIGH_POSITION = 960;//was 950, might want higher
+        public static int LIFT_HIGH_POSITION = 1000 ;//was 950, might want higher
 
         public static double LIFT_UP_SPEED = 0.1;
         public static double LIFT_DOWN_SPEED = -0.1;
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6
 
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.015, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.0035, 0.00008, 0, 0);
         public static PIDFCoefficients LIFT_PID_COEFFICIENTS_DOWN = new PIDFCoefficients(0.0005, 0.00008, 0, 0);
         public static int LIFT_TOLERANCE = 5;
 
