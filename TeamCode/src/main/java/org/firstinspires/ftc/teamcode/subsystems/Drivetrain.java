@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -45,10 +44,6 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         update();
-        Util.logger(this, telemetry, Level.INFO, "current drive: ",getPoseEstimate());
-        Util.logger(this, telemetry, Level.INFO, "current drivewheel: ", drive.getWheelPositions());
-
-
     }
 
     public void setMode(DcMotor.RunMode mode) {
@@ -76,14 +71,11 @@ public class Drivetrain extends SubsystemBase {
         forward = clipRange(forward);
         rotate = clipRange(rotate);
 /*
-
         if(AccelCheck.milliseconds() > 10) {
             Util.logger(this, telemetry, Level.INFO, "Forward: ", forward);
             Util.logger(this, telemetry, Level.INFO, "New forward:", newForward);
             Util.logger(this, telemetry, Level.INFO, "Prev  forward: ", previousForwards);
             AccelCheck.reset();
-
-
             if (Math.abs(previousForwards) - Math.abs(forward) < 0) {
                 if (previousForwards - forward > deccelNum) {
                     newForward = previousForwards - deccelNum;
@@ -118,7 +110,6 @@ public class Drivetrain extends SubsystemBase {
                     previousForwards = newForward;
                 }
         }
-
  */
 
         double[] wheelSpeeds = new double[2];

@@ -28,19 +28,16 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryAcceleration
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.acmerobotics.roadrunner.util.NanoClock;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.util.AxesSigns;
 import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 import org.firstinspires.ftc.teamcode.util.DashboardUtil;
@@ -50,7 +47,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ACCEL;
 import static org.firstinspires.ftc.teamcode.drive.DriveConstants.MAX_ANG_ACCEL;
@@ -69,17 +65,12 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
  */
 @Config
 public class SampleTankDrive extends TankDrive {
-    /*
     public static PIDCoefficients AXIAL_PID = new PIDCoefficients(5, 0, 0); //7,0,1
     public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.04, 0, 0); //0.06,0,0
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(14, 0, 0.6); //14.5,0,1
-     */
-    public static PIDCoefficients AXIAL_PID = new PIDCoefficients(9, 0, 0); //7,0,1
-    public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0.001, 0, 0); //0.06,0,0
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.45, 0, 0); //14.5,0,1
 
-    public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0.01, 0, 0);
+    public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0.01, 0, 0);
 
     private PIDController leftDriveVeloPID;
     private PIDController rightDriveVeloPID;
@@ -110,7 +101,6 @@ public class SampleTankDrive extends TankDrive {
 
     private List<DcMotorEx> motors, leftMotors, rightMotors;
     private BNO055IMU imu;
-
 
     private VoltageSensor batteryVoltageSensor;
 
@@ -174,30 +164,25 @@ public class SampleTankDrive extends TankDrive {
             MotorConfigurationType motorConfigurationType = motor.getMotorType().clone();
             motorConfigurationType.setAchieveableMaxRPMFraction(1.0);
             motor.setMotorType(motorConfigurationType);
-            //new
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
         if (RUN_USING_ENCODER) {
             setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         if (RUN_USING_ENCODER && MOTOR_VELO_PID != null) {
             setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, MOTOR_VELO_PID);
         }
 
         // TODO: reverse any motors using DcMotor.setDirection()
-        leftFront.setDirection(DcMotor.Direction.FORWARD);//f
-        leftCenter.setDirection(DcMotor.Direction.FORWARD);//f
-        leftRear.setDirection(DcMotor.Direction.FORWARD);//f
-        rightFront.setDirection(DcMotor.Direction.FORWARD);//f
-        rightCenter.setDirection(DcMotor.Direction.FORWARD);//f
-        rightRear.setDirection(DcMotor.Direction.REVERSE);//r
-
-
+        leftFront.setDirection(DcMotor.Direction.FORWARD);
+        leftCenter.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        rightCenter.setDirection(DcMotor.Direction.FORWARD);
+        rightRear.setDirection(DcMotor.Direction.REVERSE);
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
@@ -408,28 +393,34 @@ public class SampleTankDrive extends TankDrive {
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
-
-        double leftSum = encoderTicksToInches(leftMotors.get(0).getCurrentPosition());
-        double rightSum = -encoderTicksToInches(rightMotors.get(0).getCurrentPosition());
-
-
-        return Arrays.asList(leftSum, rightSum);
+        double leftSum = 0, rightSum = 0;
+        for (DcMotorEx leftMotor : leftMotors) {
+            leftSum += encoderTicksToInches(leftMotor.getCurrentPosition());
+        }
+        for (DcMotorEx rightMotor : rightMotors) {
+            rightSum += encoderTicksToInches(rightMotor.getCurrentPosition());
+        }
+        return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
     }
 
     public List<Double> getWheelVelocities() {
-        double leftSum = encoderTicksToInches(leftMotors.get(0).getVelocity());
-        double rightSum = -encoderTicksToInches(rightMotors.get(0).getVelocity());
-
-        return Arrays.asList(leftSum, rightSum);
+        double leftSum = 0, rightSum = 0;
+        for (DcMotorEx leftMotor : leftMotors) {
+            leftSum += encoderTicksToInches(leftMotor.getVelocity());
+        }
+        for (DcMotorEx rightMotor : rightMotors) {
+            rightSum += encoderTicksToInches(rightMotor.getVelocity());
+        }
+        return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
     }
 
     @Override
     public void setMotorPowers(double v, double v1) {
         for (DcMotorEx leftMotor : leftMotors) {
-            leftMotor.setPower(-v);
+            leftMotor.setPower(v);
         }
         for (DcMotorEx rightMotor : rightMotors) {
-            rightMotor.setPower(-v1);
+            rightMotor.setPower(v1);
         }
     }
 
