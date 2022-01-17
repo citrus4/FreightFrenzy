@@ -152,11 +152,11 @@ public class SampleTankDrive extends TankDrive {
         DcMotorEx leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         DcMotorEx leftCenter = hardwareMap.get(DcMotorEx.class, "leftCenter");
         DcMotorEx leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        DcMotorEx rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        DcMotorEx rightCenter = hardwareMap.get(DcMotorEx.class, "rightCenter");
         DcMotorEx rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        DcMotorEx rightCenter = hardwareMap.get(DcMotorEx.class, "rightCenter");
+        DcMotorEx rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
 
-        motors = Arrays.asList(leftFront, leftCenter, leftRear, rightRear, rightCenter, rightFront);
+        motors = Arrays.asList(leftFront, leftCenter, leftRear, rightFront, rightCenter, rightRear);
         leftMotors = Arrays.asList(leftFront, leftCenter, leftRear);
         rightMotors = Arrays.asList(rightFront, rightCenter, rightRear);
 
@@ -393,14 +393,20 @@ public class SampleTankDrive extends TankDrive {
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
-        double leftSum = 0, rightSum = 0;
-        for (DcMotorEx leftMotor : leftMotors) {
-            leftSum += encoderTicksToInches(leftMotor.getCurrentPosition());
-        }
-        for (DcMotorEx rightMotor : rightMotors) {
-            rightSum += encoderTicksToInches(rightMotor.getCurrentPosition());
-        }
-        return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
+        /*
+            double leftSum = 0, rightSum = 0;
+            for (DcMotorEx leftMotor : leftMotors) {
+                leftSum += encoderTicksToInches(leftMotor.getCurrentPosition());
+            }
+            for (DcMotorEx rightMotor : rightMotors) {
+                rightSum += encoderTicksToInches(rightMotor.getCurrentPosition());
+            }
+            return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
+         */
+        double leftSum = encoderTicksToInches(leftMotors.get(0).getCurrentPosition());
+        double rightSum = encoderTicksToInches(rightMotors.get(0).getCurrentPosition());
+
+        return Arrays.asList(leftSum, rightSum);
     }
 
     public List<Double> getWheelVelocities() {
