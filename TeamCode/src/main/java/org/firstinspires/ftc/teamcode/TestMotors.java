@@ -52,7 +52,7 @@ public class TestMotors extends OpMode {
     @Override
     public void loop() {
         leftFront.setPower(0.5);
-        telemetry.addData("desired pos", leftFront.getCurrentPosition());
+        telemetry.addData("current pos", leftFront.getCurrentPosition());
         telemetry.update();
     }
 }

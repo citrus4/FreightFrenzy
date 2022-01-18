@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems.constants;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+@Config
 public class SubsystemConstants {
     public static int DEGREES_PER_ROTATION = 360;
 
@@ -11,7 +13,7 @@ public class SubsystemConstants {
 
         public static int LIFT_RESTING_POSITION = 10;
         public static int LIFT_MID_POSITION = 400;
-        public static int LIFT_HIGH_POSITION = 1000 ;//was 950, might want higher
+        public static int LIFT_HIGH_POSITION = 1000;
 
         public static double LIFT_UP_SPEED = 0.1;
         public static double LIFT_DOWN_SPEED = -0.1;
@@ -32,15 +34,6 @@ public class SubsystemConstants {
         public static double OUTTAKE_SPEED = -1;
 
         public static String INTAKE_MOTOR_ID = "intake";
-    }
-//leo's fired for breaking the robot, 12
-    public static class Arm {
-        public static double ARM_UP_POS = 0.55;
-        public static double ARM_DOWN_POS = 0.05;
-        public static double ARM_SCORE_POS = 0.33;
-        public static double ARM_REST_POS = 0.4;
-        public static String ARM_SERVO_ID = "arm";
-        //leo is fired//
     }
 
     public static class DuckWheels {
