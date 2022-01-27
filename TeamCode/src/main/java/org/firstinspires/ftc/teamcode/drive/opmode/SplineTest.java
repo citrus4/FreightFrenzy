@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 /*
  * This is an example of a more complex path to really test the tuning.
  */
-//@Disabled
+@Disabled
 @Autonomous(group = "drive")
 public class SplineTest extends LinearOpMode {
     @Override
@@ -25,7 +25,7 @@ public class SplineTest extends LinearOpMode {
 
         while (opModeIsActive()) {
             Trajectory traj = drive.trajectoryBuilder(new Pose2d())
-                    .splineTo(new Vector2d(30, 30), 0)
+                    .splineTo(new Vector2d(60, 30), 0)
                     .build();
 
             drive.followTrajectory(traj);

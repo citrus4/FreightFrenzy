@@ -30,7 +30,7 @@ public class DefaultDriveCommand extends CommandBase {
     @Override
     public void execute() {
         // Arcade Drive
-        drive.arcadeDrive(-driverGamepad.getLeftY() * multiplier, -driverGamepad.getRightX() * rotMultiplier);
+        drive.arcadeDrive(driverGamepad.getLeftY() * multiplier, driverGamepad.getRightX() * rotMultiplier);
 
         // Tank Drive
         //https://github.com/FTCLib/RoadRunner-FTCLib-Quickstart/blob/main/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/commands/MecanumDriveCommand.java

@@ -5,10 +5,10 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class RamseteConstants {
     //horizontal error adjustment
-    public static double b = 12;
-    public static double zeta = 1.4;
+    public static double b = 18;
+    public static double zeta = 1.15;
 
     //minimize overshoot
-    public static double kLinear = 0.1;
-    public static double kHeading = 7;
+    public static double kLinear = 1;
+    public static double kHeading = 0.2;
 }

@@ -19,7 +19,6 @@ import java.util.logging.Level;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_HIGH_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS_DOWN;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_TOLERANCE;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_RESTING_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_MID_POSITION;
@@ -73,12 +72,10 @@ public class Lift extends SubsystemBase {
     }
 
     public void toggleDel() {
-        if(CURRENT_POSITION == DEL_OPEN_POS)
-        {
+        if(CURRENT_POSITION == DEL_OPEN_POS) {
             CURRENT_POSITION = DEL_CLOSE_POS;
         }
-        else
-        {
+        else {
             CURRENT_POSITION = DEL_OPEN_POS;
         }
     }
@@ -90,10 +87,12 @@ public class Lift extends SubsystemBase {
         CURRENT_POSITION = DEL_OPEN_POS;
     }
 
-    public void LowerLiftCommand (){CURRENT_POSITION = DEL_CLOSE_POS;
+    public void LowerLiftCommand () {
+        CURRENT_POSITION = DEL_CLOSE_POS;
         pidEnabled = true;
         controller.setSetPoint(LIFT_RESTING_POSITION);
 
+        liftPosition = 0;
         CURRENT_POSITION = DEL_CLOSE_POS;
     }
 
@@ -178,7 +177,6 @@ public class Lift extends SubsystemBase {
     }
 
     public void moveUp() {
-        controller.setP(LIFT_PID_COEFFICIENTS.p);
         liftPosition = liftPosition + 1;
         if(liftPosition > 2) {
             liftPosition = 2;
@@ -187,7 +185,6 @@ public class Lift extends SubsystemBase {
     }
 
     public void moveDown() {
-        //controller.setP(LIFT_PID_COEFFICIENTS_DOWN.p);
         liftPosition = liftPosition - 1;
         if(liftPosition < 0) {
             liftPosition = 0;

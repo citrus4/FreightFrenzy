@@ -48,6 +48,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
  * control back to the tuning process.
  */
 @Config
+@Disabled
 @Autonomous(group = "drive")
 public class ManualFeedforwardTuner extends LinearOpMode {
     public static double DISTANCE = 58; // in
