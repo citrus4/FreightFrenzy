@@ -21,7 +21,7 @@ public class CarouselRedCommandSequence extends SequentialCommandGroup {
                 new KindaSlowDriveForwardCommand(drivetrain, -12.4),
                 new IMUTurnCommand(drivetrain, -90, true),
                 new KindaSlowDriveForwardCommand(drivetrain, 30),
-                new InstantCommand(duckWheels::spinAuton),
+                new InstantCommand(duckWheels::spinRedAuton),
                 new KindaSlowDriveForwardCommand(drivetrain, 3),
                 new WaitCommand(4500),
 

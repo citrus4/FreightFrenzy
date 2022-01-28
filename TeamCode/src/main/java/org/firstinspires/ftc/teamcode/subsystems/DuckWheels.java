@@ -7,22 +7,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.AUTON_OPPOSITE_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.AUTON_SPIN_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.LEFT_393_ID;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.OPPOSITE_SPEED;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.RIGHT_393_ID;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.SPIN_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.AUTON_BLUE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.AUTON_RED_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.BLUE_SPEED;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.DUCK_SERVO_ID;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.DuckWheels.RED_SPEED;
 
 @Config
 public class DuckWheels extends SubsystemBase {
     Telemetry telemetry;
-    private CRServo left393;
-    //private CRServo right393;
+    private CRServo duckServo;
 
     public DuckWheels(HardwareMap hw, Telemetry tl) {
-        this.left393 = new CRServo(hw, LEFT_393_ID);
-        left393.setInverted(false);
+        this.duckServo = new CRServo(hw, DUCK_SERVO_ID);
+        duckServo.setInverted(false);
 
         this.telemetry = tl;
     }
@@ -31,43 +29,29 @@ public class DuckWheels extends SubsystemBase {
     public void periodic() {
         //Util.logger(this, telemetry, Level.INFO, "Current Intake Speed", intake.get());
     }
-/*
-    private void set(double speed) {
-        left393.set(speed);
-        right393.set(speed);
+
+    public void spinDuckBlue() {
+        duckServo.set(BLUE_SPEED);
     }
- */
 
     public void spinDuckRed() {
-        left393.set(SPIN_SPEED);
-    }
-
-    public void otherWayRed() {
-        left393.set(OPPOSITE_SPEED);
+        duckServo.set(RED_SPEED);
     }
 
 
-    public void spinBoth() {
-        left393.set(SPIN_SPEED);
-        //right393.set(SPIN_SPEED);
-    }
-    public void otherWayBoth() {
-        left393.set(OPPOSITE_SPEED);
+    public void spinBlueAuton() {
+        duckServo.set(AUTON_BLUE_SPEED);
     }
 
-    public void spinAuton() {
-        left393.set(AUTON_SPIN_SPEED);
-        //right393.set(SPIN_SPEED);
-    }
-    public void otherWayAuton() {
-        left393.set(AUTON_OPPOSITE_SPEED);
+    public void spinRedAuton() {
+        duckServo.set(AUTON_RED_SPEED);
     }
 
     public void stop() {
-        left393.stopMotor();
+        duckServo.stopMotor();
     }
 
     public void spinHold() {
-        left393.set(SPIN_SPEED);
+        duckServo.set(RED_SPEED);
     }
 }

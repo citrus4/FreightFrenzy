@@ -73,12 +73,12 @@ public class TeleRed extends MatchOpMode {
         );
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
-                new InstantCommand(duckWheels::otherWayBoth, duckWheels))
+                new InstantCommand(duckWheels::spinDuckRed, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
 
         otherWay = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN)).whileHeld(
-                new InstantCommand(duckWheels::spinBoth, duckWheels))
+                new InstantCommand(duckWheels::spinBlueAuton, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
     }

@@ -25,7 +25,7 @@ public class BlueCarouselCommandL extends SequentialCommandGroup {
 
                 new SplineCommand(drivetrain, new Vector2d(5, 4), Math.toRadians(147), false),
                 new IMUTurnCommand(drivetrain, 147),
-                new InstantCommand(duckWheels::spinBoth),
+                new InstantCommand(duckWheels::spinBlueAuton),
                 new KindaSlowDriveForwardCommand(drivetrain, 4),
                 new WaitCommand(1500),
                 new InstantCommand(duckWheels::stop),

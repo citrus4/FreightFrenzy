@@ -37,12 +37,11 @@ public class SubsystemConstants {
     }
 
     public static class DuckWheels {
-        public static double SPIN_SPEED = 0.45;
-        public static double OPPOSITE_SPEED = -0.45;
-        public static double AUTON_SPIN_SPEED = 0.3;
-        public static double AUTON_OPPOSITE_SPEED = -0.3;
-        public static String RIGHT_393_ID = "right_393";
-        public static String LEFT_393_ID = "left_393";
+        public static double RED_SPEED = 1;
+        public static double BLUE_SPEED = -1;
+        public static double AUTON_RED_SPEED = 0.35;
+        public static double AUTON_BLUE_SPEED = -0.35;
+        public static String DUCK_SERVO_ID = "left_393";
     }
 /*
 

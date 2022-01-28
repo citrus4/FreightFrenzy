@@ -9,12 +9,14 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.checkerframework.common.reflection.qual.NewInstance;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.autons.champs.blue.CarouselBlueCommandSequence;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.FastDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.IMUTurnCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.KindaSlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.ReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.SlowestDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnToCommand;
@@ -28,30 +30,25 @@ public class TestAutonCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
+                //testing blue left carasouel
                 //command sequence
                 //duck
-                new InstantCommand(lift::closeDel),
-                new KindaSlowDriveForwardCommand(drivetrain, -12.4),
-                new IMUTurnCommand(drivetrain, 90, true),
-                new KindaSlowDriveForwardCommand(drivetrain, 30),
-                new InstantCommand(duckWheels::spinAuton),
-                new KindaSlowDriveForwardCommand(drivetrain, 3),
-                new WaitCommand(4500),
+                new CarouselBlueCommandSequence(drivetrain, lift, duckWheels, telemetry),
 
-                new InstantCommand(duckWheels::stop),
-                new DriveForwardCommand(drivetrain, -5),
-                new IMUTurnCommand(drivetrain, 0),
+
+                //--------------------end command sequence------------------------------------------
+                //--------------------------finished------------------------------------------------
 
                 //deliver pre-load
                 //left(low)
-                new SplineCommand(drivetrain, new Vector2d(56, 5.4), 85, true),
+                new SplineCommand(drivetrain, new Vector2d(25, 5.4), -230, true),
                 new WaitCommand(200),
 
                 //new IMUTurnCommand(drivetrain, 135, true),
                 new IMUTurnCommand(drivetrain, -230, true),
                 new InstantCommand(lift::liftLow),
 
-                new SlowDriveForwardCommand(drivetrain, -12),
+                new SlowDriveForwardCommand(drivetrain, -2),
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
@@ -59,8 +56,9 @@ public class TestAutonCommand extends SequentialCommandGroup {
                 new InstantCommand(lift::toggleDel),
 
                 //park
-                new IMUTurnCommand(drivetrain, 270, true),
-                new SplineCommand(drivetrain,new Vector2d( 31, -25), 270, true)
+                new TurnToCommand(drivetrain, 270, true),
+                new SplineCommand(drivetrain,new Vector2d( 10, -10), 270, true)
+
         );
     }
 }
