@@ -10,14 +10,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Trajectories;
 import org.firstinspires.ftc.teamcode.Util;
-import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueCarouselCommandC;
-import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueCarouselCommandL;
-import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueCarouselCommandR;
-import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueWarehouseCommandL;
-import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueWarehouseCommandC;
-import org.firstinspires.ftc.teamcode.autons.lm3.blue.BlueWarehouseCommandR;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
@@ -80,10 +73,10 @@ public class CarouselBlueAuton extends MatchOpMode {
                             new CarouselBlueCommandL(drivetrain, lift, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            //new CarouseBluelCommandC(drivetrain, lift, telemetry)
+                            new CarouselBlueCommandC(drivetrain, lift, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            //new CarouselBlueCommandR(drivetrain, lift, telemetry)
+                            new CarouselBlueCommandR(drivetrain, lift, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
 

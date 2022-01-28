@@ -12,7 +12,7 @@ public class SubsystemConstants {
         public static double DEL_OPEN_POS = 0.6;
 
         public static int LIFT_RESTING_POSITION = 10;
-        public static int LIFT_MID_POSITION = 400;
+        public static int LIFT_MID_POSITION = 500;
         public static int LIFT_HIGH_POSITION = 1200;
 
         public static double LIFT_UP_SPEED = 0.1;

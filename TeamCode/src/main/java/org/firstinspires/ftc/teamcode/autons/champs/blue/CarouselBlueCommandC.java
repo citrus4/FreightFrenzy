@@ -16,10 +16,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-public class CarouselBlueCommandL extends SequentialCommandGroup {
-    public CarouselBlueCommandL(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
+public class CarouselBlueCommandC extends SequentialCommandGroup {
+    public CarouselBlueCommandC(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
         addCommands(
-                //blue left carousel
+                //blue high carousel
                 //command sequence
                 //duck
                 new CarouselBlueCommandSequence(drivetrain, lift, duckWheels, telemetry),
@@ -35,7 +35,7 @@ public class CarouselBlueCommandL extends SequentialCommandGroup {
 
                 //new IMUTurnCommand(drivetrain, 135, true),
                 new TurnToCommand(drivetrain, -60, true),
-                new InstantCommand(lift::liftLow),
+                new InstantCommand(lift::liftHigh),
 
                 new SlowDriveForwardCommand(drivetrain, -6),//perfect distance
                 new WaitCommand(200),
@@ -43,12 +43,12 @@ public class CarouselBlueCommandL extends SequentialCommandGroup {
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
                 new SlowDriveForwardCommand(drivetrain, 8),
-                new InstantCommand(lift::toggleDel),
+                new InstantCommand(lift::LowerLiftCommand),
 
                 //park
                 new TurnToCommand(drivetrain, 90, true),
                 new SplineCommand(drivetrain,new Vector2d( 14, -9), 270, true)
 
-            );
+        );
     }
 }
