@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "Blue Carousel Auton", group = "BLUE")
 public class CarouselBlueAuton extends MatchOpMode {
     public static double startPoseX = 0;

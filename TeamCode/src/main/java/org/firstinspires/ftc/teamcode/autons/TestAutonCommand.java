@@ -31,7 +31,7 @@ public class TestAutonCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
-                //testing red low carousel
+                //testing red high carousel
                 //command sequence
                 //duck
                 new CarouselRedCommandSequence(drivetrain, lift, duckWheels, telemetry),
@@ -46,20 +46,20 @@ public class TestAutonCommand extends SequentialCommandGroup {
                 new WaitCommand(200),
 
                 //new IMUTurnCommand(drivetrain, 135, true),
-                new TurnToCommand(drivetrain, 30, true),
-                new InstantCommand(lift::liftLow),
+                new TurnToCommand(drivetrain, 35, true),
+                new InstantCommand(lift::liftHigh),
 
                 new SlowDriveForwardCommand(drivetrain, -4.75),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
-                new SlowDriveForwardCommand(drivetrain, 8),
+                new SlowDriveForwardCommand(drivetrain, 8.5),
                 new InstantCommand(lift::LowerLiftCommand),
 
                 //park
                 new TurnToCommand(drivetrain, -90),
-                new SplineCommand(drivetrain,new Vector2d( 14, 16), -270, true)
+                new SplineCommand(drivetrain,new Vector2d( 13, 16), -270, true)
 
         );
     }

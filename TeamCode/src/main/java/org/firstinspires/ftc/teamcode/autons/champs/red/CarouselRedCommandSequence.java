@@ -26,10 +26,10 @@ public class CarouselRedCommandSequence extends SequentialCommandGroup {
                 new InstantCommand(lift::closeDel),
                 new KindaSlowDriveForwardCommand(drivetrain, -15),
                 new TurnToCommand(drivetrain, 130, true),
-                new SlowDriveForwardCommand(drivetrain, 19),
+                new SlowDriveForwardCommand(drivetrain, 18.8),
                 new InstantCommand(duckWheels::spinRedAuton),
                 new ParallelCommandGroup(
-                        new SlowestDriveForwardCommand(drivetrain, 2),
+                        new SlowestDriveForwardCommand(drivetrain, 6),
                         new WaitCommand(4500)
                 ),
                 new InstantCommand(duckWheels::stop),

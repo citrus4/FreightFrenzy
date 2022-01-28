@@ -76,13 +76,13 @@ public class CarouselRedAuton extends MatchOpMode {
         schedule(
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            //new CarouselRedCommandL(drivetrain, lift, duckWheels, telemetry)
+                            new CarouselRedCommandL(drivetrain, lift, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            //new CarouselRedCommandC(drivetrain, lift, telemetry)
+                            new CarouselRedCommandC(drivetrain, lift, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            //new CarouselRedCommandR(drivetrain, lift, telemetry)
+                            new CarouselRedCommandR(drivetrain, lift, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
 
