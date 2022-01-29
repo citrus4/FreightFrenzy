@@ -8,8 +8,8 @@ public class SubsystemConstants {
     public static int DEGREES_PER_ROTATION = 360;
 
     public static class Lift {
-        public static double DEL_CLOSE_POS = 0.4;
-        public static double DEL_OPEN_POS = 0.6;
+        public static double DEL_CLOSE_POS = 0.43;
+        public static double DEL_OPEN_POS = 0.63;
 
         public static int LIFT_RESTING_POSITION = 10;
         public static int LIFT_MID_POSITION = 500;
@@ -20,7 +20,7 @@ public class SubsystemConstants {
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6
 
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.0041, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.0045, 0.00008, 0, 0);
 
         public static int LIFT_TOLERANCE = 5;
 

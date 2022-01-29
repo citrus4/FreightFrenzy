@@ -31,10 +31,10 @@ public class TestAutonCommand extends SequentialCommandGroup {
         //declare variables here
 
         addCommands(
-                //testing red high carousel
+                //testing red warehouse
                 //command sequence
-                //duck
-                new CarouselRedCommandSequence(drivetrain, lift, duckWheels, telemetry),
+                //delivery
+                //new CarouselRedCommandSequence(drivetrain, lift, duckWheels, telemetry),
 
 
                 //--------------------end command sequence------------------------------------------
@@ -42,15 +42,18 @@ public class TestAutonCommand extends SequentialCommandGroup {
 
                 //deliver pre-load
                 //left(low)
-                new SplineCommand(drivetrain, new Vector2d(25, -5.4), 230, true),
+                new SplineCommand(drivetrain, new Vector2d( 14, 11),220, true),
+               //14, 11 perfect red ware house
+               // new SplineCommand(drivetrain, new Vector2d(-5, -10), 130, true),
+
                 new WaitCommand(200),
 
                 //new IMUTurnCommand(drivetrain, 135, true),
-                new TurnToCommand(drivetrain, 35, true),
-                new InstantCommand(lift::liftHigh),
+                new TurnToCommand(drivetrain, 200, false),
+                new InstantCommand(lift::liftLow),
 
-                new SlowDriveForwardCommand(drivetrain, -4.75),//perfect distance
-                new WaitCommand(200),
+                //new SlowDriveForwardCommand(drivetrain, -4.75),//perfect distance
+                //new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
