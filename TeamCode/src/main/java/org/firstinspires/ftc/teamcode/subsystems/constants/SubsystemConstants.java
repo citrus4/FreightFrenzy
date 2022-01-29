@@ -13,7 +13,7 @@ public class SubsystemConstants {
 
         public static int LIFT_RESTING_POSITION = 10;
         public static int LIFT_MID_POSITION = 500;
-        public static int LIFT_HIGH_POSITION = 1200;
+        public static int LIFT_HIGH_POSITION = 1300;
 
         public static double LIFT_UP_SPEED = 0.1;
         public static double LIFT_DOWN_SPEED = -0.1;

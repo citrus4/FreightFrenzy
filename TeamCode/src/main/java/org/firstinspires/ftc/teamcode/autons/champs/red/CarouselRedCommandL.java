@@ -31,10 +31,10 @@ public class CarouselRedCommandL extends SequentialCommandGroup {
                 new WaitCommand(200),
 
                 //new IMUTurnCommand(drivetrain, 135, true),
-                new TurnToCommand(drivetrain, 35, true),
+                new TurnToCommand(drivetrain, 40, true),
                 new InstantCommand(lift::liftLow),
 
-                new SlowDriveForwardCommand(drivetrain, -4.75),//perfect distance
+                new SlowDriveForwardCommand(drivetrain, -5),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
@@ -44,7 +44,7 @@ public class CarouselRedCommandL extends SequentialCommandGroup {
 
                 //park
                 new TurnToCommand(drivetrain, -90),
-                new SplineCommand(drivetrain,new Vector2d( 13, 16), -270, true)
+                new SplineCommand(drivetrain,new Vector2d( 13, 19), -270, true)
         );
     }
 }
