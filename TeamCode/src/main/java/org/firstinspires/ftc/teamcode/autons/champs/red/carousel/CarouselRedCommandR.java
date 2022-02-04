@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons.champs.red;
+package org.firstinspires.ftc.teamcode.autons.champs.red.carousel;
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -13,10 +13,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-public class CarouselRedCommandL extends SequentialCommandGroup {
-    public CarouselRedCommandL(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
+public class CarouselRedCommandR extends SequentialCommandGroup {
+    public CarouselRedCommandR(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
         addCommands(
-                //red low carousel
+                //red high carousel
                 //command sequence
                 //duck
                 new CarouselRedCommandSequence(drivetrain, lift, duckWheels, telemetry),
@@ -32,19 +32,20 @@ public class CarouselRedCommandL extends SequentialCommandGroup {
 
                 //new IMUTurnCommand(drivetrain, 135, true),
                 new TurnToCommand(drivetrain, 40, true),
-                new InstantCommand(lift::liftLow),
+                new InstantCommand(lift::liftHigh),
 
                 new SlowDriveForwardCommand(drivetrain, -5),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
-                new SlowDriveForwardCommand(drivetrain, 8),
+                new SlowDriveForwardCommand(drivetrain, 8.5),
                 new InstantCommand(lift::LowerLiftCommand),
 
                 //park
                 new TurnToCommand(drivetrain, -90),
                 new SplineCommand(drivetrain,new Vector2d( 13, 19), -270, true)
+
         );
     }
 }

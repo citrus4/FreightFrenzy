@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.autons.champs.red;
+package org.firstinspires.ftc.teamcode.autons.champs.blue.carousel;
+
+//bottom level
 
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -13,13 +15,13 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-public class CarouselRedCommandR extends SequentialCommandGroup {
-    public CarouselRedCommandR(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
+public class CarouselBlueCommandC extends SequentialCommandGroup {
+    public CarouselBlueCommandC(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
         addCommands(
-                //red high carousel
+                //blue high carousel
                 //command sequence
                 //duck
-                new CarouselRedCommandSequence(drivetrain, lift, duckWheels, telemetry),
+                new CarouselBlueCommandSequence(drivetrain, lift, duckWheels, telemetry),
 
 
                 //--------------------end command sequence------------------------------------------
@@ -27,24 +29,24 @@ public class CarouselRedCommandR extends SequentialCommandGroup {
 
                 //deliver pre-load
                 //left(low)
-                new SplineCommand(drivetrain, new Vector2d(25, -5.4), 230, true),
+                new SplineCommand(drivetrain, new Vector2d(25, 5.4), -230, true),
                 new WaitCommand(200),
 
                 //new IMUTurnCommand(drivetrain, 135, true),
-                new TurnToCommand(drivetrain, 40, true),
-                new InstantCommand(lift::liftHigh),
+                new TurnToCommand(drivetrain, -60, true),
+                new InstantCommand(lift::liftMid),
 
-                new SlowDriveForwardCommand(drivetrain, -5),//perfect distance
+                new SlowDriveForwardCommand(drivetrain, -9),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
-                new SlowDriveForwardCommand(drivetrain, 8.5),
+                new SlowDriveForwardCommand(drivetrain, 8),
                 new InstantCommand(lift::LowerLiftCommand),
 
                 //park
-                new TurnToCommand(drivetrain, -90),
-                new SplineCommand(drivetrain,new Vector2d( 13, 19), -270, true)
+                new TurnToCommand(drivetrain, 90, true),
+                new SplineCommand(drivetrain,new Vector2d( 13.6, -10), 270, true)
 
         );
     }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons.champs.blue;
+package org.firstinspires.ftc.teamcode.autons.champs.blue.warehouse;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
@@ -8,9 +8,11 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Util;
+import org.firstinspires.ftc.teamcode.autons.champs.red.carousel.CarouselRedCommandC;
+import org.firstinspires.ftc.teamcode.autons.champs.red.carousel.CarouselRedCommandL;
+import org.firstinspires.ftc.teamcode.autons.champs.red.carousel.CarouselRedCommandR;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.pipelines.TeamMarkerPipeline;
@@ -23,9 +25,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-//@Disabled
-@Autonomous(name = "Blue Carousel Auton", group = "BLUE")
-public class CarouselBlueAuton extends MatchOpMode {
+@Autonomous(name = "Blue Warehouse Auton", group = "BLUE")
+public class BlueWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 180;
@@ -70,13 +71,13 @@ public class CarouselBlueAuton extends MatchOpMode {
         schedule(
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new CarouselBlueCommandL(drivetrain, lift, duckWheels, telemetry)
+                            new WarehouseBlueCommandL(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new CarouselBlueCommandC(drivetrain, lift, duckWheels, telemetry)
+                            new WarehouseBlueCommandC(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new CarouselBlueCommandR(drivetrain, lift, duckWheels, telemetry)
+                            new WarehouseBlueCommandR(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
 
