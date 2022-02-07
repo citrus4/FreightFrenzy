@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.commands.drive.KindaSlowDriveForwardComman
 import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.TurnToCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.TwoSplineCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -25,7 +26,7 @@ public class WarehouseBlueCommandL extends SequentialCommandGroup {
 
                 //go to warehouse
                 new InstantCommand(lift::closeDel),
-                new SplineCommand(drivetrain, new Vector2d( 11.25, -10),220, true),
+                new SplineCommand(drivetrain, new Vector2d( 11, -10.0),220, true),
                 new WaitCommand(50),
 
                 //to hub
@@ -36,42 +37,34 @@ public class WarehouseBlueCommandL extends SequentialCommandGroup {
                 new InstantCommand(lift::liftLow),
                 //begin sequence
                 new InstantCommand(lift::openDel),
-                new WaitCommand(400),
-
-                new SplineCommand(drivetrain, new Vector2d(-2,0),40,false),
+                new WaitCommand(300),
+                new TwoSplineCommand(drivetrain, new Vector2d(-2, -10.0), new Vector2d(-2, 26.0), 265.8, 265.8),
                 new InstantCommand(lift::closeDel),
-
-                //intake on
                 new InstantCommand(intake::intake),
 
-                //drive into warehouse
-                new DriveForwardCommand(drivetrain, 29),
+
 
                 //wait a bit
-                new WaitCommand(1300),
-
-                //turn
-                new TurnToCommand(drivetrain, 92, false),
-                new InstantCommand(intake::outtake),
                 new WaitCommand(500),
 
+                //turn
+                new InstantCommand(intake::outtake),
+
                 //drive out of warehouse
-                new DriveForwardCommand(drivetrain, -25),
+                new TwoSplineCommand(drivetrain, new Vector2d(-1.5, -10.0), new Vector2d(12.0, -14.0), 265.8, 225, true),
 
                 //stop intake
                 new InstantCommand(intake::stop),
                 //to hub
-                new TurnToCommand(drivetrain, 120, false),
-                new SplineCommand(drivetrain, new Vector2d( 9.5, -14),225, true),
 
                //turn to correct
                 new TurnToCommand(drivetrain, 180, false),
 
                 //lift correct pos
                 new InstantCommand(lift::liftHigh),
-                new WaitCommand(700),
+                new WaitCommand(550),
                 new InstantCommand(lift::openDel),
-                new WaitCommand(700),
+                new WaitCommand(250),
                 new DriveForwardCommand(drivetrain,2),
                 new InstantCommand(lift::closeDel),
                 new LowerLiftCommand(lift),
@@ -79,14 +72,14 @@ public class WarehouseBlueCommandL extends SequentialCommandGroup {
 
                 //park
                 new SplineCommand(drivetrain, new Vector2d(-3,0.5),40,false),
-                new DriveForwardCommand(drivetrain, 29),
+                new DriveForwardCommand(drivetrain, 29)
 
-                //intake
+              /*  //intake
                 new InstantCommand(intake::intake),
                 new WaitCommand(2000),
                 new InstantCommand(intake::outtake),
                 new WaitCommand(2000),
-                new InstantCommand(intake::stop)
+                new InstantCommand(intake::stop */
 
         );
     }

@@ -46,7 +46,7 @@ public class CarouselBlueCommandC extends SequentialCommandGroup {
 
                 //park
                 new TurnToCommand(drivetrain, 90, true),
-                new SplineCommand(drivetrain,new Vector2d( 13.6, -10), 270, true)
+                new SplineCommand(drivetrain,new Vector2d( 13.9, -10), 270, true)
 
         );
     }

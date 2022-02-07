@@ -52,22 +52,26 @@ public class WarehouseRedCommandL extends SequentialCommandGroup {
                 new InstantCommand(intake::intake),
                 new DriveForwardCommand(drivetrain, 22),
                 new WaitCommand(1500),
+                //
                 new InstantCommand(intake::stop),
                 new TurnToCommand(drivetrain, -80, true),
                 new InstantCommand(intake::outtake),
-                new DriveForwardCommand(drivetrain, -20),
+                new DriveForwardCommand(drivetrain, -23),//-20
+                //
                 new InstantCommand(intake::stop),
                 new DriveForwardCommand(drivetrain, 2),
-                new SplineCommand(drivetrain, new Vector2d(9.5, 12.5), 220, true),
+                new SplineCommand(drivetrain, new Vector2d(9.5, 12.5), 240, true),//was 220
+                new TurnToCommand(drivetrain, 180),
                 new InstantCommand(lift::liftHigh),
-                new DriveForwardCommand(drivetrain, -3),
+                //towards hub -2
+                new DriveForwardCommand(drivetrain, -8),
                 new WaitCommand(500),
                 new InstantCommand(lift::openDel),
                 new WaitCommand(750),
                 new InstantCommand(lift::LowerLiftCommand),
-                new SplineCommand(drivetrain, new Vector2d(-2,0), 220),
-
-
+                new SplineCommand(drivetrain, new Vector2d(-2,0), 200),
+                //down for agle closer to wall
+                //stopping short of hub(4inches) on 2nd cycle
 
                 new InstantCommand(lift::closeDel),
 

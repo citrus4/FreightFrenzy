@@ -29,7 +29,7 @@ public class CarouselBlueCommandSequence extends SequentialCommandGroup {
                 new InstantCommand(lift::closeDel),
                 new KindaSlowDriveForwardCommand(drivetrain, -15),
                 new TurnToCommand(drivetrain, 230),
-                new SlowDriveForwardCommand(drivetrain, 19),
+                new SlowDriveForwardCommand(drivetrain, 20),
                 new InstantCommand(duckWheels::spinBlueAuton),
                 new ParallelCommandGroup(
                         new SlowestDriveForwardCommand(drivetrain, 4),

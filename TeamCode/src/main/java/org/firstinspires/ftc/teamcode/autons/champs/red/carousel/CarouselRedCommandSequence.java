@@ -25,11 +25,11 @@ public class CarouselRedCommandSequence extends SequentialCommandGroup {
                 //duck
                 new InstantCommand(lift::closeDel),
                 new KindaSlowDriveForwardCommand(drivetrain, -15),
-                new TurnToCommand(drivetrain, 130, true),
-                new SlowDriveForwardCommand(drivetrain, 19.2),
+                new TurnToCommand(drivetrain, 131),
+                new SlowDriveForwardCommand(drivetrain, 18.8),
                 new InstantCommand(duckWheels::spinRedAuton),
                 new ParallelCommandGroup(
-                        new SlowestDriveForwardCommand(drivetrain, 6),
+                        new SlowestDriveForwardCommand(drivetrain, 7),
                         new WaitCommand(3500)
                 ),
                 new InstantCommand(duckWheels::stop),

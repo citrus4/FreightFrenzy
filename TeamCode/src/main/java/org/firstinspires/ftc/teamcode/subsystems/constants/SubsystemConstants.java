@@ -8,10 +8,11 @@ public class SubsystemConstants {
     public static int DEGREES_PER_ROTATION = 360;
 
     public static class Lift {
-        public static double DEL_CLOSE_POS = 0.43;
-        public static double DEL_OPEN_POS = 0.63;
+        public static double DEL_CLOSE_POS = 0.47;
+        public static double DEL_OPEN_POS = 0.67;
 
         public static int LIFT_RESTING_POSITION = 10;
+        public static int LIFT_LOW_POSITION = 30;
         public static int LIFT_MID_POSITION = 500;
         public static int LIFT_HIGH_POSITION = 1300;
 

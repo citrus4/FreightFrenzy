@@ -18,6 +18,7 @@ import java.util.logging.Level;
 
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_HIGH_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_LOW_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_TOLERANCE;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_RESTING_POSITION;
@@ -141,6 +142,12 @@ public class Lift extends SubsystemBase {
     }
 
     /************************************************************************************************/
+    public void liftLowAuton() {
+        pidEnabled = true;
+        controller.setSetPoint(LIFT_LOW_POSITION);
+
+        liftPosition = 0;
+    }
 
     public void liftLow() {
         pidEnabled = true;

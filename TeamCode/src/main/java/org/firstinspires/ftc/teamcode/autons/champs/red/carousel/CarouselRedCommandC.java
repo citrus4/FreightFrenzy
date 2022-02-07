@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 public class CarouselRedCommandC extends SequentialCommandGroup {
     public CarouselRedCommandC(Drivetrain drivetrain, Lift lift, DuckWheels duckWheels, Telemetry telemetry) {
         addCommands(
-                // red mid carousel
+                //carasoel red center
                 //command sequence
                 //duck
                 new CarouselRedCommandSequence(drivetrain, lift, duckWheels, telemetry),
@@ -34,7 +34,7 @@ public class CarouselRedCommandC extends SequentialCommandGroup {
                 new TurnToCommand(drivetrain, 40, true),
                 new InstantCommand(lift::liftMid),
 
-                new SlowDriveForwardCommand(drivetrain, -5),//perfect distance
+                new SlowDriveForwardCommand(drivetrain, -6.7),//was -6
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
@@ -44,8 +44,7 @@ public class CarouselRedCommandC extends SequentialCommandGroup {
 
                 //park
                 new TurnToCommand(drivetrain, -90),
-                new SplineCommand(drivetrain,new Vector2d( 13, 19), -270, true)
-
+                new SplineCommand(drivetrain,new Vector2d( 14, 18.6), -270, true)
         );
     }
 }

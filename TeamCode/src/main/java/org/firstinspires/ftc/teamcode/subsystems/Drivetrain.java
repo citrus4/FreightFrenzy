@@ -46,6 +46,7 @@ public class Drivetrain extends SubsystemBase {
         update();
         Util.logger(this, telemetry, Level.INFO, "current drive: ",getPoseEstimate());
         Util.logger(this, telemetry, Level.INFO, "current drivewheel: ", drive.getWheelPositions());
+        Util.logger(this, telemetry, Level.INFO, "velocity: ", drive.getWheelVelocities());
     }
 
     public void setMode(DcMotor.RunMode mode) {
@@ -115,8 +116,8 @@ public class Drivetrain extends SubsystemBase {
  */
 
         double[] wheelSpeeds = new double[2];
-        wheelSpeeds[0] = forward + rotate;
-        wheelSpeeds[1] = forward - rotate;
+        wheelSpeeds[0] = (forward + rotate);
+        wheelSpeeds[1] = (forward - rotate);
 
         normalize(wheelSpeeds);
 
