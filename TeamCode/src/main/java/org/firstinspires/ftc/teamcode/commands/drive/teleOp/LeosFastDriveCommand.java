@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.commands.drive;
+package org.firstinspires.ftc.teamcode.commands.drive.teleOp;
 
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 public class LeosFastDriveCommand extends DefaultDriveCommand {

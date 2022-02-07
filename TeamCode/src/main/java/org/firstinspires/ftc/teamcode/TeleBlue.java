@@ -7,12 +7,10 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.DefaultDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.ReallySlowDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;

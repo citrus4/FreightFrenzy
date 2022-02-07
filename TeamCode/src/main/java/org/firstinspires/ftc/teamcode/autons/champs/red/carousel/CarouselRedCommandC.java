@@ -6,9 +6,9 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.commands.drive.SlowDriveForwardCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.SplineCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.TurnToCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.atuon.SlowDriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.atuon.SplineCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.atuon.TurnToCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
