@@ -43,14 +43,16 @@ public class TeleRed extends MatchOpMode {
     public void robotInit() {
         // Subsystems
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap),telemetry);
-        drivetrain.init();
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
         duckWheels = new DuckWheels(hardwareMap, telemetry);
 
+        drivetrain.init();
+
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
+
         lift.closeDel();
         lift.liftLow();
     }

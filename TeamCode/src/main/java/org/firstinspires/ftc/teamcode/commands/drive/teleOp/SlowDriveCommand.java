@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class SlowDriveCommand extends DefaultDriveCommand {
     public SlowDriveCommand(Drivetrain drive, GamepadEx driverGamepad) {
         super(drive, driverGamepad);
-        this.multiplier = 0.25;
-        this.rotMultiplier = 0.25;
+        this.multiplier = 0.5;
+        this.rotMultiplier = 0.35;
     }
 }

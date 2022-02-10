@@ -7,11 +7,13 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowTankDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.SlowDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.SlowTankDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.TankDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -20,12 +22,12 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @Config
-@TeleOp(name = "Blue TeleOp", group = "blue")
-public class TeleBlue extends MatchOpMode {
-    // Gamepad
+@TeleOp(name = "Tank TeleOp", group = "blue")
+public class TankTest extends MatchOpMode {
+    //Gamepad
     private GamepadEx driverGamepad, operatorGamepad;
 
-    // Subsystems
+    //Subsystems
     private Drivetrain drivetrain;
     private Lift lift;
     private Intake intake;
@@ -43,26 +45,22 @@ public class TeleBlue extends MatchOpMode {
     public void robotInit() {
         // Subsystems
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap),telemetry);
-
+        drivetrain.init();
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
         duckWheels = new DuckWheels(hardwareMap, telemetry);
 
-        drivetrain.init();
-
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
-
-        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
-
+        drivetrain.setDefaultCommand(new TankDriveCommand(drivetrain, driverGamepad));
         lift.closeDel();
         lift.liftLow();
     }
 
     @Override
     public void configureButtons() {
-        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
-        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new ReallySlowDriveCommand(drivetrain, driverGamepad));
+        slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowTankDriveCommand(drivetrain, driverGamepad));
+        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new ReallySlowTankDriveCommand(drivetrain, driverGamepad));
 
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));
@@ -75,13 +73,6 @@ public class TeleBlue extends MatchOpMode {
         deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
-
-        /*
-            spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(
-                    new InstantCommand(duckWheels::spinBoth, duckWheels),
-                    new InstantCommand(duckWheels::stop, duckWheels)
-            );
-        */
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))

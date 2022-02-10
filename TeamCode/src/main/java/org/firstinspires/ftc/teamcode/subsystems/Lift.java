@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.controller.PIDFController;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -53,7 +54,6 @@ public class Lift extends SubsystemBase {
 
         controller = new PIDFController(LIFT_PID_COEFFICIENTS.p, LIFT_PID_COEFFICIENTS.i, LIFT_PID_COEFFICIENTS.d, LIFT_PID_COEFFICIENTS.f,  getAngle(), getAngle());
         controller.setTolerance(LIFT_TOLERANCE);
-
 
         this.telemetry = tl;
         pidEnabled = false;

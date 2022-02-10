@@ -20,42 +20,39 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 public class WarehouseBlueCommandL extends SequentialCommandGroup {
     public WarehouseBlueCommandL(Drivetrain drivetrain, Lift lift, Intake intake, DuckWheels duckWheels, Telemetry telemetry) {
         addCommands(
-                //testing blue warehousenew
+                //testing blue warehouse new
 
-                //go to warehouse
+
                 new InstantCommand(lift::closeDel),
+                //go to hub
                 new SplineCommand(drivetrain, new Vector2d( 11, -10.0),220, true),
                 new WaitCommand(50),
-
-                //to hub
                 new TurnToCommand(drivetrain, 180, false),
-                new KindaSlowDriveForwardCommand(drivetrain, -5),
+                new KindaSlowDriveForwardCommand(drivetrain, -4.5),
 
                 //deliver and spline away
                 new InstantCommand(lift::liftLow),
-                //begin sequence
                 new InstantCommand(lift::openDel),
                 new WaitCommand(300),
-                new TwoSplineCommand(drivetrain, new Vector2d(-2, -10.0), new Vector2d(-2, 26.0), 265.8, 265.8),
+                new TwoSplineCommand(drivetrain, new Vector2d(-1.5, -10.0), new Vector2d(-2, 26.0), 265.8, 264.5),
                 new InstantCommand(lift::closeDel),
                 new InstantCommand(intake::intake),
 
-
-
-                //wait a bit
+                //wait a bit and outtake
                 new WaitCommand(500),
-
-                //turn
                 new InstantCommand(intake::outtake),
 
                 //drive out of warehouse
-                new TwoSplineCommand(drivetrain, new Vector2d(-1.5, -10.0), new Vector2d(12.0, -14.0), 265.8, 225, true),
+               new DriveForwardCommand(drivetrain, -20),
+                new SplineCommand(drivetrain, new Vector2d(11,-10), 220, true),
 
                 //stop intake
                 new InstantCommand(intake::stop),
+
+
                 //to hub
 
-               //turn to correct
+                //turn to correct
                 new TurnToCommand(drivetrain, 180, false),
 
                 //lift correct pos
