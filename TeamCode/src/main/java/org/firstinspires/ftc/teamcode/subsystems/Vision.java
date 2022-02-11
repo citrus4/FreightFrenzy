@@ -22,9 +22,9 @@ public class Vision extends SubsystemBase {
         duckDetector.init();
 
         //switch left and right if camera mounted upside down
-        duckDetector.setRightRectangle(0.05, 0.18);//r
-        duckDetector.setCenterRectangle(0.5, 0.18);
-        duckDetector.setLeftRectangle(0.95, 0.18);//l
+        duckDetector.setRightRectangle(0.03, 0.3);//r
+        duckDetector.setCenterRectangle(0.5, 0.3);
+        duckDetector.setLeftRectangle(0.92, 0.3);//l
         telemetry = tl;
         currentPos = duckDetector.getPosition();
     }

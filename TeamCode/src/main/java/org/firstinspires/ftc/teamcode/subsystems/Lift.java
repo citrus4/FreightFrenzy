@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Util;
@@ -42,6 +43,8 @@ public class Lift extends SubsystemBase {
     private boolean pidEnabled;
     private double encoderOffset = 0;
     private int liftPosition = 0;
+
+    private ElapsedTime timer = new ElapsedTime();
 
     double CURRENT_POSITION = DEL_OPEN_POS;
 
@@ -91,7 +94,7 @@ public class Lift extends SubsystemBase {
     public void LowerLiftCommand () {
         CURRENT_POSITION = DEL_CLOSE_POS;
         pidEnabled = true;
-        controller.setSetPoint(LIFT_RESTING_POSITION);
+        controller.setSetPoint(LIFT_MID_POSITION);
 
         liftPosition = 0;
         CURRENT_POSITION = DEL_CLOSE_POS;

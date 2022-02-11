@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
@@ -37,6 +38,9 @@ public class TeleBlue extends MatchOpMode {
     public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
     public Button deliveryButton;
     public Button spinButton, otherWay;
+
+    //tools
+    private ElapsedTime timer = new ElapsedTime();
 
 
     @Override
@@ -75,13 +79,6 @@ public class TeleBlue extends MatchOpMode {
         deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
-
-        /*
-            spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(
-                    new InstantCommand(duckWheels::spinBoth, duckWheels),
-                    new InstantCommand(duckWheels::stop, duckWheels)
-            );
-        */
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))
