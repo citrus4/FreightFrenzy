@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.autons.champs.blue.warehouse.CSimpleWarehouseBlueCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -54,7 +55,7 @@ public class CenterWarehouseRed extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(new WarehouseRedCommandC(drivetrain, lift, intake, duckWheels, telemetry)
+        schedule(new CSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
         );
 
     }

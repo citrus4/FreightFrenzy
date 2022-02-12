@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.autons.champs.blue.carousel;
 
-//bottom level
-
+//tested and good night before comp
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -27,8 +26,6 @@ public class CarouselBlueCommandR extends SequentialCommandGroup {
                 //--------------------end command sequence------------------------------------------
                 //--------------------------finished------------------------------------------------
 
-                //deliver pre-load
-                //left(low)
                 new SplineCommand(drivetrain, new Vector2d(25, 5.4), -230, true),
                 new WaitCommand(200),
 
@@ -36,7 +33,7 @@ public class CarouselBlueCommandR extends SequentialCommandGroup {
                 new TurnToCommand(drivetrain, -60, true),
                 new InstantCommand(lift::liftHigh),
 
-                new SlowDriveForwardCommand(drivetrain, -8.2),//perfect distance
+                new SlowDriveForwardCommand(drivetrain, -5.5),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
@@ -46,7 +43,7 @@ public class CarouselBlueCommandR extends SequentialCommandGroup {
 
                 //park
                 new TurnToCommand(drivetrain, 90, true),
-                new SplineCommand(drivetrain,new Vector2d( 14.5, -10), 270, true)
+                new SplineCommand(drivetrain,new Vector2d( 14, -10), 270, true)
 
         );
     }

@@ -54,7 +54,7 @@ public class RightWarehouseRed extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(new WarehouseRedCommandR(drivetrain, lift, intake, duckWheels, telemetry)
+        schedule(new RSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
         );
 
     }

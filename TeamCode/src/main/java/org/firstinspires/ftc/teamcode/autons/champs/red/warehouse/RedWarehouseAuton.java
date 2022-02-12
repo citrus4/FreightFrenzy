@@ -71,13 +71,13 @@ public class RedWarehouseAuton extends MatchOpMode {
         schedule(
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new WarehouseRedCommandL(drivetrain, lift, intake, duckWheels, telemetry)
+                            new LSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new WarehouseRedCommandC(drivetrain, lift, intake, duckWheels, telemetry)
+                            new CSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new WarehouseRedCommandR(drivetrain, lift, intake, duckWheels, telemetry)
+                            new RSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
 

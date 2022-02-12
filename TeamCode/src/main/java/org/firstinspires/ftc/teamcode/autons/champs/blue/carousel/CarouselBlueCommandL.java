@@ -36,7 +36,7 @@ public class CarouselBlueCommandL extends SequentialCommandGroup {
                 new TurnToCommand(drivetrain, -60, true),
                 new InstantCommand(lift::liftLow),
 
-                new SlowDriveForwardCommand(drivetrain, -8.5),//perfect distance
+                new SlowDriveForwardCommand(drivetrain, -5.95),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
@@ -46,7 +46,7 @@ public class CarouselBlueCommandL extends SequentialCommandGroup {
 
                 //park
                 new TurnToCommand(drivetrain, 90, true),
-                new SplineCommand(drivetrain,new Vector2d( 14.55, -10), 270, true)
+                new SplineCommand(drivetrain,new Vector2d( 14.1, -10), 270, true)
 
             );
     }

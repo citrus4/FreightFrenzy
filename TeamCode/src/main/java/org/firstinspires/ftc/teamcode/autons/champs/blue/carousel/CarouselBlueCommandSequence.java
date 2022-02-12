@@ -24,7 +24,7 @@ public class CarouselBlueCommandSequence extends SequentialCommandGroup {
                 //duck
                 new InstantCommand(lift::closeDel),
                 new KindaSlowDriveForwardCommand(drivetrain, -15),
-                new TurnToCommand(drivetrain, 230),
+                new TurnToCommand(drivetrain, 229),
                 new SlowDriveForwardCommand(drivetrain, 20),
                 new InstantCommand(duckWheels::spinBlueAuton),
                 new ParallelCommandGroup(

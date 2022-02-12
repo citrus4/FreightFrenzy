@@ -27,8 +27,6 @@ public class CarouselBlueCommandC extends SequentialCommandGroup {
                 //--------------------end command sequence------------------------------------------
                 //--------------------------finished------------------------------------------------
 
-                //deliver pre-load
-                //left(low)
                 new SplineCommand(drivetrain, new Vector2d(25, 5.4), -230, true),
                 new WaitCommand(200),
 
@@ -36,7 +34,7 @@ public class CarouselBlueCommandC extends SequentialCommandGroup {
                 new TurnToCommand(drivetrain, -60, true),
                 new InstantCommand(lift::liftMid),
 
-                new SlowDriveForwardCommand(drivetrain, -9),//perfect distance
+                new SlowDriveForwardCommand(drivetrain, -7.15),//perfect distance
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
@@ -44,9 +42,10 @@ public class CarouselBlueCommandC extends SequentialCommandGroup {
                 new SlowDriveForwardCommand(drivetrain, 8),
                 new InstantCommand(lift::LowerLiftCommand),
 
+
                 //park
                 new TurnToCommand(drivetrain, 90, true),
-                new SplineCommand(drivetrain,new Vector2d( 13.9, -10), 270, true)
+                new SplineCommand(drivetrain,new Vector2d( 14.1, -10), 270, true)
 
         );
     }
