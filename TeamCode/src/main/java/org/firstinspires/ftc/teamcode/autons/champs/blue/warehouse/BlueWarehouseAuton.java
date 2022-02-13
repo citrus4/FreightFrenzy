@@ -69,6 +69,7 @@ public class BlueWarehouseAuton extends MatchOpMode {
     @Override
     public void matchStart() {
         schedule(
+
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
                             new LSimpleWarehouseBlueCommand(drivetrain, lift, intake, duckWheels, telemetry)

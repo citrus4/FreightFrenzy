@@ -94,7 +94,6 @@ public class Lift extends SubsystemBase {
     public void LowerLiftCommand () {
         CURRENT_POSITION = DEL_CLOSE_POS;
         pidEnabled = true;
-        controller.setSetPoint(LIFT_MID_POSITION);
         controller.setSetPoint(LIFT_LOW_POSITION);
 
         liftPosition = 0;

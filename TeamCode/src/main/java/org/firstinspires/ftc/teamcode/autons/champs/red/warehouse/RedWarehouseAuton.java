@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "Red Warehouse Auton", group = "RED")
 public class RedWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;
@@ -69,6 +69,7 @@ public class RedWarehouseAuton extends MatchOpMode {
     @Override
     public void matchStart() {
         schedule(
+
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
                             new LSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
@@ -80,6 +81,9 @@ public class RedWarehouseAuton extends MatchOpMode {
                             new RSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
+
+
+                //new RSimpleWarehouseRedCommand(drivetrain, lift, intake, duckWheels, telemetry)
 
         );
 

@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-@Disabled
+//@Disabled
 @Autonomous(name = "Blue Carousel Auton", group = "BLUE")
 public class CarouselBlueAuton extends MatchOpMode {
     public static double startPoseX = 0;
@@ -68,6 +68,7 @@ public class CarouselBlueAuton extends MatchOpMode {
     @Override
     public void matchStart() {
         schedule(
+
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
                             new CarouselBlueCommandL(drivetrain, lift, duckWheels, telemetry)
@@ -79,6 +80,7 @@ public class CarouselBlueAuton extends MatchOpMode {
                             new CarouselBlueCommandR(drivetrain, lift, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
+
 
         );
 

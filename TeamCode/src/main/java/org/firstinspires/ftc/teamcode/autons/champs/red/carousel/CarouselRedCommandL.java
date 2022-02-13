@@ -34,12 +34,12 @@ public class CarouselRedCommandL extends SequentialCommandGroup {
                 new TurnToCommand(drivetrain, 40, true),
                 new InstantCommand(lift::liftLow),
 
-                new SlowDriveForwardCommand(drivetrain, -6.),
+                new SlowDriveForwardCommand(drivetrain, -7.7),
                 new WaitCommand(200),
 
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
-                new SlowDriveForwardCommand(drivetrain, 8),
+                new SlowDriveForwardCommand(drivetrain, 6),
                 new InstantCommand(lift::LowerLiftCommand),
 
                 //park

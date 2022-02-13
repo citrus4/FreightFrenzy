@@ -25,7 +25,7 @@ public class LSimpleWarehouseBlueCommand extends SequentialCommandGroup {
 
                 new InstantCommand(lift::closeDel),
                 //go to hub
-                new SplineCommand(drivetrain, new Vector2d( 11, -10.0),220, true),
+                new SplineCommand(drivetrain, new Vector2d( 11, -11.0),220, true),
                 new WaitCommand(50),
                 new TurnToCommand(drivetrain, 180, false),
                 new DriveForwardCommand(drivetrain, -3.5),
@@ -35,7 +35,7 @@ public class LSimpleWarehouseBlueCommand extends SequentialCommandGroup {
                 new InstantCommand(lift::liftLow),
                 new InstantCommand(lift::openDel),
                 new WaitCommand(300),
-                new TwoSplineCommand(drivetrain, new Vector2d(-1.5, -10.0), new Vector2d(-2, 22.0), 265.8, 264.5),
+                new TwoSplineCommand(drivetrain, new Vector2d(-1.5, -10.0), new Vector2d(-2, 19.0), 265.8, 264.5),
                 new InstantCommand(lift::closeDel),
                 new WaitCommand(50),
                 new InstantCommand(intake::intake),
