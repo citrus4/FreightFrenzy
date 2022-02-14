@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.TurnToCommand;
@@ -64,7 +65,7 @@ public class WarehouseRedCommandL extends SequentialCommandGroup {
                 new WaitCommand(500),
                 new InstantCommand(lift::openDel),
                 new WaitCommand(750),
-                new InstantCommand(lift::LowerLiftCommand),
+                new LowerLiftCommand(lift),
                 new SplineCommand(drivetrain, new Vector2d(-2,0), 200),
                 //down for agle closer to wall
                 //stopping short of hub(4inches) on 2nd cycle
@@ -88,7 +89,7 @@ public class WarehouseRedCommandL extends SequentialCommandGroup {
                 new WaitCommand(500),
                 new InstantCommand(lift::openDel),
                 new WaitCommand(750),
-                new InstantCommand(lift::LowerLiftCommand)
+                new LowerLiftCommand(lift)
         //should be like 21
                 //new SlowDriveForwardCommand(drivetrain, -4.75),//perfect distance
                 //new WaitCommand(200),

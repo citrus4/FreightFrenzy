@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.SlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.TurnToCommand;
@@ -48,7 +49,7 @@ public class TestAutonCommand extends SequentialCommandGroup {
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
                 new SlowDriveForwardCommand(drivetrain, 8.5),
-                new InstantCommand(lift::LowerLiftCommand),
+                new LowerLiftCommand(lift),
 
                 //park
                 new TurnToCommand(drivetrain, -90),

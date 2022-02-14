@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.SlowDriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.TurnToCommand;
@@ -40,7 +41,7 @@ public class CarouselRedCommandL extends SequentialCommandGroup {
                 new InstantCommand(lift::toggleDel),
                 new WaitCommand(700),
                 new SlowDriveForwardCommand(drivetrain, 6),
-                new InstantCommand(lift::LowerLiftCommand),
+                new LowerLiftCommand(lift),
 
                 //park
                 new TurnToCommand(drivetrain, -90),

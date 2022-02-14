@@ -27,7 +27,6 @@ public class SubsystemConstants {
 
         public static String LIFT_MOTOR_ID = "lift";
         public static String DELIVERY_MOTOR_ID = "delivery";
-        public static String DISTANCE_SENSOR_ID = "distance";
     }
 
     public static class Intake {
@@ -35,6 +34,7 @@ public class SubsystemConstants {
         public static double OUTTAKE_SPEED = -1;
 
         public static String INTAKE_MOTOR_ID = "intake";
+        public static String DISTANCE_SENSOR_ID = "distance";
     }
 
     public static class DuckWheels {

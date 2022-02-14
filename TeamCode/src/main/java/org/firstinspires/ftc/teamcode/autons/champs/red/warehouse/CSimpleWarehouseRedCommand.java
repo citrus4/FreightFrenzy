@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.atuon.TurnToCommand;
@@ -35,7 +36,7 @@ public class CSimpleWarehouseRedCommand extends SequentialCommandGroup {
                 new InstantCommand(lift::openDel),
                 new WaitCommand(500),
                 new DriveForwardCommand(drivetrain, 3),
-                new InstantCommand(lift::LowerLiftCommand),
+                new LowerLiftCommand(lift),
                 new TwoSplineCommand(drivetrain, new Vector2d(-1.2, 10.0), new Vector2d(-2, -19.0), -265.8, -264.5),
                 new InstantCommand(lift::closeDel),
                 new WaitCommand(50),

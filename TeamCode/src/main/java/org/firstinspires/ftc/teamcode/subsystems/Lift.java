@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -48,6 +49,9 @@ public class Lift extends SubsystemBase {
 
     double CURRENT_POSITION = DEL_OPEN_POS;
 
+    DigitalChannel digitalTouch;  // Hardware Device Object
+
+
     public Lift(HardwareMap hw, Telemetry tl) {
         this.liftMotor = new MotorEx(hw, SubsystemConstants.Lift.LIFT_MOTOR_ID);
         this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
@@ -61,11 +65,16 @@ public class Lift extends SubsystemBase {
         this.telemetry = tl;
         pidEnabled = false;
         setOffset();
+
+        // get a reference to our digitalTouch object.
+        digitalTouch = hw.get(DigitalChannel.class, "sensor_digital");
+
+        // set the digital channel to input.
+        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
     }
     @Override
     public void periodic() {
         if (pidEnabled) {
-            //controller.setF(LIFT_PID_COEFFICIENTS.f * Math.cos(Math.toRadians(controller.getSetPoint())));
             double output = controller.calculate(getAngle());
             liftMotor.set(output);
         }
@@ -91,23 +100,28 @@ public class Lift extends SubsystemBase {
         CURRENT_POSITION = DEL_OPEN_POS;
     }
 
-    public void LowerLiftCommand () {
+    public void lowerLiftNoLimitSwitch () {
         CURRENT_POSITION = DEL_CLOSE_POS;
         pidEnabled = true;
         controller.setSetPoint(LIFT_LOW_POSITION);
 
         liftPosition = 0;
-        CURRENT_POSITION = DEL_CLOSE_POS;
     }
 
+    public void resetPosition() {
+        liftPosition = 0;
+    }
 
-
-
-
+    public void stopAtBottom() {
+        liftMotor.stopMotor();
+        resetPosition();
+        //maybe need to reset encoder
+    }
 
     public void toggleAutomatic() {
         pidEnabled = !pidEnabled;
     }
+
     public boolean isPidEnabled() {
         return pidEnabled;
     }
@@ -210,6 +224,10 @@ public class Lift extends SubsystemBase {
         } else if(liftPosition == 2) {
             liftHigh();
         }
+    }
+
+    public boolean atBottom() {
+        return !digitalTouch.getState();
     }
 }
 
