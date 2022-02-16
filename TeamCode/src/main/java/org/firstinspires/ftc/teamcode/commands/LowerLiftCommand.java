@@ -12,12 +12,15 @@ public class LowerLiftCommand extends SequentialCommandGroup {
 
     public LowerLiftCommand(Lift lift) {
         addCommands(
+                /*
             new InstantCommand(lift::toggleDel, lift),
             new InstantCommand(lift::liftMid, lift),
             new InstantCommand(lift::lowerLiftManual, lift),
 
             new WaitUntilCommand(lift::atBottom),
             new InstantCommand(lift::stopAtBottom)
+
+                 */
         );
     }
 }

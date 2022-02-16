@@ -22,14 +22,6 @@ public class Drivetrain extends SubsystemBase {
     private final SampleTankDrive drive;
     private Telemetry telemetry;
 
-    double previousForwards = 0;
-    double newForward = 0;
-
-    double deccelNum = 0.01;
-    double accelNum = 0.07;
-
-    ElapsedTime AccelCheck = new ElapsedTime();
-
     public Drivetrain(SampleTankDrive drive, Telemetry tl) {
         this.drive = drive;
         this.telemetry = tl;
@@ -39,7 +31,6 @@ public class Drivetrain extends SubsystemBase {
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setMotorPowers(0, 0);
         drive.setPoseEstimate(new Pose2d());
-        AccelCheck.reset();
     }
     @Override
     public void periodic() {

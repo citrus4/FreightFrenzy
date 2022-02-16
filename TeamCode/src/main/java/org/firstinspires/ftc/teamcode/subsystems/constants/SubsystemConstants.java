@@ -11,7 +11,7 @@ public class SubsystemConstants {
         public static double DEL_CLOSE_POS = 0.43;
         public static double DEL_OPEN_POS = 0.8;
 
-        public static int LIFT_RESTING_POSITION = 40;
+        public static int LIFT_RESTING_POSITION = 20;
         public static int LIFT_LOW_POSITION = 45;
         public static int LIFT_MID_POSITION = 465;
         public static int LIFT_HIGH_POSITION = 1300;
@@ -44,8 +44,5 @@ public class SubsystemConstants {
         public static double AUTON_BLUE_SPEED = -0.35;
         public static String DUCK_SERVO_ID = "left_393";
     }
-/*
-
-leo is fired, haddon for head builder
- */
+// sudo apt-get find new-head-builder | sudo apt-get install working-bot
 }

@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.commands.DeliverCommand;
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
@@ -37,12 +38,11 @@ public class TeleBlue extends MatchOpMode {
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger, reallySlowModeTrigger;
     public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
-    public Button deliveryButton;
+    public Button deliveryButton1, deliveryButton2, deliverAndDriveButton1, deliverAndDriveButton2, closeButton;
     public Button spinButton, otherWay;
 
     //tools
     private ElapsedTime timer = new ElapsedTime();
-
 
     @Override
     public void robotInit() {
@@ -82,9 +82,22 @@ public class TeleBlue extends MatchOpMode {
 
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
-        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
+        deliveryButton1 = (new GamepadButton(driverGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
+
+        deliveryButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
+                new InstantCommand(lift::toggleDel, lift)
+        );
+
+        deliverAndDriveButton1 = (new GamepadButton(driverGamepad, GamepadKeys.Button.X)).whenPressed(
+                new DeliverCommand(drivetrain, lift)
+        );
+
+        deliverAndDriveButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X)).whenPressed(
+                new DeliverCommand(drivetrain, lift)
+        );
+        closeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDel));
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))

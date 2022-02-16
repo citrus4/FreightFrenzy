@@ -23,11 +23,11 @@ import java.util.logging.Level;
 public class Intake extends SubsystemBase {
     Telemetry telemetry;
     private MotorEx intakeMotor;
-    private SensorRevTOFDistance distanceSensor;
+    //private SensorRevTOFDistance distanceSensor;
 
     public Intake(HardwareMap hw, Telemetry tl) {
         this.intakeMotor = new MotorEx(hw, INTAKE_MOTOR_ID);
-        this.distanceSensor = new SensorRevTOFDistance(hw, DISTANCE_SENSOR_ID);
+        //this.distanceSensor = new SensorRevTOFDistance(hw, DISTANCE_SENSOR_ID);
         intakeMotor.setInverted(true);
 
         this.telemetry = tl;
@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
     @Override
     public void periodic() {
         //Util.logger(this, telemetry, Level.INFO, "Current Intake Speed", intake.get());
-        Util.logger(this, telemetry, Level.INFO,"distance", distanceSensor.getDistance(DistanceUnit.MM));
+        //Util.logger(this, telemetry, Level.INFO,"distance", distanceSensor.getDistance(DistanceUnit.MM));
     }
 
     private void set(double speed) {
@@ -54,8 +54,9 @@ public class Intake extends SubsystemBase {
     public void stop() {
         intakeMotor.stopMotor();
     }
-
+/*
     public boolean isFreight() {
         return distanceSensor.targetReached(new SensorDistanceEx.DistanceTarget(DistanceUnit.MM, 10, 2));
     }
+ */
 }

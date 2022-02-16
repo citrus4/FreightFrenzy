@@ -65,12 +65,14 @@ public class Lift extends SubsystemBase {
         this.telemetry = tl;
         pidEnabled = false;
         setOffset();
-
+/*
         // get a reference to our digitalTouch object.
         digitalTouch = hw.get(DigitalChannel.class, "sensor_digital");
 
         // set the digital channel to input.
         digitalTouch.setMode(DigitalChannel.Mode.INPUT);
+
+ */
     }
     @Override
     public void periodic() {
@@ -225,9 +227,10 @@ public class Lift extends SubsystemBase {
             liftHigh();
         }
     }
-
+/*
     public boolean atBottom() {
         return !digitalTouch.getState();
     }
+    */
 }
 

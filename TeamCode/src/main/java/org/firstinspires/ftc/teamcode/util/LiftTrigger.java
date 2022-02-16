@@ -6,6 +6,6 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 public class LiftTrigger extends Trigger {
     public LiftTrigger(Lift lift) {
-        super(()->lift.atBottom());
+        //super(()->lift.atBottom());
     }
 }
