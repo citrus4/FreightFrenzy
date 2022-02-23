@@ -3,11 +3,8 @@ package org.firstinspires.ftc.teamcode.commands;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
-import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.commands.drive.atuon.DriveForwardCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.atuon.KindaSlowDriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.auton.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 

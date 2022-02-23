@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.atuon.SlowDriveForwardCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.atuon.SplineCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.atuon.TurnToCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.auton.SlowDriveForwardCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.auton.SplineCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.auton.TurnToCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;

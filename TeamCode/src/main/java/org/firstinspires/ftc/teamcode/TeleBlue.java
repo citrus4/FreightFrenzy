@@ -37,9 +37,10 @@ public class TeleBlue extends MatchOpMode {
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger, reallySlowModeTrigger;
-    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
+    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton, manualDownButton;
     public Button deliveryButton1, deliveryButton2, deliverAndDriveButton1, deliverAndDriveButton2, closeButton;
     public Button spinButton, otherWay;
+    public Button capToggleButton, scoreCapButton;
 
     //tools
     private ElapsedTime timer = new ElapsedTime();
@@ -82,11 +83,13 @@ public class TeleBlue extends MatchOpMode {
 
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
 
+        manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
+
         deliveryButton1 = (new GamepadButton(driverGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
 
-        deliveryButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
+        deliveryButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
 
@@ -97,7 +100,7 @@ public class TeleBlue extends MatchOpMode {
         deliverAndDriveButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X)).whenPressed(
                 new DeliverCommand(drivetrain, lift)
         );
-        closeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDel));
+        //closeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDel));
 
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))
@@ -108,6 +111,9 @@ public class TeleBlue extends MatchOpMode {
                 new InstantCommand(duckWheels::spinDuckRed, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
+        capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::toggleCap));
+        scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(lift::scoreCap));
+
     }
 
     @Override

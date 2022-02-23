@@ -35,8 +35,9 @@ public class LeoOp extends MatchOpMode {
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button boostTrigger, reallySlowModeTrigger;
-    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
+    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton, manualDownButton;
     public Button deliveryButton1, deliveryButton2, deliverAndDriveButton1, deliverAndDriveButton2, closeButton;
+    public Button capToggleButton, scoreCapButton;
     public Button spinButton, otherWay;
 
 
@@ -69,7 +70,7 @@ public class LeoOp extends MatchOpMode {
 
 
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::lowerLiftNoLimitSwitch));
-        //liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
+        manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
 
 
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
@@ -91,6 +92,8 @@ public class LeoOp extends MatchOpMode {
         );
         closeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDel));
 
+        capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::toggleCap));
+        scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(lift::scoreCap));
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)

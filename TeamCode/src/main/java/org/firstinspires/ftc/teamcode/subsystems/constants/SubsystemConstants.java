@@ -8,25 +8,30 @@ public class SubsystemConstants {
     public static int DEGREES_PER_ROTATION = 360;
 
     public static class Lift {
-        public static double DEL_CLOSE_POS = 0.43;
-        public static double DEL_OPEN_POS = 0.8;
+        public static double DEL_CLOSE_POS = 0.48;
+        public static double DEL_OPEN_POS = 0.86;
 
-        public static int LIFT_RESTING_POSITION = 40;
+        public static double CAP_BOTTOM_POS = 0.05;
+        public static double CAP_MID_POS = 0.33;
+        public static double CAP_HIGH_POS = 0.89;
+
+        public static int LIFT_RESTING_POSITION = 0;
         public static int LIFT_LOW_POSITION = 45;
         public static int LIFT_MID_POSITION = 465;
         public static int LIFT_HIGH_POSITION = 1300;
 
         public static double LIFT_UP_SPEED = 0.1;
-        public static double LIFT_DOWN_SPEED = -0.1;
+        public static double LIFT_DOWN_SPEED = -0.2;
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6
 
-        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.0048, 0.00008, 0, 0);
+        public static PIDFCoefficients LIFT_PID_COEFFICIENTS = new PIDFCoefficients(0.005, 0.00008, 0, 0);
 
         public static int LIFT_TOLERANCE = 3;
 
         public static String LIFT_MOTOR_ID = "lift";
         public static String DELIVERY_MOTOR_ID = "delivery";
+        public static String CAP_SERVO_ID = "capServo";
     }
 
     public static class Intake {

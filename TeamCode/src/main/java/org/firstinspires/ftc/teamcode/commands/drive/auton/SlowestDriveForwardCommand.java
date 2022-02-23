@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.commands.drive.atuon;
+package org.firstinspires.ftc.teamcode.commands.drive.auton;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -10,21 +10,21 @@ import org.firstinspires.ftc.teamcode.Trajectories;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 @Config
-public class KindaSlowDriveForwardCommand extends CommandBase{
+public class SlowestDriveForwardCommand extends CommandBase{
 
     Drivetrain drive;
     double distance;
     Trajectory trajectory;
     MinVelocityConstraint constraint;
 
-    public KindaSlowDriveForwardCommand(Drivetrain drive, double distance) {
+    public SlowestDriveForwardCommand(Drivetrain drive, double distance) {
         this.drive = drive;
         this.distance = distance;
-        constraint = Trajectories.kindaSlowVelConstraint;
+        constraint = Trajectories.slowestVelConstraint;
         this.addRequirements(drive);
     }
 
-    public KindaSlowDriveForwardCommand(Drivetrain drive, double distance, MinVelocityConstraint constraint) {
+    public SlowestDriveForwardCommand(Drivetrain drive, double distance, MinVelocityConstraint constraint) {
         this.drive = drive;
         this.distance = distance;
         this.constraint = constraint;

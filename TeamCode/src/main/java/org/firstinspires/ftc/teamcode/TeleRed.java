@@ -35,9 +35,10 @@ public class TeleRed extends MatchOpMode {
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger, reallySlowModeTrigger;
-    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
+    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton, manualDownButton;
     public Button deliveryButton;
     public Button spinButton, otherWay;
+    public Button capButton;
 
 
     @Override
@@ -70,9 +71,9 @@ public class TeleRed extends MatchOpMode {
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::lowerLiftNoLimitSwitch));
-        //liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
+        manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
 
-        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
+        deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
 
@@ -85,6 +86,7 @@ public class TeleRed extends MatchOpMode {
                 new InstantCommand(duckWheels::spinBlueAuton, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
+        capButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::toggleCap));
     }
 
     @Override

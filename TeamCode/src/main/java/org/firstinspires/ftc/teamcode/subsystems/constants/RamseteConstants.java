@@ -5,7 +5,7 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class RamseteConstants {
     //horizontal error adjustment
-    public static double b = 18;
+    public static double b = 15;//prev 18
     public static double zeta = 1.15;
 
     //minimize overshoot
