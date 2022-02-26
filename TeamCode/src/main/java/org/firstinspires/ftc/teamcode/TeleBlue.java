@@ -8,15 +8,18 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.commands.DeliverCommand;
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.CapManualCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Cap;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -33,6 +36,7 @@ public class TeleBlue extends MatchOpMode {
     private Lift lift;
     private Intake intake;
     private DuckWheels duckWheels;
+    private Cap cap;
 
     //Buttons
     private Button intakeButton, outtakeButton;
@@ -53,6 +57,7 @@ public class TeleBlue extends MatchOpMode {
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
         duckWheels = new DuckWheels(hardwareMap, telemetry);
+        cap = new Cap(hardwareMap, telemetry);
 
         drivetrain.init();
 
@@ -60,6 +65,7 @@ public class TeleBlue extends MatchOpMode {
         operatorGamepad = new GamepadEx(gamepad2);
 
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
+        cap.setDefaultCommand(new CapManualCommand(cap, operatorGamepad));
 
         lift.closeDel();
         lift.liftLow();
@@ -67,53 +73,48 @@ public class TeleBlue extends MatchOpMode {
 
     @Override
     public void configureButtons() {
+        //dt
         slowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
         reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new ReallySlowDriveCommand(drivetrain, driverGamepad));
 
+        //intake
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
         outtakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER).whileHeld(intake::outtake).whenReleased(intake::stop));
 
+        //lift
         liftUpButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
-
-
         liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::lowerLiftNoLimitSwitch));
-        //liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftCommand(lift)));
-
-
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
-
         manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
 
+        //delivery
         deliveryButton1 = (new GamepadButton(driverGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
-
         deliveryButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
         );
-
         deliverAndDriveButton1 = (new GamepadButton(driverGamepad, GamepadKeys.Button.X)).whenPressed(
                 new DeliverCommand(drivetrain, lift)
         );
-
         deliverAndDriveButton2 = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X)).whenPressed(
                 new DeliverCommand(drivetrain, lift)
         );
-        //closeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDel));
 
+        //duck wheels
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
-
         otherWay = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckRed, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
-        capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::toggleCap));
-        scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(lift::scoreCap));
 
+        //cap
+        //capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
+        //scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(cap::scoreCap));
     }
 
     @Override

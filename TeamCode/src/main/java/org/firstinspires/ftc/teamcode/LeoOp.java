@@ -10,11 +10,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.DeliverCommand;
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.CapManualCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.LeosFastDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallyReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Cap;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -31,6 +34,7 @@ public class LeoOp extends MatchOpMode {
     private Lift lift;
     private Intake intake;
     private DuckWheels duckWheels;
+    private Cap cap;
 
     //Buttons
     private Button intakeButton, outtakeButton;
@@ -40,7 +44,6 @@ public class LeoOp extends MatchOpMode {
     public Button capToggleButton, scoreCapButton;
     public Button spinButton, otherWay;
 
-
     @Override
     public void robotInit() {
         // Subsystems
@@ -49,17 +52,21 @@ public class LeoOp extends MatchOpMode {
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
         duckWheels = new DuckWheels(hardwareMap, telemetry);
+        cap = new Cap(hardwareMap, telemetry);
 
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
+
         drivetrain.setDefaultCommand(new SlowDriveCommand(drivetrain, driverGamepad));
+        cap.setDefaultCommand(new CapManualCommand(cap, operatorGamepad));
+
         lift.closeDel();
         lift.liftLow();
     }
 
     @Override
     public void configureButtons() {
-        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new ReallySlowDriveCommand(drivetrain, driverGamepad));
+        reallySlowModeTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)).whileHeld(new ReallyReallySlowDriveCommand(drivetrain, driverGamepad));
         boostTrigger = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)).whileHeld(new LeosFastDriveCommand(drivetrain, driverGamepad));
 
         intakeButton = (new GamepadButton(driverGamepad, GamepadKeys.Button.RIGHT_BUMPER).whileHeld(intake::intake).whenReleased(intake::stop));
@@ -92,8 +99,8 @@ public class LeoOp extends MatchOpMode {
         );
         closeButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A).whenPressed(lift::closeDel));
 
-        capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::toggleCap));
-        scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(lift::scoreCap));
+        //capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
+        //scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(cap::scoreCap));
         spinButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP)).whileHeld(
                 new InstantCommand(duckWheels::spinDuckBlue, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)

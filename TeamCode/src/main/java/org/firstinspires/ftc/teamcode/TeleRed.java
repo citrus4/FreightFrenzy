@@ -9,12 +9,14 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.CapManualCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
+import org.firstinspires.ftc.teamcode.subsystems.Cap;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
@@ -31,6 +33,7 @@ public class TeleRed extends MatchOpMode {
     private Lift lift;
     private Intake intake;
     private DuckWheels duckWheels;
+    private Cap cap;
 
     //Buttons
     private Button intakeButton, outtakeButton;
@@ -48,12 +51,15 @@ public class TeleRed extends MatchOpMode {
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
         duckWheels = new DuckWheels(hardwareMap, telemetry);
+        cap = new Cap(hardwareMap, telemetry);
 
         drivetrain.init();
 
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
+
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
+        cap.setDefaultCommand(new CapManualCommand(cap, operatorGamepad));
 
         lift.closeDel();
         lift.liftLow();
@@ -86,7 +92,7 @@ public class TeleRed extends MatchOpMode {
                 new InstantCommand(duckWheels::spinBlueAuton, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
-        capButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(lift::toggleCap));
+        //capButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
     }
 
     @Override

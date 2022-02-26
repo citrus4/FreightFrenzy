@@ -19,12 +19,10 @@ import org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants;
 
 import java.util.logging.Level;
 
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_BOTTOM_POS;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_HIGH_POS;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_MID_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_HIGH_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_LOW_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_MID_POSITION_TELE;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_TOLERANCE;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_RESTING_POSITION;
@@ -42,7 +40,6 @@ public class Lift extends SubsystemBase {
     private Telemetry telemetry;
     private MotorEx liftMotor;
     private ServoEx deliveryServo;
-    private ServoEx capServo;
 
     private PIDFController controller;
     private boolean pidEnabled;
@@ -52,7 +49,6 @@ public class Lift extends SubsystemBase {
     private ElapsedTime timer = new ElapsedTime();
 
     double CURRENT_POSITION = DEL_OPEN_POS;
-    double CURRENT_CAP_POS = CAP_HIGH_POS;
 
     DigitalChannel digitalTouch;  // Hardware Device Object
 
@@ -60,7 +56,6 @@ public class Lift extends SubsystemBase {
     public Lift(HardwareMap hw, Telemetry tl) {
         this.liftMotor = new MotorEx(hw, SubsystemConstants.Lift.LIFT_MOTOR_ID);
         this.deliveryServo = new SimpleServo(hw, SubsystemConstants.Lift.DELIVERY_MOTOR_ID, 0,1);
-        this.capServo = new SimpleServo(hw, SubsystemConstants.Lift.CAP_SERVO_ID, 0, 1);
 
         this.liftMotor.setDistancePerPulse(SubsystemConstants.DEGREES_PER_ROTATION / SubsystemConstants.Lift.LIFT_TICKS_PER_ROTATION);
         liftMotor.setInverted(false);
@@ -91,7 +86,6 @@ public class Lift extends SubsystemBase {
         Util.logger(this, telemetry, Level.INFO, "encoder pos: ", liftMotor.getCurrentPosition());
         Util.logger(this, telemetry, Level.INFO, "del pos: ", deliveryServo.getPosition());
         deliveryServo.setPosition(CURRENT_POSITION);
-        capServo.setPosition(CURRENT_CAP_POS);
     }
 
     public void toggleDel() {
@@ -129,12 +123,12 @@ public class Lift extends SubsystemBase {
     public void resetLift() {
         resetLiftPosition();
         resetLiftEncoder();
+        liftMotor.stopMotor();
     }
 
     public void stopAtBottom() {
         liftMotor.stopMotor();
-        resetLiftPosition();
-        //maybe need to reset encoder
+        resetLift();
     }
 
     public void toggleAutomatic() {
@@ -197,6 +191,12 @@ public class Lift extends SubsystemBase {
 
         liftPosition = 1;
     }
+    public void liftMidTele() {
+        pidEnabled = true;
+        controller.setSetPoint(LIFT_MID_POSITION_TELE);
+
+        liftPosition = 1;
+    }
 
     public void liftHigh() {
         pidEnabled = true;
@@ -239,40 +239,11 @@ public class Lift extends SubsystemBase {
         if(liftPosition == 0) {
             liftLow();
         } else if(liftPosition == 1) {
-            liftMid();
+            liftMidTele();
         } else if(liftPosition == 2) {
             liftHigh();
         }
     }
-
-
-
-
-
-
-
-    public void toggleCap() {
-        if(CURRENT_CAP_POS == CAP_HIGH_POS)
-        {
-            CURRENT_CAP_POS = CAP_BOTTOM_POS;
-        } else
-        {
-            CURRENT_CAP_POS = CAP_HIGH_POS;
-        }
-    }
-
-    public void scoreCap(){
-        CURRENT_CAP_POS = CAP_MID_POS;
-    }
-
-
-    public void capUpManual() {
-        CURRENT_CAP_POS += 0.002;
-    }
-    public void capDownManual() {
-        CURRENT_CAP_POS -= 0.002;
-    }
-
 
     /*
     public boolean atBottom() {

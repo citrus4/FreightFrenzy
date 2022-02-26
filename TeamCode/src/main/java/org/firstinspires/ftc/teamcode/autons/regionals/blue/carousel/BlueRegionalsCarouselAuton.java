@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons.champs.blue.carousel;
+package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
@@ -23,9 +23,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-@Disabled
-@Autonomous(name = "Blue Carousel Auton", group = "BLUE")
-public class CarouselBlueAuton extends MatchOpMode {
+//@Disabled
+@Autonomous(name = "Blue Regionals Carousel Auton", group = "BLUE")
+public class BlueRegionalsCarouselAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 180;
@@ -71,13 +71,13 @@ public class CarouselBlueAuton extends MatchOpMode {
 
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new CarouselBlueCommandL(drivetrain, lift, duckWheels, telemetry)
+                            //new BlueRegionalsCarouselL(drivetrain, lift, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new CarouselBlueCommandC(drivetrain, lift, duckWheels, telemetry)
+                            //new BlueRegionalsCarouselL(drivetrain, lift, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new CarouselBlueCommandR(drivetrain, lift, duckWheels, telemetry)
+                            //new BlueRegionalsCarouselL(drivetrain, lift, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
 

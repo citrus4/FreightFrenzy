@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.autons.champs.blue.carousel;
+package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.autons.champs.blue.carousel.CarouselBlueCommandC;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -13,9 +13,9 @@ import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-@Disabled
-@Autonomous(name = "Left bruh Blue Carousel", group = "BLUE")
-public class LeftCarouselBlue extends MatchOpMode {
+//@Disabled
+@Autonomous(name = "Center Blue Carousel", group = "BLUE")
+public class RegionalsCenterCarouselBlue extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 180;
@@ -55,7 +55,7 @@ public class LeftCarouselBlue extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(new CarouselBlueCommandL(drivetrain, lift, duckWheels, telemetry)
+        schedule(new CarouselBlueCommandC(drivetrain, lift, duckWheels, telemetry)
         );
 
     }

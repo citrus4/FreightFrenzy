@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-//@Disabled
-@Autonomous(name = "Right Blue Carousel", group = "BLUE")
+@Disabled
+@Autonomous(name = "Right yo Blue Carousel", group = "BLUE")
 public class RightCarouselBlue extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
