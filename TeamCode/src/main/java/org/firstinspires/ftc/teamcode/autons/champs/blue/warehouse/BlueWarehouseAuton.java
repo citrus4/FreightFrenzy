@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.autons.champs.red.carousel.CarouselRedCommandC;
@@ -25,6 +26,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Vision;
 import java.util.HashMap;
 import java.util.logging.Level;
 
+@Disabled
 @Autonomous(name = "Blue Warehouse Auton", group = "BLUE")
 public class BlueWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;
