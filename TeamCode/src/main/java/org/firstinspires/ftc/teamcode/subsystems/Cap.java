@@ -24,7 +24,7 @@ import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConst
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_MID_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_HIGH_POSITION;
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_LOW_POSITION;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_LOW_POSITION_AUTON;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_MID_POSITION_TELE;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_PID_COEFFICIENTS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_TOLERANCE;
@@ -53,7 +53,7 @@ public class Cap extends SubsystemBase {
     public void periodic() {
         capServo.setPosition(CURRENT_CAP_POS);
     }
-/*
+
     public void toggleCap() {
         if(CURRENT_CAP_POS == CAP_HIGH_POS)
         {
@@ -63,7 +63,7 @@ public class Cap extends SubsystemBase {
             CURRENT_CAP_POS = CAP_HIGH_POS;
         }
     }
- */
+
     public void capWithJoystick(double joystickPos) {
 
         CURRENT_CAP_POS = CURRENT_CAP_POS - (joystickPos);

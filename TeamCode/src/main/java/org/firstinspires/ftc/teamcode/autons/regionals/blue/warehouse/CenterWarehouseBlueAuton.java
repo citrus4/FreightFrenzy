@@ -15,11 +15,11 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 //@Disabled
-@Autonomous(name = "Center Blue Warehouse", group = "BLUE")
+@Autonomous(name = "Regionals Center Blue Warehouse", group = "BLUE")
 public class CenterWarehouseBlueAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
-    public static double startPoseHeading = 180;
+    public static double startPoseHeading = 182;
 
     // Motors
     private MotorEx leftFront, leftRear, rightRear, rightFront;

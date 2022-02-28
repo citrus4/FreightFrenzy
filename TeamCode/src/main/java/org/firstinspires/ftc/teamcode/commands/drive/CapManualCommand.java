@@ -12,27 +12,18 @@ public class CapManualCommand extends CommandBase {
     private GamepadEx operatorGamepad;
 
     protected double multiplier;
-    protected double rotMultiplier;
 
     public CapManualCommand(Cap cap, GamepadEx operatorGamepad) {
-
         this.cap = cap;
         this.operatorGamepad = operatorGamepad;
 
-        this.multiplier = 0.005;
+        this.multiplier = 0.017;
         addRequirements(this.cap);
     }
 
     @Override
     public void execute() {
-        // Arcade Drive
-        cap.capWithJoystick(operatorGamepad.getLeftY() * multiplier);
-
-        // Tank Drive
-        //https://github.com/FTCLib/RoadRunner-FTCLib-Quickstart/blob/main/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/commands/MecanumDriveCommand.java
-        //drive.tankDrive(driverGamepad.getLeftY() * multiplier, driverGamepad.getRightY() * multiplier);
-        // Mecanum drive
-        //drive.drive(-driverGamepad.getLeftY() * multiplier, driverGamepad.getLeftX() * multiplier, driverGamepad.getRightX() * multiplier);
+        cap.capWithJoystick(operatorGamepad.getRightY() * multiplier);
     }
 /*
     @Override
