@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.DeliverCommand;
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftNoLimitSwitchCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.CapManualCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.LeosFastDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallyReallySlowDriveCommand;
@@ -76,7 +77,7 @@ public class LeoOp extends MatchOpMode {
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
 
 
-        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::lowerLiftNoLimitSwitch));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftNoLimitSwitchCommand(lift, cap)));
         manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
 
 

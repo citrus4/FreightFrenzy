@@ -9,9 +9,10 @@ public class SubsystemConstants {
 
     public static class Lift {
         public static double DEL_CLOSE_POS = 0.45;
-        public static double DEL_OPEN_POS = 0.89;
+        public static double DEL_OPEN_POS = 0.87;
 
-        public static double CAP_BOTTOM_POS = 0.07;
+        public static double CAP_PICK_UP_POS = 0.12;
+        public static double CAP_LOWEST_POS = 0.05;
         public static double CAP_MID_POS = 0.33;
         public static double CAP_HIGH_POS = 0.89;
 
@@ -21,7 +22,7 @@ public class SubsystemConstants {
         public static int LIFT_MID_POSITION_TELE = 800;
         public static int LIFT_HIGH_POSITION = 1200;
 
-        public static double LIFT_UP_SPEED = 0.1;
+        public static double LIFT_UP_SPEED = 0.55;
         public static double LIFT_DOWN_SPEED = -0.3;
 
         public static double LIFT_TICKS_PER_ROTATION = 384.5; //383.6

@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.commands.DeliverCommand;
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftNoLimitSwitchCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.CapManualCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
@@ -41,7 +42,7 @@ public class TeleBlue extends MatchOpMode {
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger, reallySlowModeTrigger;
-    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton, manualDownButton;
+    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton, manualDownButton, manualUpButton;
     public Button deliveryButton1, deliveryButton2, deliverAndDriveButton1, deliverAndDriveButton2, closeButton;
     public Button spinButton, otherWay;
     public Button capToggleButton, scoreCapButton;
@@ -84,9 +85,10 @@ public class TeleBlue extends MatchOpMode {
         //lift
         liftUpButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
-        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::lowerLiftNoLimitSwitch));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftNoLimitSwitchCommand(lift, cap)));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
         manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
+        manualUpButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START).whileHeld(lift::raiseLiftManual).whenReleased(lift::stopLift));
 
         //delivery
         deliveryButton1 = (new GamepadButton(driverGamepad, GamepadKeys.Button.B)).toggleWhenPressed(
@@ -113,7 +115,7 @@ public class TeleBlue extends MatchOpMode {
         );
 
         //cap
-        //capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
+        capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
         //scoreCapButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_RIGHT).whenPressed(cap::scoreCap));
     }
 

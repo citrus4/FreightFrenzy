@@ -19,9 +19,10 @@ import org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants;
 
 import java.util.logging.Level;
 
-import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_BOTTOM_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_HIGH_POS;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_LOWEST_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_MID_POS;
+import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.CAP_PICK_UP_POS;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_DOWN_SPEED;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_HIGH_POSITION;
 import static org.firstinspires.ftc.teamcode.subsystems.constants.SubsystemConstants.Lift.LIFT_LOW_POSITION_AUTON;
@@ -54,10 +55,14 @@ public class Cap extends SubsystemBase {
         capServo.setPosition(CURRENT_CAP_POS);
     }
 
+    public void rest() {
+        CURRENT_CAP_POS = CAP_HIGH_POS;
+    }
+
     public void toggleCap() {
         if(CURRENT_CAP_POS == CAP_HIGH_POS)
         {
-            CURRENT_CAP_POS = CAP_BOTTOM_POS;
+            CURRENT_CAP_POS = CAP_PICK_UP_POS;
         } else
         {
             CURRENT_CAP_POS = CAP_HIGH_POS;
@@ -70,8 +75,8 @@ public class Cap extends SubsystemBase {
         if(CURRENT_CAP_POS > CAP_HIGH_POS) {
             CURRENT_CAP_POS = CAP_HIGH_POS;
         }
-        else if (CURRENT_CAP_POS < CAP_BOTTOM_POS) {
-            CURRENT_CAP_POS = CAP_BOTTOM_POS;
+        else if (CURRENT_CAP_POS < CAP_LOWEST_POS) {
+            CURRENT_CAP_POS = CAP_LOWEST_POS;
         }
     }
 /*

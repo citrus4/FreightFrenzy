@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.LowerLiftCommand;
+import org.firstinspires.ftc.teamcode.commands.LowerLiftNoLimitSwitchCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.CapManualCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleOp.ReallySlowDriveCommand;
@@ -38,10 +39,11 @@ public class TeleRed extends MatchOpMode {
     //Buttons
     private Button intakeButton, outtakeButton;
     private Button slowModeTrigger, reallySlowModeTrigger;
-    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton, manualDownButton;
+    public Button liftUpButton, liftDownButton, liftRestButton, liftHighButton;
+    public Button manualDownButton, manualUpButton;
     public Button deliveryButton;
     public Button spinButton, otherWay;
-    public Button capButton;
+    public Button capToggleButton;
 
 
     @Override
@@ -76,8 +78,10 @@ public class TeleRed extends MatchOpMode {
         liftUpButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER).whenPressed(lift::moveUp));
         liftDownButton = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER).whenPressed(lift::moveDown));
         liftHighButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.RIGHT_BUMPER).whenPressed(lift::liftHigh));
-        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(lift::lowerLiftNoLimitSwitch));
+        liftRestButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER).whenPressed(new LowerLiftNoLimitSwitchCommand(lift, cap)));
+
         manualDownButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK).whileHeld(lift::lowerLiftManual).whenReleased(lift::resetLift));
+        manualUpButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START).whileHeld(lift::raiseLiftManual).whenReleased(lift::resetLift));
 
         deliveryButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A)).toggleWhenPressed(
                 new InstantCommand(lift::toggleDel, lift)
@@ -92,6 +96,7 @@ public class TeleRed extends MatchOpMode {
                 new InstantCommand(duckWheels::spinBlueAuton, duckWheels))
                 .whenReleased(new InstantCommand(duckWheels::stop, duckWheels)
         );
+        capToggleButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
         //capButton = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y).whenPressed(cap::toggleCap));
     }
 
