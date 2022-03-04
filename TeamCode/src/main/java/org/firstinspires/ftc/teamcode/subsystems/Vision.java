@@ -17,14 +17,14 @@ public class Vision extends SubsystemBase {
     private FFRectDetector duckDetector;
     private TeamMarkerPipeline.Position currentPos;
 
-    public Vision(HardwareMap hw, String webcamName, Telemetry tl) {
+    public Vision(HardwareMap hw, String webcamName, Telemetry tl, double LX, double LY, double CX, double CY, double RX, double RY) {
         duckDetector = new FFRectDetector(hw, webcamName);
         duckDetector.init();
 
         //switch left and right if camera mounted upside down
-        duckDetector.setRightRectangle(0.03, 0.88);//r
-        duckDetector.setCenterRectangle(0.5, 0.88);
-        duckDetector.setLeftRectangle(0.92, 0.88);//l
+        duckDetector.setRightRectangle(RX, RY);//r
+        duckDetector.setCenterRectangle(CX, CY);
+        duckDetector.setLeftRectangle(LX, LY);//l
         telemetry = tl;
         currentPos = duckDetector.getPosition();
     }

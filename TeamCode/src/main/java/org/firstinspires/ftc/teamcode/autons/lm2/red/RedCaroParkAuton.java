@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.constants.VisionConstants;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -52,7 +53,7 @@ public class RedCaroParkAuton extends MatchOpMode {
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap), telemetry);
         drivetrain.init();
 
-        vision = new Vision(hardwareMap, "Webcam 1", telemetry);
+        vision = new Vision(hardwareMap, "Webcam 1", telemetry, VisionConstants.RED_CAROUSEL_VISION.LEFT_X , VisionConstants.RED_CAROUSEL_VISION.LEFT_Y, VisionConstants.RED_CAROUSEL_VISION.CENTER_X, VisionConstants.RED_CAROUSEL_VISION.CENTER_Y, VisionConstants.RED_CAROUSEL_VISION.RIGHT_X, VisionConstants.RED_CAROUSEL_VISION.RIGHT_Y);
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
         intake = new Intake(hardwareMap, telemetry);

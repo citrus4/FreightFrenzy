@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.constants.VisionConstants;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -55,7 +56,7 @@ public class BlueWarehouseAuton extends MatchOpMode {
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap), telemetry);
         drivetrain.init();
 
-        vision = new Vision(hardwareMap, "Webcam 1", telemetry);
+        vision = new Vision(hardwareMap, "Webcam 1", telemetry, VisionConstants.BLUE_WAREHOUSE_VISION.LEFT_X , VisionConstants.BLUE_WAREHOUSE_VISION.LEFT_Y, VisionConstants.BLUE_WAREHOUSE_VISION.CENTER_X, VisionConstants.BLUE_WAREHOUSE_VISION.CENTER_Y, VisionConstants.BLUE_WAREHOUSE_VISION.RIGHT_X, VisionConstants.BLUE_WAREHOUSE_VISION.RIGHT_Y);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
