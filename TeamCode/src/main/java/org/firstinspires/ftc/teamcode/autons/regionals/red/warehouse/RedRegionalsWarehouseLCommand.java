@@ -6,17 +6,16 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.autons.regionals.red.warehouse.sequences.RedRegionals2CycleCommandSequence;
 import org.firstinspires.ftc.teamcode.commands.drive.auton.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.auton.SplineCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.auton.TurnToCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.auton.TwoSplineCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-public class RedRegionalsWarehouseL extends SequentialCommandGroup {
-    public RedRegionalsWarehouseL(Drivetrain drivetrain, Lift lift, Intake intake, Telemetry telemetry) {
+public class RedRegionalsWarehouseLCommand extends SequentialCommandGroup {
+    public RedRegionalsWarehouseLCommand(Drivetrain drivetrain, Lift lift, Intake intake, Telemetry telemetry) {
 
 
         addCommands(

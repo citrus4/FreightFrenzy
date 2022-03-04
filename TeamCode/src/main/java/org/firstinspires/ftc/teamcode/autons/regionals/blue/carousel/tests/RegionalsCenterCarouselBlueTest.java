@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode.autons.regionals.blue.warehouse;
+package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel.tests;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.autons.champs.blue.warehouse.RSimpleWarehouseBlueCommand;
+import org.firstinspires.ftc.teamcode.autons.champs.blue.carousel.CarouselBlueCommandC;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
@@ -15,8 +14,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 //@Disabled
-@Autonomous(name = "Regionals Right Blue Warehouse", group = "BLUE")
-public class RightWarehouseBlueAuton extends MatchOpMode {
+@Autonomous(name = "Center Blue Carousel", group = "BLUE")
+public class RegionalsCenterCarouselBlueTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 180;
@@ -56,8 +55,6 @@ public class RightWarehouseBlueAuton extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(new BlueRegionalsWarehouseR(drivetrain, lift, intake, duckWheels, telemetry)
-        );
-
+            //schedule(new BlueRegionalsCarouselC(drivetrain, lift, duckWheels, telemetry));
     }
 }

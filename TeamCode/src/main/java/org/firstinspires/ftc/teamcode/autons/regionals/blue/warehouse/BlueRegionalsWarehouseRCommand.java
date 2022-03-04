@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-public class BlueRegionalsWarehouseR extends SequentialCommandGroup {
-    public BlueRegionalsWarehouseR(Drivetrain drivetrain, Lift lift, Intake intake, DuckWheels duckWheels, Telemetry telemetry) {
+public class BlueRegionalsWarehouseRCommand extends SequentialCommandGroup {
+    public BlueRegionalsWarehouseRCommand(Drivetrain drivetrain, Lift lift, Intake intake, DuckWheels duckWheels, Telemetry telemetry) {
         addCommands(
                 //testing blue warehouse new
                 new InstantCommand(lift::closeDel),

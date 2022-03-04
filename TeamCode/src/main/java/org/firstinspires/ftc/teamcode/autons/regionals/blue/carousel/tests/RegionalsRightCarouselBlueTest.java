@@ -1,25 +1,26 @@
-package org.firstinspires.ftc.teamcode.autons.regionals.blue.warehouse;
+package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel.tests;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.autons.champs.blue.warehouse.CSimpleWarehouseBlueCommand;
+import org.firstinspires.ftc.teamcode.autons.champs.blue.carousel.CarouselBlueCommandR;
+import org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel.BlueRegionalsCarouselRCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Cap;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 //@Disabled
-@Autonomous(name = "Regionals Center Blue Warehouse", group = "BLUE")
-public class CenterWarehouseBlueAuton extends MatchOpMode {
+@Autonomous(name = "Right Blue Carousel", group = "BLUE")
+public class RegionalsRightCarouselBlueTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
-    public static double startPoseHeading = 182;
+    public static double startPoseHeading = 180;
 
     // Motors
     private MotorEx leftFront, leftRear, rightRear, rightFront;
@@ -33,6 +34,7 @@ public class CenterWarehouseBlueAuton extends MatchOpMode {
     private Intake intake;
     private Lift lift;
     private DuckWheels duckWheels;
+    private Cap cap;
 
 
     @Override
@@ -44,6 +46,7 @@ public class CenterWarehouseBlueAuton extends MatchOpMode {
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap,telemetry);
         duckWheels = new DuckWheels(hardwareMap,telemetry);
+        cap = new Cap(hardwareMap,telemetry);
 
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
@@ -56,8 +59,7 @@ public class CenterWarehouseBlueAuton extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        schedule(new BlueRegionalsWarehouseC(drivetrain, lift, intake, duckWheels, telemetry)
-        );
+            schedule(new BlueRegionalsCarouselRCommand(drivetrain, lift, intake, duckWheels,cap, telemetry));
 
     }
 }

@@ -8,7 +8,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
@@ -72,13 +71,13 @@ public class BlueRegionalsWarehouseAuton extends MatchOpMode {
 
                 new SelectCommand(new HashMap<Object, Command>() {{
                     put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new BlueRegionalsWarehouseL(drivetrain, lift, intake, duckWheels, telemetry)
+                            new BlueRegionalsWarehouseLCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new BlueRegionalsWarehouseC(drivetrain, lift, intake, duckWheels, telemetry)
+                            new BlueRegionalsWarehouseCCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                     put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new BlueRegionalsWarehouseR(drivetrain, lift, intake, duckWheels, telemetry)
+                            new BlueRegionalsWarehouseRCommand(drivetrain, lift, intake, duckWheels, telemetry)
                     ));
                 }}, vision::getCurrentPosition)
 

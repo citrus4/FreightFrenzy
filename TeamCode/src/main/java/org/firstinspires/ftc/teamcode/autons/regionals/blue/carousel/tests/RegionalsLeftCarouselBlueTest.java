@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel;
+package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel.tests;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @Disabled
 @Autonomous(name = "Left Blue Carousel", group = "BLUE")
-public class RegionalsLeftCarouselBlue extends MatchOpMode {
+public class RegionalsLeftCarouselBlueTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 180;
