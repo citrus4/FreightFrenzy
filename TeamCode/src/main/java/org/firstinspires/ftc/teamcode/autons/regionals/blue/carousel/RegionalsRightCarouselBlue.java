@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.autons.champs.blue.carousel.CarouselBlueCommandR;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Cap;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -32,6 +33,7 @@ public class RegionalsRightCarouselBlue extends MatchOpMode {
     private Intake intake;
     private Lift lift;
     private DuckWheels duckWheels;
+    private Cap cap;
 
 
     @Override
@@ -43,6 +45,7 @@ public class RegionalsRightCarouselBlue extends MatchOpMode {
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap,telemetry);
         duckWheels = new DuckWheels(hardwareMap,telemetry);
+        cap = new Cap(hardwareMap,telemetry);
 
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
@@ -55,7 +58,7 @@ public class RegionalsRightCarouselBlue extends MatchOpMode {
 
     @Override
     public void matchStart() {
-            //schedule(new BlueRegionalsCarouselR(drivetrain, lift, duckWheels, telemetry));
+            schedule(new BlueRegionalsCarouselRCommand(drivetrain, lift, intake, duckWheels,cap, telemetry));
 
     }
 }
