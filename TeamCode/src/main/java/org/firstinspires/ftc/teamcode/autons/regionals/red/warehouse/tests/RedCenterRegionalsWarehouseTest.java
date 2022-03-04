@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 //@Disabled
-@Autonomous(name = "Regionals Center Red Warehouse", group = "RED")
+@Autonomous(name = "Red Center Regionals Warehouse", group = "RED W")
 public class RedCenterRegionalsWarehouseTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;

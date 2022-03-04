@@ -158,11 +158,21 @@ public class Lift extends SubsystemBase {
         pidEnabled = false;
         liftMotor.set(LIFT_UP_SPEED);
     }
+    public void raiseLiftPID() {
+        pidEnabled = true;
+        if(liftMotor.getCurrentPosition() > 1320){
+            stopLift();
+            controller.setSetPoint(1275);
+        } else {
+            liftMotor.set(LIFT_UP_SPEED);
+            controller.setSetPoint(liftMotor.getCurrentPosition());
+        }
+    }
 
     public void stopLift() {
         liftMotor.stopMotor();
         //controller.setSetPoint(getAngle());
-        pidEnabled = false;
+        //pidEnabled = false;
     }
 
     public void setPidEnabled(boolean auto) {

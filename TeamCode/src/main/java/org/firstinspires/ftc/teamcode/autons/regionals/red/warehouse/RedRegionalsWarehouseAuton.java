@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.subsystems.constants.VisionConstants;
 import java.util.HashMap;
 
 //@Disabled
-@Autonomous(name = "Regionals Red Warehouse", group = "RED")
+@Autonomous(name = "Red Regionals Warehouse", group = "RED W")
 public class RedRegionalsWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;

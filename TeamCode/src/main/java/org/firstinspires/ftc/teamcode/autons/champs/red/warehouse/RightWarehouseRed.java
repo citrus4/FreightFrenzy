@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Right Red Warehouse", group = "RED")
 public class RightWarehouseRed extends MatchOpMode {
     public static double startPoseX = 0;

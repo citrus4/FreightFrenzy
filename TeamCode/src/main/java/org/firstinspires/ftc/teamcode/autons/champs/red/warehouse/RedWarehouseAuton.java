@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.subsystems.constants.VisionConstants;
 import java.util.HashMap;
 import java.util.logging.Level;
 
-//@Disabled
+@Disabled
 @Autonomous(name = "Red Warehouse Auton", group = "RED")
 public class RedWarehouseAuton extends MatchOpMode {
     public static double startPoseX = 0;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons.regionals.blue.warehouse;
+package org.firstinspires.ftc.teamcode.autons.regionals.red.carousel.tests;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Util;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
@@ -24,8 +25,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 //@Disabled
-@Autonomous(name = "Blue Regionals Warehouse Auton", group = "BLUE W")
-public class BlueRegionalsWarehouseAuton extends MatchOpMode {
+@Autonomous(name = "Red Left Regionals Carousel Test", group = "RED C")
+public class RedLeftRegionalsCarouselTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
     public static double startPoseHeading = 180;
@@ -52,7 +53,7 @@ public class BlueRegionalsWarehouseAuton extends MatchOpMode {
         drivetrain = new Drivetrain(new SampleTankDrive(hardwareMap), telemetry);
         drivetrain.init();
 
-        vision = new Vision(hardwareMap, "Webcam 1", telemetry, VisionConstants.BLUE_WAREHOUSE_VISION.LEFT_X , VisionConstants.BLUE_WAREHOUSE_VISION.LEFT_Y, VisionConstants.BLUE_WAREHOUSE_VISION.CENTER_X, VisionConstants.BLUE_WAREHOUSE_VISION.CENTER_Y, VisionConstants.BLUE_WAREHOUSE_VISION.RIGHT_X, VisionConstants.BLUE_WAREHOUSE_VISION.RIGHT_Y);
+        vision = new Vision(hardwareMap, "Webcam 1", telemetry, VisionConstants.BLUE_CAROUSEL_VISION.LEFT_X , VisionConstants.BLUE_CAROUSEL_VISION.LEFT_Y, VisionConstants.BLUE_CAROUSEL_VISION.CENTER_X, VisionConstants.BLUE_CAROUSEL_VISION.CENTER_Y, VisionConstants.BLUE_CAROUSEL_VISION.RIGHT_X, VisionConstants.BLUE_CAROUSEL_VISION.RIGHT_Y);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap, telemetry);
@@ -68,20 +69,7 @@ public class BlueRegionalsWarehouseAuton extends MatchOpMode {
     @Override
     public void matchStart() {
         schedule(
-
-                new SelectCommand(new HashMap<Object, Command>() {{
-                    put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-                            new BlueRegionalsWarehouseLCommand(drivetrain, lift, intake, duckWheels, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-                            new BlueRegionalsWarehouseCCommand(drivetrain, lift, intake, duckWheels, telemetry)
-                    ));
-                    put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-                            new BlueRegionalsWarehouseRCommand(drivetrain, lift, intake, duckWheels, telemetry)
-                    ));
-                }}, vision::getCurrentPosition)
-
-
+                            //new RedRegionalsCarouselL(drivetrain, lift, duckWheels, telemetry)
         );
 
     }

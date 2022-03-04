@@ -7,15 +7,17 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.autons.champs.blue.carousel.CarouselBlueCommandL;
+import org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel.BlueRegionalsCarouselLCommand;
 import org.firstinspires.ftc.teamcode.drive.MatchOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Cap;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.DuckWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-@Disabled
-@Autonomous(name = "Left Blue Carousel", group = "BLUE")
+//@Disabled
+@Autonomous(name = "Blue Left Carousel", group = "BLUE C")
 public class RegionalsLeftCarouselBlueTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
@@ -33,6 +35,7 @@ public class RegionalsLeftCarouselBlueTest extends MatchOpMode {
     private Intake intake;
     private Lift lift;
     private DuckWheels duckWheels;
+    private Cap cap;
 
 
     @Override
@@ -44,6 +47,7 @@ public class RegionalsLeftCarouselBlueTest extends MatchOpMode {
         intake = new Intake(hardwareMap, telemetry);
         lift = new Lift(hardwareMap,telemetry);
         duckWheels = new DuckWheels(hardwareMap,telemetry);
+        cap = new Cap(hardwareMap,telemetry);
 
         //drivetrain.setPoseEstimate(Trajectories.BlueLeftTape.startPose);
         drivetrain.setPoseEstimate(new Pose2d(startPoseX, startPoseY, Math.toRadians(startPoseHeading)));
@@ -56,7 +60,7 @@ public class RegionalsLeftCarouselBlueTest extends MatchOpMode {
 
     @Override
     public void matchStart() {
-        //schedule(new BlueRegionalsCarouselL(drivetrain, lift, duckWheels, telemetry));
+        schedule(new BlueRegionalsCarouselLCommand(drivetrain, lift, intake, duckWheels, cap, telemetry));
 
     }
 }

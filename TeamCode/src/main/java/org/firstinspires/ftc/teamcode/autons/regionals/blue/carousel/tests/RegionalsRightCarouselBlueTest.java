@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 //@Disabled
-@Autonomous(name = "Right Blue Carousel", group = "BLUE")
+@Autonomous(name = "Blue Right Carousel", group = "BLUE C")
 public class RegionalsRightCarouselBlueTest extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autons.regionals.blue.carousel;
+package org.firstinspires.ftc.teamcode.autons.regionals.red.carousel;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.command.Command;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 
 //@Disabled
-@Autonomous(name = "Red Regionals Carousel Auton", group = "RED")
+@Autonomous(name = "Red Regionals Carousel Auton", group = "RED C")
 public class RedRegionalsCarouselAuton extends MatchOpMode {
     public static double startPoseX = 0;
     public static double startPoseY = 0;
